@@ -1,0 +1,76 @@
+
+.buttons-login{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+}
+.buttons-login p{
+    margin-right: 1rem;
+}
+main{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+
+.form-container h1{
+    font-size: 1.4rem;
+    text-align: center;
+    font-weight: 900;
+    color: black !important;
+    margin-bottom: 1.5rem;
+    font-style: Inter var, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";;
+}
+.form-container a{
+    color: var(--blue);
+    text-decoration: none;
+    font-size: 0.8rem;
+}
+.form-container form{
+    width: 300px;
+    font-size: 0.8rem;
+}
+.form-container p{
+    font-size: 0.8rem;
+}
+.form-container p a{
+    float: right;
+}
+.form-container form fieldset{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.form-container form fieldset label{
+    margin-bottom: 0.5rem;
+}
+.form-container form fieldset input{
+    outline: none;
+    border-radius: 0.3rem;
+    padding: 0.4rem;
+    color: #505050;
+    background-color: #e9e9e9;
+}
+
+.form-container form button{
+    width: 100%;
+    padding: 0.5rem;
+    background-color: var(--blue);
+    color: white;
+    border-radius: 0.25rem;
+    transition: all ease-in-out 0.3s;
+}
+
+.form-container form button:hover{
+    background-color: rgb(94, 94, 252);
+}
