@@ -4,6 +4,8 @@
 
 :root{
     --blue: rgb(60, 60, 231);
+    --modal-color-primary: #f6f6f6;
+    --input-color-secondary: #f0f0f0;
 }
 
 body{

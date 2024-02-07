@@ -1,18 +1,18 @@
-import ButtonForm from "./ButtonForm"
+import Button from "./Button"
 
-function Form({action,method,fieldsets,txtButtonSubmit}){
+function Form({action,method,fieldsets,txtButtonSubmit,fnSubmit,fnChange}){
     return(
-        <form action={action} method={method}>
+        <form action={action} method={method} onSubmit={fnSubmit}>
             {
                 fieldsets.map(({id,name,type,htmlfor,txt})=>(
                     <fieldset key={id}>
                         <label htmlFor={htmlfor}>{txt}</label>
-                        <input type={type} name={name} id={id}/>
+                        <input type={type} name={name} id={id} onChange={fnChange}/>
                     </fieldset>
                 ))
             }
             <fieldset>
-                <ButtonForm txt={txtButtonSubmit}/>
+                <Button txt={txtButtonSubmit} type="submit"/>
             </fieldset>
         </form>
     )

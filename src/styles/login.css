@@ -1,4 +1,8 @@
-
+.modal-container-login{
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
 .buttons-login{
     display: flex;
     flex-direction: row;
@@ -11,6 +15,7 @@
 }
 .buttons-login p{
     margin-right: 1rem;
+    color: rgb(168, 168, 168);
 }
 main{
     width: 100%;
@@ -59,7 +64,7 @@ main{
     border-radius: 0.3rem;
     padding: 0.4rem;
     color: #505050;
-    background-color: #e9e9e9;
+    background-color: var(--input-color-secondary);
 }
 
 .form-container form button{

@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-function Button({txt,fn}){
+function Button({txt,fn,type=""}){
 
     return(
-        <button id="button" onClick={fn}>
+        <button id="button" onClick={fn} type={type}>
             {txt}
         </button>
     )

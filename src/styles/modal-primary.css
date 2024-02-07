@@ -1,0 +1,18 @@
+.modal-primary{
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    border-radius: 0.6rem;
+    background-color: var(--modal-color-primary);
+}
+.modal-primary h1{
+    text-transform: uppercase;
+    font-weight: 900;
+}
+.modal-primary .txt-info{
+    margin-left: 0.5rem;
+}
+.modal-primary .txt-info p{
+    color: rgb(168, 168, 168);
+}
