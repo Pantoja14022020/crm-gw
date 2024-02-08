@@ -2,7 +2,7 @@ import Button from "./Button"
 
 function Form({action,method,fieldsets,txtButtonSubmit,fnSubmit,fnChange}){
     return(
-        <form action={action} method={method} onSubmit={fnSubmit}>
+        <form action={action} method={method} onSubmit={fnSubmit} autoComplete="off">
             {
                 fieldsets.map(({id,name,type,htmlfor,txt})=>(
                     <fieldset key={id}>

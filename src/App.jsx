@@ -17,7 +17,6 @@ function App(){
         password: '',
     });
     const [valoresSignup, setValoresSignup] = useState({
-        user: '',
         email: '',
         password: '',
         confirm: ''
@@ -25,6 +24,7 @@ function App(){
     const [modal,setModal] = useState(false);
     const [message,setMessage] = useState("");
     const [title, setTitle] = useState("");
+    const [type,setType] = useState("");
 
     //Here we have input´s attributes represented as object, each i make a form, it should own a array of objects
     const fieldsetsFormSignin = [
@@ -44,20 +44,13 @@ function App(){
         }
     ]
 
-    const fieldsetsFormSignup = [
-        {
-            id: "user",
-            name: "user",
-            type:"text",
-            htmlfor: "user",
-            txt: "Type your user"
-        },
+    const fieldsetsFormUpdate = [
         {
             id: "email",
             name: "email",
             type: "text",
             htmlfor: "email",
-            txt: "Type your email"
+            txt: "Type your new email"
         },
         {
             id: "password",
@@ -80,8 +73,8 @@ function App(){
     const setLoginForm = () => {
         setTypeForm("login")
     }
-    const setSignupForm = () => {
-        setTypeForm('signup')
+    const setUpdateForm = () => {
+        setTypeForm('update')
     }
 
 
@@ -94,6 +87,13 @@ function App(){
             setModal(true)
             setTitle("Incomplete Fields")
             setMessage("Fill all fields")
+            setType("error")
+        }else{
+            //Here we need to start session
+            //Reset values in state
+            setValoresSignin({email: '',password:''})
+            //Reset inputs in form
+            e.target.reset()
         } 
     }
 
@@ -105,23 +105,35 @@ function App(){
         });
     }
     //Formulario Signup
-    const handleSubmitSignup = e => {
+    const handleSubmitUpdate = e => {
         e.preventDefault();
-        const {user,email,password,confirm} = valoresSignup;
-        if(!(email && password && user && confirm)){//Si ambos inputs no estan completos
+        const {email,password,confirm} = valoresSignup;
+        if(!(email && password && confirm)){//Si ambos inputs no estan completos
             setModal(true)
             setTitle("Incomplete Fields")
             setMessage("Fill all fields")
+            setType("error")
         } else{
             if(password !== confirm){
                 setModal(true)
                 setTitle("Not Match")
                 setMessage("Your passwords don´t match")
+                setType("error")
+            }else{//Finally here we updated account
+                //Show modal
+                setModal(true)
+                setTitle("Updated Success")
+                setMessage("Your account is updated")
+                setType("success")
+                //Reset values in state
+                setValoresSignup({email: '',password:'',confirm:''})
+                //Reset inputs in form
+                e.target.reset()
             }
         }
     }
 
-    const handleChangeSignup = e => {//Cuando se este escribiendo en un input
+    const handleChangeUpdate = e => {//Cuando se este escribiendo en un input
         const { name, value } = e.target;//Actaulizar el estado de los valores 
         setValoresSignup({
             ...valoresSignup,
@@ -147,7 +159,7 @@ function App(){
 
                     modal 
                     ? 
-                        <><div className="modal-container-login"><Modal title={title} message={message}/></div></>
+                        <><div className="modal-container-login"><Modal title={title} message={message} type={type}/></div></>
                     :
                         <></>
 
@@ -159,12 +171,11 @@ function App(){
                     typeForm === "login" 
                     ?
                         <>
-                            <p>You don´t have an account?</p>
-                            <Button txt='Sign Up' fn={setSignupForm} />
+                            <p>Forgot credentials? Update account</p>
+                            <Button txt='Update' fn={setUpdateForm} />
                         </> 
                     : 
                         <>
-                            <p>You already have an account?</p>
                             <Button txt='Login' fn={setLoginForm} />
                         </>
                 }
@@ -180,8 +191,8 @@ function App(){
                         </>
                     :
                         <>
-                            <h1>Signup</h1>
-                            <Form action="#" method="#" fieldsets={fieldsetsFormSignup} txtButtonSubmit="Sign Up" fnSubmit={handleSubmitSignup} fnChange={handleChangeSignup}/>
+                            <h1>Update</h1>
+                            <Form action="#" method="#" fieldsets={fieldsetsFormUpdate} txtButtonSubmit="Update" fnSubmit={handleSubmitUpdate} fnChange={handleChangeUpdate}/>
                         </>
                 }
             </div>
