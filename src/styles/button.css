@@ -1,9 +1,7 @@
 #button{
-    margin-right: 1rem;
     padding: 0.5rem;
     border-radius: 0.25rem;
     font-size: 0.8rem;
-    transition: all ease-in-out 0.3s;
     letter-spacing: 0.05rem;
     background-color: var(--blue);
     border: 2px solid var(--blue);

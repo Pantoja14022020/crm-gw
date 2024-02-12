@@ -28,54 +28,9 @@ main{
 
 
 .form-container h1{
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     text-align: center;
     font-weight: 900;
-    color: black !important;
+    color: rgb(0, 0, 0);
     margin-bottom: 1.5rem;
-    font-style: Inter var, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";;
-}
-.form-container a{
-    color: var(--blue);
-    text-decoration: none;
-    font-size: 0.8rem;
-}
-.form-container form{
-    width: 300px;
-    font-size: 0.8rem;
-}
-.form-container p{
-    font-size: 0.8rem;
-}
-.form-container p a{
-    float: right;
-}
-.form-container form fieldset{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-}
-
-.form-container form fieldset label{
-    margin-bottom: 0.5rem;
-}
-.form-container form fieldset input{
-    outline: none;
-    border-radius: 0.3rem;
-    padding: 0.4rem;
-    color: #505050;
-    background-color: var(--input-color-secondary);
-}
-
-.form-container form button{
-    width: 100%;
-    padding: 0.5rem;
-    background-color: var(--blue);
-    color: white;
-    border-radius: 0.25rem;
-    transition: all ease-in-out 0.3s;
-}
-
-.form-container form button:hover{
-    background-color: rgb(94, 94, 252);
 }

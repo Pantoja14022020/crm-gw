@@ -1,6 +1,7 @@
 import Button from "./Button"
 
-function Form({action,method,fieldsets,txtButtonSubmit,fnSubmit,fnChange}){
+
+function Form({action,method,fieldsets,txtButtonSubmit,fnSubmit,fnChange,showSpinner}){
     return(
         <form action={action} method={method} onSubmit={fnSubmit} autoComplete="off">
             {
@@ -12,7 +13,7 @@ function Form({action,method,fieldsets,txtButtonSubmit,fnSubmit,fnChange}){
                 ))
             }
             <fieldset>
-                <Button txt={txtButtonSubmit} type="submit"/>
+                <Button txt={txtButtonSubmit} type="submit" showSpinner={showSpinner} size="100%" marginTop="1rem"/>
             </fieldset>
         </form>
     )

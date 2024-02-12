@@ -1,0 +1,21 @@
+form{
+    width: 300px;
+    font-size: 0.8rem;
+}
+form fieldset{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+form fieldset label{
+    margin-bottom: 0.5rem;
+    color: #646464;
+}
+form fieldset input{
+    outline: none;
+    border-radius: 0.3rem;
+    padding: 0.7rem;
+    color: #383838;
+    background-color: var(--input-color-secondary);
+}
