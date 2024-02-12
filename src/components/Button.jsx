@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Load from './Load'
 
 function Button({txt,fn,type="",showSpinner,size,marginTop}){
