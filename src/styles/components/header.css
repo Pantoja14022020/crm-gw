@@ -1,0 +1,13 @@
+.header-aside-dashboard{
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.icons-header-aside{
+    display: flex;
+    flex-direction: row;
+    margin-right: 2rem;
+}

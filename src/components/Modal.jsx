@@ -1,5 +1,6 @@
 import { FaCircleInfo } from "react-icons/fa6";
 import { FaCircleCheck } from "react-icons/fa6";
+
  
 function Modal({message,title,type}){
 

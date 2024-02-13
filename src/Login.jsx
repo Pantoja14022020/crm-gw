@@ -107,6 +107,7 @@ export function Login(){
             
             if(session){//Its okay if; coincide el email y password, redirige al dashboard
                 console.log("Session started")
+                window.location.href = '/dashboard'//Aqui lo redirigo a la pagina del dashboard
                 setShowSpinner(false)
             }else if(!session){
                 //Mostramos un modal
