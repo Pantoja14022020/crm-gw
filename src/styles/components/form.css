@@ -13,7 +13,7 @@ form fieldset label{
     color: #646464;
 }
 form fieldset input{
-    outline: none;
+    outline: none !important;
     border-radius: 0.3rem;
     padding: 0.7rem;
     color: #383838;

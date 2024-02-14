@@ -1,14 +1,14 @@
 import Button from "./Button"
 
 
-function Form({action,method,fieldsets,txtButtonSubmit,fnSubmit,fnChange,showSpinner}){
+function Form({action,method,fieldsets,txtButtonSubmit,fnSubmit,fnChange,showSpinner,reform}){
     return(
-        <form action={action} method={method} onSubmit={fnSubmit} autoComplete="off">
+        <form action={action} method={method} onSubmit={fnSubmit} autoComplete="off" ref={reform}>
             {
                 fieldsets.map(({id,name,type,htmlfor,txt})=>(
                     <fieldset key={id}>
                         <label htmlFor={htmlfor}>{txt}</label>
-                        <input type={type} name={name} id={id} onChange={fnChange}/>
+                        <input type={type} name={name} id={id} onChange={fnChange} style={{ WebkitAutofill: 'none', autocomplete: 'off' }}/>
                     </fieldset>
                 ))
             }

@@ -1,0 +1,21 @@
+.profiles{
+    width: 100%;
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(241, 241, 241);
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+}
+.name-profile h5{
+    font-weight: 900;
+}
+.name-profile p{
+    color: rgb(66, 66, 66);
+}
+.profiles > button{
+    font-size: 1.2rem;
+    color: rgb(66, 66, 66);
+}

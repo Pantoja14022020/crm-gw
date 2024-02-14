@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from 'react'
+import {useState, useEffect, useContext, useRef} from 'react'
 import Button from './components/Button'
 import './styles/login.css'
 import './styles/components/button.css'
@@ -7,7 +7,8 @@ import './styles/components/load.css'
 import './styles/components/form.css'
 import Form from './components/Form'
 import Modal from './components/Modal'
-import {fetchUrlPost, fetchUrlPut, createUserDefaultFirstTime} from './helpers/fetchs'
+import {fetchUrlPost, fetchUrlPut} from './helpers/fetchs'
+import {setSession} from './helpers/localstorage'
 
 export function Login(){
     //My status
@@ -16,7 +17,7 @@ export function Login(){
         email: '',
         password: '',
     });
-    const [valoresSignup, setValoresSignup] = useState({
+    const [valoresNewPassword, setValoresNewPassword] = useState({
         email: '',
         password: '',
         confirm: ''
@@ -26,9 +27,10 @@ export function Login(){
     const [title, setTitle] = useState("");
     const [type,setType] = useState("");
     const [showSpinner, setShowSpinner] = useState(false);
+    const formRef = useRef(null); //Creamos la referencia del fomulario, algo como global var
 
     //Here we have input´s attributes represented as object, each i make a form, it should own a array of objects
-    const fieldsetsFormSignin = [
+    const fieldsetsFormLogin = [
         {
             id: "email",
             name: "email",
@@ -45,13 +47,13 @@ export function Login(){
         }
     ]
 
-    const fieldsetsFormUpdate = [
+    const fieldsetsFormNewPassword = [
         {
             id: "email",
             name: "email",
             type: "email",
             htmlfor: "email",
-            txt: "Type your new email"
+            txt: "What's your email?"
         },
         {
             id: "password",
@@ -73,15 +75,21 @@ export function Login(){
     //Functions to change to especify form
     const setLoginForm = () => {
         setTypeForm("login")
+        if (formRef.current) {//Si existe referenciado de forma global un form, entonces...
+            formRef.current.reset();
+        }
     }
-    const setUpdateForm = () => {
-        setTypeForm('update')
+    const setNewPasswordForm = () => {
+        setTypeForm('password')
+        if (formRef.current) {//Si existe referenciado de forma global un form, entonces...
+            formRef.current.reset();
+        }
     }
 
 
     //Functions abou what to do after clic button 'submit' in form - que hacer despues de que se envie el formulario?
     //Formulario Signin
-    const handleSubmitSignin = async e => {
+    const handleSubmitLogin = async e => {
         e.preventDefault();
         const {email,password} = valoresSignin;
         if(!(email && password)){//Si ambos inputs no estan completos
@@ -98,15 +106,13 @@ export function Login(){
             const {email,password} = valoresSignin;
             const credentials = {"email_send": email, "password_send": password}
             
-            setValoresSignin({email: '',password:''})
-            //Reset inputs in form
-            e.target.reset()
             
             //Do fetch to start session
-            const {session,id_user,msg} = await fetchUrlPost("https://api-gw-cpa-pc-20aq.onrender.com/session",credentials)
+            const {session,id_user,msg,area} = await fetchUrlPost("https://api-gw-cpa-pc-20aq.onrender.com/gw/session",credentials)
             
             if(session){//Its okay if; coincide el email y password, redirige al dashboard
-                console.log("Session started")
+                const sessionData = {id_user,email,msg,area}
+                setSession(sessionData)//Guardamos datos del usuario en el local storage
                 window.location.href = '/dashboard'//Aqui lo redirigo a la pagina del dashboard
                 setShowSpinner(false)
             }else if(!session){
@@ -126,9 +132,13 @@ export function Login(){
                 setShowSpinner(false)
             }
 
+            setValoresSignin({email: '',password:''})
+            //Reset inputs in form
+            e.target.reset()
+
         } 
     }
-    const handleChangeSignin = e => {//Cuando se este escribiendo en un input
+    const handleChangeLogin = e => {//Cuando se este escribiendo en un input
         const { name, value } = e.target;//Actaulizar el estado de los valores 
         setValoresSignin({
             ...valoresSignin,
@@ -140,10 +150,10 @@ export function Login(){
 
 
 
-    //Formulario Signup
-    const handleSubmitUpdate = async e => {
+    //Formulario New Password
+    const handleSubmitNewPassword = async e => {
         e.preventDefault();
-        const {email,password,confirm} = valoresSignup;
+        const {email,password,confirm} = valoresNewPassword;
         if(!(email && password && confirm)){//Si ambos inputs no estan completos
             setModal(true)
             setTitle("Incomplete Fields")
@@ -155,57 +165,60 @@ export function Login(){
                 setTitle("Not Match")
                 setMessage("Your passwords don´t match")
                 setType("error")
+            }else if(password.length < 8){
+                setModal(true)
+                setTitle("Invalid password")
+                setMessage("Your password must have at least 8 characters")
+                setType("error")
             }else{//Finally here we updated account
 
                 setShowSpinner(true);
 
-                const {email,password} = valoresSignup;
-
-                const new_credentials = `{"email":"${email}","password":"${password}"}`;//Lo formateo tal como debe estar en la base de datos
+                const {email,password} = valoresNewPassword;//Obten lo que se escribio en el formulario
 
                 const account_update = {
-                    "user": new_credentials,
-                    "id": 1
+                    "email_send": email,
+                    "new_password": password
                 }
 
-                //Reset values in state
-                setValoresSignup({email: '',password:'',confirm:''})
-                //Reset inputs in form
-                e.target.reset()
-
                 //Do fetch to update ESTE ESTA RELACIONADON CON EL EFFECT
-                const {updated} = await fetchUrlPut("https://api-gw-cpa-pc-20aq.onrender.com/user/1",account_update)//Just update first element in table
+                const {updated,msg} = await fetchUrlPut("https://api-gw-cpa-pc-20aq.onrender.com/gw/user",account_update)//Just update first element in table
                 
                 if(updated){
                     //Show modal
                     setModal(true)
                     setTitle("Updated Success")
-                    setMessage("Your account is updated")
+                    setMessage(msg)
                     setType("success")
                     setShowSpinner(false)
                 }else if(!updated){
                     //Mostramos un modal
                     setModal(true)
                     setTitle('Error To Update')
-                    setMessage('It was not posibble update account')
+                    setMessage(msg)
                     setType('error')
                     setShowSpinner(false)   
                 }else{
                     //Mostramos un modal
                     setModal(true)
                     setTitle('Error In Server')
-                    setMessage('It was an error on server')
+                    setMessage(msg)
                     setType('error')
                     setShowSpinner(false)
                 }
+
+                //Reset values in state
+                setValoresNewPassword({email: '',password:'',confirm:''})
+                //Reset inputs in form
+                e.target.reset()
                 
             }
         }
     }
-    const handleChangeUpdate = e => {//Cuando se este escribiendo en un input
+    const handleChangeNewPassword = e => {//Cuando se este escribiendo en un input
         const { name, value } = e.target;//Actaulizar el estado de los valores 
-        setValoresSignup({
-            ...valoresSignup,
+        setValoresNewPassword({
+            ...valoresNewPassword,
             [name]: value
         });
     }
@@ -218,15 +231,9 @@ export function Login(){
     useEffect(()=>{
         const timer = setTimeout(()=>{
             setModal(false)
-        },3000)
+        },5000)
         return () => clearTimeout(timer)
     },[modal])
-
-
-
-    useEffect(()=>{//Se ejecuta una vez, cuando carga la APP
-        createUserDefaultFirstTime();
-    },[])
 
 
     return (
@@ -249,12 +256,12 @@ export function Login(){
                     typeForm === "login" 
                     ?
                         <>
-                            <p>Forgot credentials? Set account</p>
-                            <Button txt='Set' fn={setUpdateForm} size="auto-fit"/>
+                            <p>Forgot your password?</p>
+                            <Button txt='Click here' fn={setNewPasswordForm} size="auto-fit"/>
                         </> 
                     : 
                         <>
-                            <Button txt='Login' fn={setLoginForm} size="auto-fit"/>
+                            <Button txt='Sign In' fn={setLoginForm} size="auto-fit"/>
                         </>
                 }
             </nav>
@@ -265,12 +272,12 @@ export function Login(){
                     ?
                         <>
                             <h1>Sign In</h1>
-                            <Form action="#" method="#" fieldsets={fieldsetsFormSignin} txtButtonSubmit="Enter" fnSubmit={handleSubmitSignin} fnChange={handleChangeSignin} showSpinner={showSpinner}/>
+                            <Form action="#" method="#" fieldsets={fieldsetsFormLogin} txtButtonSubmit="Enter" fnSubmit={handleSubmitLogin} fnChange={handleChangeLogin} showSpinner={showSpinner} reform={formRef}/>
                         </>
                     :
                         <>
-                            <h1>Update</h1>
-                            <Form action="#" method="#" fieldsets={fieldsetsFormUpdate} txtButtonSubmit="Update" fnSubmit={handleSubmitUpdate} fnChange={handleChangeUpdate} showSpinner={showSpinner}/>
+                            <h1>New Password</h1>
+                            <Form action="#" method="#" fieldsets={fieldsetsFormNewPassword} txtButtonSubmit="Done" fnSubmit={handleSubmitNewPassword} fnChange={handleChangeNewPassword} showSpinner={showSpinner} reform={formRef}/>
                         </>
                 }
             </div>

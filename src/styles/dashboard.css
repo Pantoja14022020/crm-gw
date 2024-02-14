@@ -3,7 +3,7 @@
     flex-direction: row;
 }
 .dashboard > aside{
-    width: calc(100% - 200px);
+    width: calc(100% - 250px);
     height: 100vh;
     background-color: rgb(241, 241, 241);
 }

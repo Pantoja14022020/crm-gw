@@ -1,0 +1,31 @@
+.option-navbar{
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    transition: all ease-in-out 0.3s;
+    border-right: 2px solid white;
+    padding: 0.5rem;
+    outline: none;
+}
+
+.active{
+    border-right: 2px solid var(--blue);
+    color: var(--blue);
+}
+
+.option-navbar > p{
+    margin-left: 1rem;
+    font-size: 0.8rem;
+    font-weight: 900;
+}
+.option-navbar i{
+    transition: all ease-in-out 0.3s;
+}
+
+.option-navbar:hover{
+    border-right: 2px solid var(--blue);
+}
+.option-navbar:hover i{
+    color: var(--blue);
+}
