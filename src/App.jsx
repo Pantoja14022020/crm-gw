@@ -2,23 +2,19 @@ import { Route, BrowserRouter as Router, Routes, Navigate} from 'react-router-do
 import {useState} from 'react'
 import Login from './Login'
 import Dashboard from './Dashboard';
-import { getSession} from './helpers/localstorage';
+import {getSession} from './helpers/localstorage'
 
 function App(){
 
+
     return (
-        <>
-            {
-                getSession() ? <Dashboard/> : <Login/>
-            }
-        </>
-        /**{
+        
         <Router>
             <Routes>
-                <Route path='/' element={ getSession() ? <Navigate to="/dashboard" /> : <Login/>} />
-                <Route path='/dashboard' element={ getSession() ? <Dashboard/> : <Navigate to="/" /> }/>
+                <Route path='/' element={ getSession() ? <Dashboard/> : <Login/>} />
+                {/**<Route path='/dashboard' element={ getSession() ? <Dashboard/> : <Navigate to="/" /> }/>**/}
             </Routes>
-        </Router> }**/
+        </Router> 
     )
 }
 

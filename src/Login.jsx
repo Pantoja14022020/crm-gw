@@ -113,7 +113,8 @@ export function Login(){
             if(session){//Its okay if; coincide el email y password, redirige al dashboard
                 const sessionData = {id_user,email,msg,area}
                 setSession(sessionData)//Guardamos datos del usuario en el local storage
-                window.location.href = '/dashboard'//Aqui lo redirigo a la pagina del dashboard
+                window.location.href = '/'//Aqui lo redirigo a la pagina del dashboard
+                //isLogged(true)//Para que haga el efecto de cambio de pantalla
                 setShowSpinner(false)
             }else if(!session){
                 //Mostramos un modal
