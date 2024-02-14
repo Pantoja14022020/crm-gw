@@ -7,13 +7,18 @@ import { getSession} from './helpers/localstorage';
 function App(){
 
     return (
+        <>
+            {
+                getSession() ? <Dashboard/> : <Login/>
+            }
+        </>
+        /**{
         <Router>
             <Routes>
                 <Route path='/' element={ getSession() ? <Navigate to="/dashboard" /> : <Login/>} />
                 <Route path='/dashboard' element={ getSession() ? <Dashboard/> : <Navigate to="/" /> }/>
             </Routes>
-        </Router> 
-
+        </Router> }**/
     )
 }
 
