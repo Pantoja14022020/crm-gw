@@ -9,11 +9,6 @@
     outline: none;
 }
 
-.active{
-    border-right: 2px solid var(--blue);
-    color: var(--blue);
-}
-
 .option-navbar > p{
     margin-left: 1rem;
     font-size: 0.8rem;

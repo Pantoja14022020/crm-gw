@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root{
-    --blue: rgb(32, 32, 204);
+    --blue: #2020cc;
     --modal-color-primary: #f6f6f6;
     --input-color-secondary: #f1f1f1;
 }

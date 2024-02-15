@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import Nav from './components/Nav'
 import Header from './components/Header'
 import './styles/dashboard.css'
@@ -12,6 +13,16 @@ import { FaUserFriends } from "react-icons/fa";
 
 function Dashboard(){
 
+
+    const [borderColor,setBorderColor] = useState('#fff')
+    const [colorLetter, setColorLetter] = useState('#000');
+
+    function higlightTab(){
+        setBorderColor('#2020cc')
+        setColorLetter('#2020cc')
+    }
+
+
     const tl = [
         {
             txt: "Dashboard",
@@ -23,9 +34,10 @@ function Dashboard(){
         }
     ]
 
+
     return(
         <main className="dashboard">
-            <Nav options={tl}/>
+            <Nav options={tl} higlightTab={higlightTab} borderColor={borderColor} colorLetter={colorLetter}/>
             <aside>
                 <Header/>
             </aside>
