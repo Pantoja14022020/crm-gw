@@ -1,37 +1,78 @@
 .navbar-dashboard{
     position: relative;
     background-color: white;
-    width: 250px;
+    width: 280px;
     height: 100vh;
-    padding: 1rem;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
 }
 
+
+
+
 .header-navbar{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+.header-navbar > div{
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
-.header-navbar > div{
+.header-navbar > div > .icon-header-navbar{
     background-color: var(--blue);
-    padding: 0.6rem;
-    border-radius: 0.5rem;
+    font-size: 2rem;
+    padding: 0.4rem;
+    border-radius: 0.4rem;
+    margin-right: 1rem;
 }
-.header-navbar > p{
+.header-navbar > div > p{
     text-transform: uppercase;
-    margin-left: 1rem;
+    font-size: 1rem;
     font-weight: 900;
 }
 
-.container-button-nav{
-    width: 100%;
-}
 
-.options-navbar{
-    margin-top: 1rem;
+
+
+.options-navbar{/*Es el ul que contiene los li u opciones*/
     display: flex;
     flex-direction: column;
+    list-style: none;
+    margin-top: -2rem !important;
+}
+.options-navbar li i{
+    margin-left: 0.3rem;
+}
+
+
+
+/*Estilos del NavLink*/
+.options-navbar a{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    border-right: 3px solid transparent;
+    transition: all ease-in-out 0.3s;
+}
+.options-navbar a p{
+    margin-left: 0.5rem;
+    color: #000 !important;
+}
+.selected{
+    color: var(--blue);
+    border-right-color: var(--blue) !important;
+    background-color: #ededff;
+}
+
+
+.container-button-nav{
+    padding: 1rem;
 }

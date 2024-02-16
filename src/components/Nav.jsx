@@ -1,28 +1,61 @@
 import Button from "./Button";
 import Profile from "./Profile"
-import Option from './Option'
+import {NavLink, json} from 'react-router-dom'
 import { SiCivicrm } from "react-icons/si";
+import { useState, useEffect } from "react";
+import { getTypeUser,saveOptionSelected } from '../helpers/localstorage';
+import Profiles from "./Profiles";
 
 
-function Nav({options}){
+function Nav({options,profiles}){
+
+    //Variable para mostrar los distintos worspaces gw gm y tlu
+    const [showProfiles, setShowProfiles] = useState(false);
+
+    //Seleccionamos o pintamos el primer elemento
+    const [optionSelected, setOptionSelected] = useState(localStorage.getItem('optionSelected'));//Permite alamcenar la opcion seleccionada
+
+    saveOptionSelected(options[0].name);//Guardamos el primer opcion selected en el local storage
+
+    //Cada que se seleccione la opcion, se guarda en el localstorage
+    useEffect(()=>{
+        localStorage.setItem('optionSelected',optionSelected)
+    },[optionSelected])
+
+
+    //Funcion para mostrar o esconder el cuadro de espacios de trabajo: gw o gm o tl
+    function handleShowProfiles(){
+        setShowProfiles(!showProfiles)
+    }
 
     return (
         <nav className="navbar-dashboard">
+            {
+                showProfiles ? <Profiles profiles={profiles}/> : <></>
+            }
             <div>
-                <header className="header-navbar">
-                    <div><SiCivicrm color="#fff"/></div><p>crm</p>
-                </header>
-                <Profile/>
-                <div className="options-navbar">
+                {<header className="header-navbar">
+                    <div><SiCivicrm color="#fff" className="icon-header-navbar"/><p>crm</p></div>
+                    {/**<Profile fn={handleShowProfiles}/>**/}
+                </header>}
+                <ul className="options-navbar">
                     {
-                        options.map((option,idx)=>(
-                            <Option idx={idx} key={idx} txt={option.txt} icon={option.icon}/>
+                        options.map((option,id)=>(
+                            <li key={id}>
+                                <NavLink 
+                                    onClick={()=> setOptionSelected(option.name)}
+                                    className={optionSelected == option.name ? 'selected' : ''}
+                                >
+                                        <i>{option.icon}</i>
+                                        <p>{option.txt}</p>
+                                </NavLink>
+                            </li>
                         ))
                     }
-                </div>
+                </ul>
             </div>
             <div className="container-button-nav">
-                <Button txt="New contact" size="100%" iconAdd={true} colorIcon="#8585b6"/>
+                <Button txt={ getTypeUser() == 'gm' ? 'New Customer' : (getTypeUser() == 'gw' ? 'gw' : 'New Candidate') }size="100%" iconAdd={true} colorIcon="#8585b6"/>
             </div>
         </nav>
     )

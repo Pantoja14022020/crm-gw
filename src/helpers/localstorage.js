@@ -9,7 +9,19 @@ const getSession = () => {
     return sessionData ? JSON.parse(sessionData) : null;
 };
 
+
+//Obtener el tipo de usuario que inicio sesion, (gw, gm o tl?)
+const getTypeUser = () => {
+    const {area} = JSON.parse(localStorage.getItem('session'))
+    return area
+}
+const saveOptionSelected = (option) => {
+    localStorage.setItem('optionSelected',option)
+}
+
 export {
     setSession,
-    getSession
+    getSession,
+    getTypeUser,
+    saveOptionSelected
 }

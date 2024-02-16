@@ -1,0 +1,36 @@
+.profiles{
+    width: 100%;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    transform: translateX(100%);
+    font-size: 0.8rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    padding: 1rem;
+}
+.profiles h5{
+    color: rgb(133, 133, 133);
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+}
+.profiles ul{
+    list-style: none;
+}
+.profiles ul li{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all ease-in-out 0.3s;
+}
+.profiles ul li:hover{
+    background-color: rgb(246, 246, 246);
+}
+.profiles ul li p{
+    margin-left: 1rem;
+}
