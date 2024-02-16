@@ -1,22 +1,23 @@
-import {useEffect, useState} from 'react'
 import Nav from './components/Nav'
 import Header from './components/Header'
+import Overview from './components/Overview'
 import './styles/dashboard.css'
 import './styles/components/nav.css'
 import './styles/components/header.css'
 import './styles/components/icon.css'
 import './styles/components/profile.css'
 import './styles/components/profiles.css'
+import './styles/components/overview.css'
 import { RxDashboard } from "react-icons/rx";
 import { FaUserFriends } from "react-icons/fa";
 import tlu from './public/tl.png';
 import gm from './public/gm.png';
 import gw from './public/gw.jpg';
-import { getTypeUser } from './helpers/localstorage';
+import { getTypeUser,getOptionSelectedFromLocalStorage } from './helpers/localstorage';
 
 function Dashboard(){
 
-    const profiles = [
+    /*const profiles = [
         {
             id: 0,
             name: "tlu",
@@ -35,7 +36,7 @@ function Dashboard(){
             txt: 'GW CPA',
             image: gw
         }
-    ]
+    ]*/
 
 
 
@@ -97,9 +98,12 @@ function Dashboard(){
 
     return(
         <main className="dashboard">
-            <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gw : tl)   } profiles={profiles}/>
+            <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**//>
             <aside>
                 <Header/>
+                <div className="content-dashboard">
+                   <Overview/>               
+                </div>
             </aside>
         </main>
     )

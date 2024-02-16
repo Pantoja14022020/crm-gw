@@ -1,4 +1,5 @@
-import { IoNotificationsOutline } from "react-icons/io5";
+import { IoNotificationsSharp } from "react-icons/io5";
+
 
 function Icon({type,name, url, spaceHorizontal, spaceVertical, width, height}){
     return(
@@ -9,7 +10,7 @@ function Icon({type,name, url, spaceHorizontal, spaceVertical, width, height}){
                     <>
 
                         {
-                            name === "notification"  ? <IoNotificationsOutline /> : <></>
+                            name === "notification"  ? <IoNotificationsSharp size="0.8rem"/> : <></>
                         }
                         
                     </> 

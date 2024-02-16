@@ -19,9 +19,16 @@ const saveOptionSelected = (option) => {
     localStorage.setItem('optionSelected',option)
 }
 
+
+const getOptionSelectedFromLocalStorage = () => {
+    const option = localStorage.getItem('optionSelected')
+    return option
+}
+
 export {
     setSession,
     getSession,
     getTypeUser,
-    saveOptionSelected
+    saveOptionSelected,
+    getOptionSelectedFromLocalStorage
 }

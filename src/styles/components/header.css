@@ -1,13 +1,15 @@
 .header-aside-dashboard{
+    height: 75px;
     display: flex;
     flex-direction: row;
     padding: 1rem;
     justify-content: flex-end;
     align-items: center;
 }
-
 .icons-header-aside{
     display: flex;
     flex-direction: row;
-    margin-right: 2rem;
+}
+.profile-icon{
+    margin-left: 2rem;
 }

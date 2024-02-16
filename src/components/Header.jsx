@@ -10,8 +10,8 @@ function Header(){
         <header className='header-aside-dashboard'>
             <div className="icons-header-aside">
                 <Icon type="icon" name="notification" spaceHorizontal={true} width="40px" height="40px"/>
+                <div className="profile-icon"><Icon width="40px" height="40px" type="image" url={ getTypeUser() == 'gm' ? gm : ( getTypeUser() == 'gw' ? gw : tlu) }/></div>
             </div>
-            <Icon width="40px" height="40px" type="image" url={ getTypeUser() == 'gm' ? gm : ( getTypeUser() == 'gw' ? gw : tlu) }/>
         </header>
     )
 }

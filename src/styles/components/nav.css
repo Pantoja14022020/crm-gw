@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
-    padding: 1rem;
+    padding: 1rem 1rem 0rem 1rem;
 }
 .header-navbar > div{
     display: flex;
@@ -43,7 +43,6 @@
     display: flex;
     flex-direction: column;
     list-style: none;
-    margin-top: -2rem !important;
 }
 .options-navbar li i{
     margin-left: 0.3rem;

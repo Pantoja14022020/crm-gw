@@ -5,5 +5,12 @@
 .dashboard > aside{
     width: calc(100% - 250px);
     height: 100vh;
-    background-color: rgb(246, 246, 246);
+    background-color: rgb(240, 240, 240);
+}
+
+
+.content-dashboard{
+    height: calc(100% - 75px);
+    padding: 0rem 2rem 2rem 2rem;
+    overflow-y: scroll;
 }
