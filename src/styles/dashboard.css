@@ -10,7 +10,7 @@
 
 
 .content-dashboard{
+    width: 100%;
     height: calc(100% - 75px);
-    padding: 0rem 2rem 2rem 2rem;
-    overflow-y: scroll;
+    overflow: hidden;
 }

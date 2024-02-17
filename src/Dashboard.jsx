@@ -8,6 +8,7 @@ import './styles/components/icon.css'
 import './styles/components/profile.css'
 import './styles/components/profiles.css'
 import './styles/components/overview.css'
+import './styles/components/section.css'
 import { RxDashboard } from "react-icons/rx";
 import { FaUserFriends } from "react-icons/fa";
 import tlu from './public/tl.png';

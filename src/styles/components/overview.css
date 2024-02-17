@@ -1,15 +1,30 @@
 .overview{
     width: 100%;
     height: 100%;
-    background-color: white;
-    border-radius: 0.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    padding: 1.5rem;
 }
 
-.graph-circle{
-    width: 400px;
-    height: 400px;
-    color: rgb(187, 21, 62);
+
+
+
+
+.overview-tlu{
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1.5rem;
+    grid-template-areas: "gen gen etr tes"   /*etr(employment type request) pes(profesional employment status) tes(trade employment status)*/
+                         "gen gen pes tes"; /*general*/
+}
+.etr{
+    grid-area: etr;
+}
+.pes{
+    grid-area: pes;
+}
+.tes{
+    grid-area: tes;
+}
+.gen{
+    grid-area: gen;
 }
