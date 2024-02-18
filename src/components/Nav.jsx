@@ -5,21 +5,27 @@ import { SiCivicrm } from "react-icons/si";
 import { useState, useEffect } from "react";
 import { getTypeUser,saveOptionSelected } from '../helpers/localstorage';
 import Profiles from "./Profiles";
+import Icon from "./Icon";
+import tlu from '../public/tl.png';
+import gm from '../public/gm.png';
+import gw from '../public/gw.jpg';
 
 
-function Nav({options,profiles}){
+function Nav({options,profiles,setInterfaceShowed}){
 
     //Variable para mostrar los distintos worspaces gw gm y tlu
     const [showProfiles, setShowProfiles] = useState(false);
 
     //Seleccionamos o pintamos el primer elemento
-    const [optionSelected, setOptionSelected] = useState(localStorage.getItem('optionSelected'));//Permite alamcenar la opcion seleccionada
-
-    saveOptionSelected(options[0].name);//Guardamos el primer opcion selected en el local storage
+    const [optionSelected, setOptionSelected] = useState(localStorage.getItem('optionSelected') || options[0].name);//Permite alamcenar la opcion seleccionada
+    
+    setInterfaceShowed(localStorage.getItem('optionSelected') || options[0].name)
+    //saveOptionSelected(options[0].name);//Guardamos el primer opcion selected en el local storage
 
     //Cada que se seleccione la opcion, se guarda en el localstorage
     useEffect(()=>{
         localStorage.setItem('optionSelected',optionSelected)
+        setInterfaceShowed(localStorage.getItem('optionSelected'))
     },[optionSelected])
 
 
@@ -35,7 +41,7 @@ function Nav({options,profiles}){
             }
             <div>
                 {<header className="header-navbar">
-                    <div><SiCivicrm color="#fff" className="icon-header-navbar"/><p>crm</p></div>
+                    <div><Icon shape="square" type="image" url={getTypeUser() == 'gm' ? gm : ( getTypeUser() == 'gw' ? gw : tlu)} width="40px" height="40px"/>{/**<SiCivicrm color="#fff" className="icon-header-navbar"/>**/}</div>
                     {/**<Profile fn={handleShowProfiles}/>**/}
                 </header>}
                 <ul className="options-navbar">

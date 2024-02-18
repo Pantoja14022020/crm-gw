@@ -12,16 +12,20 @@
 
 
 .header-navbar{
+    width: 88%;
     display: flex;
     flex-direction: column;
+    margin: auto;
     margin-bottom: 1rem;
-    padding: 1rem 1rem 0rem 1rem;
+    padding: 0rem 1rem 0rem 0rem;
+    border-bottom: 1px solid #e7e7e7;
 }
 .header-navbar > div{
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
 }
 .header-navbar > div > .icon-header-navbar{
     background-color: var(--blue);

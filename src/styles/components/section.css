@@ -1,8 +1,7 @@
 .section{
     padding: 1rem;
-    width: fit-content;
     background-color: white;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     position: relative;
 }
 .centerVertical{
@@ -10,11 +9,19 @@
     top: 50%;
     transform: translateY(-50%);
 }
+.size-bar{
+    margin-left: 3rem !important;
+}
+.size{
+    margin: auto;
+}
 .section h3{
     margin-bottom: 0.5rem;
     font-weight: 900;
+    font-size: 0.8rem;
 }
 .section p{
+    text-align: justify;
     margin-bottom: 0.5rem;
     font-size: 0.8rem;
     color: #585858;

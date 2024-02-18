@@ -2,10 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
-    font-size: 1rem;
-    background-color: #fff;
-    color: #646464;
+    color: #7c7c7c;
     background-position: center;
     background-size: cover;
 }

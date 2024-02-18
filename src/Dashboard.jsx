@@ -9,14 +9,18 @@ import './styles/components/profile.css'
 import './styles/components/profiles.css'
 import './styles/components/overview.css'
 import './styles/components/section.css'
+import './styles/components/option.css'
 import { RxDashboard } from "react-icons/rx";
 import { FaUserFriends } from "react-icons/fa";
 import tlu from './public/tl.png';
 import gm from './public/gm.png';
 import gw from './public/gw.jpg';
 import { getTypeUser,getOptionSelectedFromLocalStorage } from './helpers/localstorage';
+import { useState } from 'react'
 
 function Dashboard(){
+
+    const [interfaceShowed,setInterfaceShowed] = useState('');
 
     /*const profiles = [
         {
@@ -47,7 +51,7 @@ function Dashboard(){
             id: 0,
             txt: "Overview",
             icon: <RxDashboard />,
-            name: 'overview_tl'
+            name: 'overview'
         },
         {
             id: 1,
@@ -69,7 +73,7 @@ function Dashboard(){
             id: 0,
             txt: "Overview",
             icon: <RxDashboard />,
-            name: 'overview_gm'
+            name: 'overview'
         },
         {
             id: 1,
@@ -91,7 +95,7 @@ function Dashboard(){
             id: 0,
             txt: "Overview",
             icon: <FaUserFriends />,
-            name: 'overview_gw'
+            name: 'overview'
         }
     ]
 
@@ -99,11 +103,16 @@ function Dashboard(){
 
     return(
         <main className="dashboard">
-            <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**//>
+            <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**/ setInterfaceShowed={setInterfaceShowed}/>
             <aside>
-                <Header/>
+                <Header interfaceShowed={interfaceShowed}/>
                 <div className="content-dashboard">
-                   <Overview/>               
+                    {   /*Aqui decidimo que tipo de Overview vamos a mostrar, dependiendo el tipo de usuario que inicio sesion */
+                        
+                        interfaceShowed == 'overview' ? //Si la opcion seleccionada es el overview, entonces
+                            (getTypeUser() == 'tl' ? <Overview info="tl"/> : ( getTypeUser() == "gm" ? <Overview info="gm"/> : <Overview info="gw"/>))//Evaluamos que overvies mostramos, depende del tipo de usuario que ha iniciado sesion
+                        :<></> 
+                    }              
                 </div>
             </aside>
         </main>

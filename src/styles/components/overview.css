@@ -12,9 +12,9 @@
 .overview-tlu{
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    gap: 1.5rem;
+    gap: 0.5rem;
     grid-template-areas: "gen gen etr tes"   /*etr(employment type request) pes(profesional employment status) tes(trade employment status)*/
-                         "gen gen pes tes"; /*general*/
+                         "gen gen pes tc"; /*general*/
 }
 .etr{
     grid-area: etr;
@@ -27,4 +27,22 @@
 }
 .gen{
     grid-area: gen;
+}
+.tc{
+    grid-area: tc;
+}
+
+
+
+
+
+/*Estructura del overview para GM*/
+.overview-gm{
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "sta sta sta"
+                         "sta sta sta";
+}
+.sta{
+    grid-area: sta;
 }
