@@ -10,14 +10,14 @@
     transform: translateY(-50%);
 }
 .size-dought{
-    width: 600px !important;
-    height: 600px !important;
+    width: 400px !important;
+    height: 400px !important;
 }
 .size-bar{
     margin-left: 3rem !important;
 }
 .centerHorizontal{
-    margin: auto !important;
+    margin: auto;
 }
 .section h3{
     margin-bottom: 0.5rem;

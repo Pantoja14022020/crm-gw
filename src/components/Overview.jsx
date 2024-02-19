@@ -106,7 +106,7 @@ function Overview({info}){
                         <Bar data={data_status_trade} options={options_bar_tlu} className='centerVertical'/>
                     </Section>
                     <Section sectionName="gen" title="Status all candidates" description="It's status all candidates (trade & professional) in selection process" icon={true} nameIcon="chart">
-                        <Doughnut className='centerVertical size-dought' data={data_general_tlu} options={options_dought} style={{marginLeft: "5rem"}}/>
+                        <Doughnut className='centerVertical size-dought' data={data_general_tlu} options={options_dought} />
                     </Section>
                     <Section sectionName="tc" title="Total candidates" description="Have applied for a professional or trade type of job">
                       <CountUp className='centerVertical' start={0} end={100} duration={2.5} style={{width: "90%",textAlign:"center",marginTop:"1rem",fontSize: "3rem", fontWeight: "900", color: '#222'}} />

@@ -11,6 +11,8 @@ import './styles/components/overview.css'
 import './styles/components/section.css'
 import './styles/components/option.css'
 import './styles/components/board.css'
+import './styles/components/precandidate.css'
+import './styles/components/barstatus.css'
 import { RxDashboard } from "react-icons/rx";
 import { FaUserFriends } from "react-icons/fa";
 import tlu from './public/tl.png';
@@ -19,6 +21,7 @@ import gw from './public/gw.jpg';
 import { getTypeUser,getOptionSelectedFromLocalStorage,getUserLogged} from './helpers/localstorage';
 import { useState } from 'react'
 import Board from './components/Board'
+import Precandidate from './components/Precandidate'
 
 function Dashboard(){
 
@@ -68,9 +71,9 @@ function Dashboard(){
         },
         {
             id: 2,
-            txt: "Candidates",
+            txt: "Precandidates",
             icon: <FaUserFriends />,
-            name: 'candidates_tl'
+            name: 'precandidate'
         }
     ]
     
@@ -120,7 +123,8 @@ function Dashboard(){
                             (getTypeUser() == 'tl' ? <Overview info="tl"/> : ( getTypeUser() == "gm" ? <Overview info="gm"/> : <Overview info="gw"/>))//Evaluamos que overvies mostramos, depende del tipo de usuario que ha iniciado sesion
                         :(interfaceShowed == 'board' ? 
                             <Board/>
-                        : <></>) 
+                        :(interfaceShowed == "precandidate" ? <Precandidate/>
+                        : <></>)) 
                     }              
                 </div>
             </aside>

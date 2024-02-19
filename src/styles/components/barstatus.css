@@ -1,0 +1,24 @@
+.barStatus{
+    background-color: white;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+.barStatus > ul{
+    width: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.barStatus > ul > li{
+    font-size: 0.8rem;
+    padding: 0.8rem;
+}
+.barStatus > ul > li > h2{
+    font-weight: 900;
+    margin-bottom: 0.2rem;
+}
+.painted{
+    background-color: #ededff !important;
+    border-right: 2px solid var(--blue);
+}
