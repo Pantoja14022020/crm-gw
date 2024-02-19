@@ -30,8 +30,8 @@ function Dashboard(){
     const {id_user,email,msg,area,fullname} = getUserLogged();
 
 
-    const [interfaceShowed,setInterfaceShowed] = useState('');
-
+    const [interfaceShowed,setInterfaceShowed] = useState(localStorage.getItem('optionSelected'));
+    
     /*const profiles = [
         {
             id: 0,

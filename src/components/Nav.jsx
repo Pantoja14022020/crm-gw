@@ -19,8 +19,11 @@ function Nav({options,profiles,setInterfaceShowed}){
     //Seleccionamos o pintamos el primer elemento
     const [optionSelected, setOptionSelected] = useState(localStorage.getItem('optionSelected') || options[0].name);//Permite alamcenar la opcion seleccionada
     
-    setInterfaceShowed(localStorage.getItem('optionSelected') || options[0].name)
-    //saveOptionSelected(options[0].name);//Guardamos el primer opcion selected en el local storage
+    
+   
+    //setInterfaceShowed(localStorage.getItem('optionSelected') || options[0].name)
+    
+    
 
     //Cada que se seleccione la opcion, se guarda en el localstorage
     useEffect(()=>{

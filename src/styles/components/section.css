@@ -9,10 +9,17 @@
     top: 50%;
     transform: translateY(-50%);
 }
+.centerVerticalSmall{
+    position: absolute !important;
+    top: 50%;
+    transform: translateY(-50%);
+}
 .size-dought{
     width: 400px !important;
     height: 400px !important;
+    margin-left: 6rem;
 }
+
 .size-bar{
     margin-left: 3rem !important;
 }

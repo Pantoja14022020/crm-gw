@@ -13,8 +13,8 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     gap: 0.5rem;
-    grid-template-areas: "gen gen etr tes"   /*etr(employment type request) pes(profesional employment status) tes(trade employment status)*/
-                         "gen gen pes tc"; /*general*/
+    grid-template-areas: "gen etr  tes"   /*etr(employment type request) pes(profesional employment status) tes(trade employment status)*/
+                         "gen pes   tc"; /*general*/
 }
 .etr{
     grid-area: etr;
@@ -45,4 +45,18 @@
 }
 .sta{
     grid-area: sta;
+}
+
+
+
+
+
+
+/*Medias queries*/
+@media screen and (max-height: 820px){
+    .centerVerticalSmall{
+        position: absolute !important;
+        top: 80% !important;
+        transform: translateY(-80%) !important;
+    }
 }
