@@ -10,6 +10,7 @@ import './styles/components/profiles.css'
 import './styles/components/overview.css'
 import './styles/components/section.css'
 import './styles/components/option.css'
+import './styles/components/board.css'
 import { RxDashboard } from "react-icons/rx";
 import { FaUserFriends } from "react-icons/fa";
 import tlu from './public/tl.png';
@@ -17,6 +18,7 @@ import gm from './public/gm.png';
 import gw from './public/gw.jpg';
 import { getTypeUser,getOptionSelectedFromLocalStorage,getUserLogged} from './helpers/localstorage';
 import { useState } from 'react'
+import Board from './components/Board'
 
 function Dashboard(){
 
@@ -62,7 +64,7 @@ function Dashboard(){
             id: 1,
             txt: "Board",
             icon: <FaUserFriends />,
-            name: 'board_tl'
+            name: 'board'
         },
         {
             id: 2,
@@ -84,7 +86,7 @@ function Dashboard(){
             id: 1,
             txt: "Board",
             icon: <FaUserFriends />,
-            name: 'board_gm'
+            name: 'board'
         },
         {
             id: 2,
@@ -116,7 +118,9 @@ function Dashboard(){
                         
                         interfaceShowed == 'overview' ? //Si la opcion seleccionada es el overview, entonces
                             (getTypeUser() == 'tl' ? <Overview info="tl"/> : ( getTypeUser() == "gm" ? <Overview info="gm"/> : <Overview info="gw"/>))//Evaluamos que overvies mostramos, depende del tipo de usuario que ha iniciado sesion
-                        :<></> 
+                        :(interfaceShowed == 'board' ? 
+                            <Board/>
+                        : <></>) 
                     }              
                 </div>
             </aside>
