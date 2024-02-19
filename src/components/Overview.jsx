@@ -97,16 +97,16 @@ function Overview({info}){
               info == "tl" ? 
                   <>
                     <Section sectionName="etr" title="Employment type requested" description="It's the type of employment that candidates aspire to" icon={true} nameIcon="chart">
-                      <Bar data={data_type_employment} options={options_bar_tlu}/>
+                      <Bar data={data_type_employment} options={options_bar_tlu} className='centerVertical'/>
                     </Section>
                     <Section sectionName="pes" title="Professional Employment Status" description="It's status in selection process to employment professional" icon={true} nameIcon="chart">
-                        <Bar data={data_status_professional} options={options_bar_tlu}/>
+                        <Bar data={data_status_professional} options={options_bar_tlu} className='centerVertical'/>
                     </Section>
                     <Section sectionName="tes" title="Trade Employment Status" description="It's status in selection process to employment trade" icon={true} nameIcon="chart">
-                        <Bar data={data_status_trade} options={options_bar_tlu}/>
+                        <Bar data={data_status_trade} options={options_bar_tlu} className='centerVertical'/>
                     </Section>
                     <Section sectionName="gen" title="Status all candidates" description="It's status all candidates (trade & professional) in selection process" icon={true} nameIcon="chart">
-                        <Doughnut className='centerVertical' data={data_general_tlu} options={options_dought}/>
+                        <Doughnut className='centerVertical size-dought' data={data_general_tlu} options={options_dought} style={{marginLeft: "5rem"}}/>
                     </Section>
                     <Section sectionName="tc" title="Total candidates" description="Have applied for a professional or trade type of job">
                       <CountUp className='centerVertical' start={0} end={100} duration={2.5} style={{width: "90%",textAlign:"center",marginTop:"1rem",fontSize: "3rem", fontWeight: "900", color: '#222'}} />

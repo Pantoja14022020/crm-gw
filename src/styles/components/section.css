@@ -9,11 +9,15 @@
     top: 50%;
     transform: translateY(-50%);
 }
+.size-dought{
+    width: 600px !important;
+    height: 600px !important;
+}
 .size-bar{
     margin-left: 3rem !important;
 }
-.size{
-    margin: auto;
+.centerHorizontal{
+    margin: auto !important;
 }
 .section h3{
     margin-bottom: 0.5rem;
