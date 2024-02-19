@@ -10,6 +10,11 @@ const getSession = () => {
 };
 
 
+const getUserLogged = () => {
+    const sessionData = JSON.parse(localStorage.getItem('session'));
+    return sessionData;
+}
+
 //Obtener el tipo de usuario que inicio sesion, (gw, gm o tl?)
 const getTypeUser = () => {
     const {area} = JSON.parse(localStorage.getItem('session'))
@@ -30,5 +35,6 @@ export {
     getSession,
     getTypeUser,
     saveOptionSelected,
-    getOptionSelectedFromLocalStorage
+    getOptionSelectedFromLocalStorage,
+    getUserLogged
 }

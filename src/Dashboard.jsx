@@ -15,10 +15,15 @@ import { FaUserFriends } from "react-icons/fa";
 import tlu from './public/tl.png';
 import gm from './public/gm.png';
 import gw from './public/gw.jpg';
-import { getTypeUser,getOptionSelectedFromLocalStorage } from './helpers/localstorage';
+import { getTypeUser,getOptionSelectedFromLocalStorage,getUserLogged} from './helpers/localstorage';
 import { useState } from 'react'
 
 function Dashboard(){
+
+
+    //Obtener los datos de la sesion que se logeo en el sistema
+    const {id_user,email,msg,area,fullname} = getUserLogged();
+
 
     const [interfaceShowed,setInterfaceShowed] = useState('');
 
@@ -105,7 +110,7 @@ function Dashboard(){
         <main className="dashboard">
             <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**/ setInterfaceShowed={setInterfaceShowed}/>
             <aside>
-                <Header interfaceShowed={interfaceShowed}/>
+                <Header interfaceShowed={interfaceShowed} fullname={fullname}/>
                 <div className="content-dashboard">
                     {   /*Aqui decidimo que tipo de Overview vamos a mostrar, dependiendo el tipo de usuario que inicio sesion */
                         

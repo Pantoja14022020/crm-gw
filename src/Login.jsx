@@ -108,10 +108,10 @@ export function Login(){
             
             
             //Do fetch to start session
-            const {session,id_user,msg,area} = await fetchUrlPost("https://api-gw-cpa-pc-20aq.onrender.com/gw/session",credentials)
+            const {session,id_user,msg,area,fullname} = await fetchUrlPost("https://api-gw-cpa-pc-20aq.onrender.com/gw/session",credentials)
             
             if(session){//Its okay if; coincide el email y password, redirige al dashboard
-                const sessionData = {id_user,email,msg,area}
+                const sessionData = {id_user,email,msg,area,fullname}
                 setSession(sessionData)//Guardamos datos del usuario en el local storage
                 window.location.href = '/'//Aqui lo redirigo a la pagina del dashboard
                 //isLogged(true)//Para que haga el efecto de cambio de pantalla

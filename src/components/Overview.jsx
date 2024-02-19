@@ -96,16 +96,16 @@ function Overview({info}){
             {
               info == "tl" ? 
                   <>
-                    <Section sectionName="etr" title="Employment type requested" description="It's the type of employment that candidates aspire to">
+                    <Section sectionName="etr" title="Employment type requested" description="It's the type of employment that candidates aspire to" icon={true} nameIcon="chart">
                       <Bar data={data_type_employment} options={options_bar_tlu}/>
                     </Section>
-                    <Section sectionName="pes" title="Professional Employment Status" description="It's status in selection process to employment professional">
+                    <Section sectionName="pes" title="Professional Employment Status" description="It's status in selection process to employment professional" icon={true} nameIcon="chart">
                         <Bar data={data_status_professional} options={options_bar_tlu}/>
                     </Section>
-                    <Section sectionName="tes" title="Trade Employment Status" description="It's status in selection process to employment trade">
+                    <Section sectionName="tes" title="Trade Employment Status" description="It's status in selection process to employment trade" icon={true} nameIcon="chart">
                         <Bar data={data_status_trade} options={options_bar_tlu}/>
                     </Section>
-                    <Section sectionName="gen" title="Status all candidates" description="It's status all candidates (trade & professional) in selection process">
+                    <Section sectionName="gen" title="Status all candidates" description="It's status all candidates (trade & professional) in selection process" icon={true} nameIcon="chart">
                         <Doughnut className='centerVertical' data={data_general_tlu} options={options_dought}/>
                     </Section>
                     <Section sectionName="tc" title="Total candidates" description="Have applied for a professional or trade type of job">
@@ -114,7 +114,7 @@ function Overview({info}){
                   </>
                 : (info == "gm" ? 
                   <>
-                    <Section sectionName="sta" title="Overview status customers" description="An overview about custumer's current state ">
+                    <Section sectionName="sta" title="Overview status customers" description="An overview about custumer's current state " icon={true} nameIcon="chart">
                       <Bar className='centerVertical size-bar' width="400px" data={data_general_gm} options={options_bar_gm} />
                     </Section>
                   </>

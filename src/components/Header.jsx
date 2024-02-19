@@ -2,11 +2,11 @@ import Icon from './Icon'
 import tlu from '../public/tl.png';
 import gm from '../public/gm.png';
 import gw from '../public/gw.jpg';
-import { getTypeUser } from '../helpers/localstorage';
+import { getSession, getTypeUser, getUserLogged } from '../helpers/localstorage';
 import Option from './Option'
 import { useState } from 'react';
 
-function Header({interfaceShowed}){
+function Header({interfaceShowed,fullname}){
 
     const [showModalOption, setShowModalOption] = useState(false)
 
@@ -29,10 +29,11 @@ function Header({interfaceShowed}){
         }
     ]
 
+
     return(
         <header className='header-aside-dashboard'>
             {
-                interfaceShowed == 'overview' ? <h1 className='animate__animated animate__bounceInDown'>¡Welcome Daniel! 👋</h1> : <></>
+                interfaceShowed == 'overview' ? <h1 className='animate__animated animate__bounceInDown'>¡Hola {fullname}! 👋</h1> : <></>
             }
             <div className="icons-header-aside">
                 <Icon type="icon" name="notification" spaceHorizontal={true} width="40px" height="40px"/>
