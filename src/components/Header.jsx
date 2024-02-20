@@ -5,6 +5,7 @@ import gw from '../public/gw.jpg';
 import { getSession, getTypeUser, getUserLogged } from '../helpers/localstorage';
 import Option from './Option'
 import { useState } from 'react';
+import BarStatus from './BarStatus';
 
 function Header({interfaceShowed,fullname}){
 
@@ -30,10 +31,42 @@ function Header({interfaceShowed,fullname}){
     ]
 
 
+
+    const stagesP = [
+        {
+            id: 0,
+            title: 'Pre-Candidates',
+            description: 'General Information and Recruitment Process',
+            icon: <Icon color="#2020cc" size="1rem" name="edit" spaceHorizontal="true"/>,
+            paint: true,
+            end: false
+        },
+        {
+            id: 1,
+            title: 'Candidates',
+            description: 'Selection Process',
+            icon: <Icon color="#2020cc" size="1rem" name="user" spaceHorizontal="true"/>,
+            paint: false,
+            end: false
+        },
+        {
+            id: 2,
+            title: 'EB3 Workers',
+            description: 'Client Documents and GM Process',
+            icon: <Icon color="#00833b" size="1rem" name="check" spaceHorizontal="true"/>,
+            paint: false,
+            end: true
+        }
+
+    ]
+
+
     return(
         <header className='header-aside-dashboard'>
             {
-                interfaceShowed == 'overview' ? <h1 className='animate__animated animate__bounceInDown'>¡Hola {fullname}! 👋</h1> : <></>
+                interfaceShowed == 'overview' 
+                    ? <h1 className='animate__animated animate__bounceInDown'>¡Hola {fullname}! 👋</h1> 
+                    : (interfaceShowed == 'precandidate' ? <BarStatus effect="animate__animated animate__bounceInDown" stages={stagesP} /> : <></>) 
             }
             <div className="icons-header-aside">
                 <Icon type="icon" name="notification" spaceHorizontal={true} width="40px" height="40px"/>

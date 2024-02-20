@@ -13,6 +13,7 @@ import './styles/components/option.css'
 import './styles/components/board.css'
 import './styles/components/precandidate.css'
 import './styles/components/barstatus.css'
+import './styles/components/search.css'
 import { RxDashboard } from "react-icons/rx";
 import { FaUserFriends } from "react-icons/fa";
 import tlu from './public/tl.png';

@@ -1,15 +1,16 @@
 import { GrFormNext } from "react-icons/gr";
 
-function BarStatus({stages}){
+function BarStatus({stages,effect}){
     return(
-        <nav className="barStatus">
+        <nav className={`barStatus ${effect}`}>
             <ul>
                 {
-                    stages.map(({id,title,description,paint})=> (
+                    stages.map(({id,title,description,paint,end,icon})=> (
                         <li key={id} className={paint ? 'painted' : ''}>
-                            <h2>{title}</h2>
-                            <p>{description}</p>
-                            <div className="next-icon"><GrFormNext /></div>
+                            <p>{title}</p>
+                            {
+                                !end ? <div><GrFormNext size="1rem" /></div> : <></>
+                            }
                         </li>
                     ))
                 }

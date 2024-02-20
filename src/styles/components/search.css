@@ -1,0 +1,14 @@
+.search-input{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    font-size: 0.8rem;
+}
+.search-input input{
+    width: 100% !important;
+    width: fit-content;
+    margin-left: 0.4rem;
+    padding: 0.5rem;
+    outline: none;
+    color: #585858;
+}

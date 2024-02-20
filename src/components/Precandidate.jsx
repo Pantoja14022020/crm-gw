@@ -1,32 +1,31 @@
+import { getTypeUser } from "../helpers/localstorage";
 import BarStatus from "./BarStatus";
+import Button from "./Button";
+import Icon from "./Icon";
+import Search from "./Search";
 
 function Precandidate(){
 
-    const stagesTrades = [
-        {
-            id: 0,
-            title: 'Pre-Candidates',
-            description: 'General Information and Recruitment Process',
-            paint: true
-        },
-        {
-            id: 1,
-            title: 'Candidates',
-            description: 'Selection Process',
-            paint: false
-        },
-        {
-            id: 2,
-            title: 'EB3 Workers',
-            description: 'Client Documents and GM Process',
-            paint: false
-        }
-
-    ]
-
+    
     return (
         <section className="section-precandidates">
-            <BarStatus stages={stagesTrades} />
+            <div className="btn-new-candidate">
+                <Button txt={ getTypeUser() == 'gm' ? 'New Customer' : (getTypeUser() == 'gw' ? 'gw' : 'New Candidate') }size="100%" iconAdd={true} colorIcon="#8585b6"/>
+            </div>
+            <div className="container-candidates">
+                <div className="trades">
+                    <h2>Trade</h2>
+                    <div className="search-container">
+                        <Search/>
+                    </div>
+                </div>
+                <div className="professional">
+                    <h2>Professional</h2>
+                    <div className="search-container">
+                        <Search/>
+                    </div>
+                </div>
+            </div>
         </section>
     )
 }
