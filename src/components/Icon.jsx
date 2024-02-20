@@ -6,6 +6,8 @@ import { MdModeEditOutline } from "react-icons/md";
 import { FaUserCheck } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
 import { RiSearchLine } from "react-icons/ri";
+import { MdArrowDropDown } from "react-icons/md";
+
 
 
 
@@ -44,6 +46,9 @@ function Icon({type,name, url, spaceHorizontal, spaceVertical, width, height,fn,
                         }
                         {
                             name === 'search' ? <RiSearchLine color={color} size={size} /> : <></>
+                        }
+                        {
+                            name === 'arrow' ? <MdArrowDropDown color={color} size={size} /> : <></>
                         }
                     </>
             }

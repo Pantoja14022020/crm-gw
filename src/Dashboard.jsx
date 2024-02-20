@@ -14,6 +14,7 @@ import './styles/components/board.css'
 import './styles/components/precandidate.css'
 import './styles/components/barstatus.css'
 import './styles/components/search.css'
+import './styles/components/table.css'
 import { RxDashboard } from "react-icons/rx";
 import { FaUserFriends } from "react-icons/fa";
 import tlu from './public/tl.png';
@@ -115,7 +116,7 @@ function Dashboard(){
     return(
         <main className="dashboard">
             <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**/ setInterfaceShowed={setInterfaceShowed}/>
-            <aside>
+            <aside style={{backgroundColor: `${interfaceShowed !== 'overview' ? '#fff' : '' }`}}>
                 <Header interfaceShowed={interfaceShowed} fullname={fullname}/>
                 <div className="content-dashboard">
                     {   /*Aqui decidimo que tipo de Overview vamos a mostrar, dependiendo el tipo de usuario que inicio sesion */
