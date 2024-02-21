@@ -63,9 +63,16 @@ function Nav({options,profiles,setInterfaceShowed}){
                     }
                 </ul>
             </div>
-            <div className="container-button-nav">
-                <Button txt={ getTypeUser() == 'gm' ? 'New Customer' : (getTypeUser() == 'gw' ? 'gw' : 'New Candidate') }size="100%" iconAdd={true} colorIcon="#8585b6"/>
-            </div>
+            {
+                getTypeUser() == 'gm' 
+                ? 
+                  <>
+                    <div className="container-button-nav">
+                        <Button txt={ getTypeUser() == 'gm' ? 'New Customer' : (getTypeUser() == 'gw' ? 'gw' : 'New Candidate') }size="100%" iconAdd={true} colorIcon="#8585b6"/>
+                    </div>
+                  </>
+                : <></>
+            }
         </nav>
     )
 }

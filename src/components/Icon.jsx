@@ -1,4 +1,4 @@
-import { IoMdNotificationsOutline } from "react-icons/io";
+import { IoNotificationsOutline } from "react-icons/io5";
 import { SlOptionsVertical } from "react-icons/sl";
 import { FaPowerOff } from "react-icons/fa6";
 import { RiBarChartHorizontalLine } from "react-icons/ri";
@@ -7,6 +7,9 @@ import { FaUserCheck } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
 import { RiSearchLine } from "react-icons/ri";
 import { MdArrowDropDown } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import { FaCheck } from "react-icons/fa6";
+
 
 
 
@@ -14,20 +17,20 @@ import { MdArrowDropDown } from "react-icons/md";
 
 function Icon({type,name, url, spaceHorizontal, spaceVertical, width, height,fn,color,size}){
     return(
-        <div onClick={fn} className="icon" style={{backgroundImage: `url(${ type==="image" ? url : ''})`, marginRight: `${spaceHorizontal ? '0.5rem' : ''}`, marginBottom: `${spaceVertical ? '1rem' : ''}`, width: width, height: height, cursor: `${type == "icon" ? "pointer" : ""}`   }}>
+        <div onClick={fn} className={`${type == 'icon' ? 'icon' : ''}`} style={{backgroundImage: `url(${ type==="image" ? url : ''})`, marginRight: `${spaceHorizontal ? '0.5rem' : ''}`, marginBottom: `${spaceVertical ? '1rem' : ''}`, width: width, height: height, cursor: `${type == "icon" ? "pointer" : ""}`, backgroundPosition:'center',backgroundSize:'cover'   }}>
             {
                 type === "icon" 
                 ? 
                     <>
 
                         {
-                            name === "notification"  ? <IoMdNotificationsOutline size="1.5rem" /> : <></>
+                            name === "notification"  ? <IoNotificationsOutline size="1.3rem" color="#000"/> : <></>
                         }
                         {
-                            name === "options" ? <SlOptionsVertical size="1.2rem" /> : <></>
+                            name === "options" ? <SlOptionsVertical size="1rem" color="#000" /> : <></>
                         }
                         {
-                            name === "logout" ? <FaPowerOff size="1.2rem"/> : <></>
+                            name === "logout" ? <FaPowerOff size="1rem" color="#dd0000"/> : <></>
                         }
                     </> 
                 : 
@@ -49,6 +52,11 @@ function Icon({type,name, url, spaceHorizontal, spaceVertical, width, height,fn,
                         }
                         {
                             name === 'arrow' ? <MdArrowDropDown color={color} size={size} /> : <></>
+                        }
+                        {
+                            name === 'delete' ? <MdDelete color={color} size={size}/> : <></>
+                        }{
+                            name == 'ready' ? <FaCheck color={color} size={size} /> : <></>
                         }
                     </>
             }

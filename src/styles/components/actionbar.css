@@ -1,0 +1,19 @@
+.actions-bar{
+    margin: auto;
+}
+.actions-bar button{
+    margin-right: 1rem;
+    padding: 0.3rem;
+    border-radius: 0.2rem;
+    transition: all ease-in-out 0.3s;
+    background-color: #f0f0f0;
+}
+.actions-bar button:last-child{
+    margin-right: 0rem;
+}
+.delete-pre{/*Esta clase viene como atributo del objeto del arreglo de options Precandidate.jsx*/
+    color: #dd0000;
+}
+.done-pre{
+    color: rgb(111, 146, 126);
+}

@@ -2,23 +2,22 @@
     margin-top: 2rem;
     width: 100%;
     position: relative;
-    height: 400px;
+    height: 360px;
     overflow-y: auto;
 }
 table{
     width: 100%;
-    font-size: 0.8rem;
     font-size: 0.6rem;
 }
 
 table thead th{
-    padding: 1rem;
+    padding: 1.5rem 0;
     font-weight: 100;
     letter-spacing: 0.02rem;
     position: sticky;
     top: 0;
     z-index: 1;
-    background-color: #f7f7f7;
+    background-color: #f5f5ff;
     color: #252525;
 }
 table thead th:last-child{
@@ -32,6 +31,28 @@ table thead th:first-child{
 table tbody tr td{
     text-align: center;
     padding: 1.5rem 0;
+}
+table tbody tr td:first-child{
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+table tbody tr td:last-child{
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+table tbody tr{
+  border-bottom: 1px solid #eeeeee;
+}
+
+
+
+
+
+.checkbox{
+  background-color: var(--blue);
+  color: var(--blue);
+  outline: none;
+  padding: 1rem;
 }
 
 

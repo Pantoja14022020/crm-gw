@@ -3,6 +3,6 @@
     justify-content: center;
     align-items: center;
     color: #7c7c7c;
-    background-position: center;
-    background-size: cover;
+    background-position: center !important;
+    background-size: cover !important;
 }

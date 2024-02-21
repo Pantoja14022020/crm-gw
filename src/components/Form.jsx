@@ -1,9 +1,9 @@
 import Button from "./Button"
 
 
-function Form({action,method,fieldsets,txtButtonSubmit,fnSubmit,fnChange,showSpinner,reform}){
+function Form({width,action,method,fieldsets,txtButtonSubmit,fnSubmit,fnChange,showSpinner,reform}){
     return(
-        <form action={action} method={method} onSubmit={fnSubmit} autoComplete="off" ref={reform}>
+        <form style={{width: `${width !== '' ? width : '300px'}`}} action={action} method={method} onSubmit={fnSubmit} autoComplete="off" ref={reform}>
             {
                 fieldsets.map(({id,name,type,htmlfor,txt})=>(
                     <fieldset key={id}>
@@ -13,7 +13,7 @@ function Form({action,method,fieldsets,txtButtonSubmit,fnSubmit,fnChange,showSpi
                 ))
             }
             <fieldset>
-                <Button txt={txtButtonSubmit} type="submit" showSpinner={showSpinner} size="100%" marginTop="1rem"/>
+                <Button txt={txtButtonSubmit} type="submit" showSpinner={showSpinner} size="100%" marginTop="1rem" />
             </fieldset>
         </form>
     )
