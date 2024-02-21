@@ -68,12 +68,6 @@ function Dashboard(){
         },
         {
             id: 1,
-            txt: "Board",
-            icon: <FaUserFriends />,
-            name: 'board'
-        },
-        {
-            id: 2,
             txt: "Precandidates",
             icon: <FaUserFriends />,
             name: 'precandidate'

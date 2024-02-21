@@ -170,7 +170,7 @@ function Precandidate(){
                 showFormPrecandidate ? //Es para mostrar el formulario para crear precandidato
                 <>
                     <div className="container-signup-precandidate" onClick={e => setFalseShowFormPrecandidate(e)}>
-                        <div className="form-precandidate">
+                        <div className="form-precandidate animate__animated animate__bounceInRight">
                             <Form width="100%" action="#" method="#" fieldsets={fieldsetsFormSignupPrecandidate} txtButtonSubmit="Done"  reform={formRef}/>
                         </div>
                     </div>

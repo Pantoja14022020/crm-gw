@@ -1,11 +1,13 @@
 .dashboard{
     display: flex;
     flex-direction: row;
+    overflow: hidden;
 }
 .dashboard > aside{
     width: calc(100% - 250px);
     height: 100vh;
     background-color: rgb(240, 240, 240);
+    overflow: hidden;
 }
 
 
