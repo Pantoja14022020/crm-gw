@@ -1,5 +1,4 @@
 import { getTypeUser } from "../helpers/localstorage";
-import { IoMdCheckmark } from "react-icons/io";
 import { useEffect, useState, useRef } from "react";
 import BarStatus from "./BarStatus";
 import Button from "./Button";
@@ -9,7 +8,7 @@ import Table from "./Table";
 import ActionBar from "./ActionBar";
 import Form  from "./Form";
 
-function Precandidate({columns,rows}){
+function Precandidate({columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searchTerm}){
 
     const formRef = useRef(null); //Creamos la referencia del fomulario, algo como global var
 
@@ -88,12 +87,22 @@ function Precandidate({columns,rows}){
 
 
 
-    let columnsTableTLU = [];//Voy resetear y crear un nuevo arreglo de columnas ( es el formato que necesito para pasarlo como props) con las que estoy recibiendo
-    columns.map((column,idx) => {
-        columnsTableTLU.push({id: idx, txt: column})
-    })
+    //AQUI OBTENEMOS Y FORMATEAMOS LAS FILA QUE RECIBIMOS A TRAVES DEL PROPS
+    /*const rowsTableTLU = []
+    rows.map((row,idx) => {//Recorro arreglo por arreglo [[],[],[]] o fila por fila
+        //row [0,1,2,3,4,5,6,7,8,9]
+        let precandidate = {fullname:'',email:'',phone:'',country:'',dateBirth:'',civilStatus:'',gender:'',levelStudies:'',position:'',englishLevel:''}
+        row.map((pre,idy)=>{
+            if(idy <= 9) {
+                let attribute = Object.keys(precandidate)[idy]
+                precandidate[attribute] = pre
+            }
+        })
+        precandidate['select'] = <IoMdCheckmark size="1rem" />
+        precandidate['id'] = idx;
+        rowsTableTLU.push(precandidate)
+    })*/
 
-    console.log(rows)
 
 
     /*const rows = [
@@ -178,9 +187,9 @@ function Precandidate({columns,rows}){
             </div>
             <div className="container-candidates">
                 <div className="search-container animate__animated animate__bounceInDown">
-                    <Search/>
+                    <Search setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
                 </div>
-                <Table columns={columnsTableTLU} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions}/>
+                <Table columns={columns} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setColumnsTLU={setColumnsTLU} setRowsTLU={setRowsTLU}/>
             </div>
             {
                 showActions 

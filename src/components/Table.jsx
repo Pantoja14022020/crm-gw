@@ -1,18 +1,22 @@
+import { useState } from "react";
 import Icon from "./Icon";
 
 
 
-function Table({columns,rows,setCheckedOptions,checkedOptions}){
+function Table({columns,rows,setCheckedOptions,checkedOptions,setColumnsTLU,setRowsTLU}){
+
 
 
     //FUNCION PARA QUITAR O AGREGAR LOS IDS DE LOS INPUTS CHEQUEADOS
     const handleCheckboxChange = (e,id) => {//Funcion para guardar el id del elemento cuando esta chequeado
         if(e.target.checked){//Si esta chequeado, entonces...
+            e.target.parentElement.parentElement.classList.toggle('rowSelected')
             if(!checkedOptions.includes(id)){//y ademas ese id no esta en el arreglo, entonces lo save
                 setCheckedOptions([...checkedOptions,id])
             }
         }
         if(!e.target.checked){//Para sacar el id del elemento que se dejo de chequear
+            e.target.parentElement.parentElement.classList.toggle('rowSelected')
             if(checkedOptions.includes(id)){
                 checkedOptions = checkedOptions.filter(option => option !== id)
                 setCheckedOptions(checkedOptions)

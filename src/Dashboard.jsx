@@ -18,6 +18,7 @@ import './styles/components/table.css'
 import './styles/components/actionbar.css'
 import { RxDashboard } from "react-icons/rx";
 import { FaUserFriends } from "react-icons/fa";
+import { IoMdCheckmark } from "react-icons/io";
 import tlu from './public/tl.png';
 import gm from './public/gm.png';
 import gw from './public/gw.jpg';
@@ -39,22 +40,75 @@ function Dashboard(){
 
 
 
-    
+
+
+
+    //DEFINIR LAS FILAS Y COLUMNAS DE LA TABLA TLU 
+    const [filteredCandidates, setFilteredCandidates] = useState([]);//Defino los elementos filtrados o filas filtradas en un inicio tendra todod
     const [columnsTLU, setColumnsTLU] = useState([]);
-    const [rowsTLU, setRowsTLU] = useState([]);
+    const [allCandidates, setAllCandidates] = useState([]);//Vraiable auxiliar
+    //const [rowsTLU, setRowsTLU] = useState([]);
     async function getPrecandidates(){
         const {candidates} = await fetchUrlGet('https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/');   
+        
         //Definir columnas
-        setColumnsTLU(candidates[0]);
+        const columns= candidates[0]
+        const formattedColumns = columns.map((column, idx) => {
+            if (idx <= 9) {
+                return { id: idx, txt: column }; // Devolvemos un objeto con id y txt
+            }
+            return null; // Si no cumple la condición, devolvemos null
+        }).filter(col => col !== null); // Filtramos los elementos nulos
+        setColumnsTLU(formattedColumns)  //Solo almacenamos las primeras 8 columnas  
+        
+        
         //Definir filas
-        const justRows = candidates.slice(1)//Saca el primer arreglo ya que ese son las columnas y nos quedamos con puras filas
-        setRowsTLU(justRows);
+        const rows = candidates.slice(1)//Saca el primer arreglo ya son las columnas
+        setFilteredCandidates(prevRows => {
+            return rows.map((row, idx) => { // Recorro arreglo por arreglo [[],[],[]] o fila por fila
+                let precandidate = {fullname:'', email:'', phone:'', country:'', dateBirth:'', civilStatus:'', gender:'', levelStudies:'', position:'', englishLevel:''};
+        
+                row.forEach((pre, idy) => {
+                    if (idy <= 9) {
+                        let attribute = Object.keys(precandidate)[idy];
+                        precandidate[attribute] = pre;
+                    }
+                });
+        
+                precandidate['select'] = <IoMdCheckmark size="1rem" />;
+                precandidate['id'] = idx;
+        
+                return precandidate;
+            });
+        });
+
+
+        //Crear un respaldo d elas filas como variable auxiliar y se pueda restablecer todos cuando en el buscador es vacio
+        setAllCandidates(prevRows => {
+            return rows.map((row, idx) => { // Recorro arreglo por arreglo [[],[],[]] o fila por fila
+                let precandidate = {fullname:'', email:'', phone:'', country:'', dateBirth:'', civilStatus:'', gender:'', levelStudies:'', position:'', englishLevel:''};
+        
+                row.forEach((pre, idy) => {
+                    if (idy <= 9) {
+                        let attribute = Object.keys(precandidate)[idy];
+                        precandidate[attribute] = pre;
+                    }
+                });
+        
+                precandidate['select'] = <IoMdCheckmark size="1rem" />;
+                precandidate['id'] = idx;
+        
+                return precandidate;
+            });
+        });
     }
     useEffect(()=>{//Aqui hago peticion para obtener los candidatos del excel para TL GM o GW
         if(getTypeUser() == 'tl'){
             getPrecandidates();
         }
     },[])
+
+
 
 
 
@@ -109,6 +163,19 @@ function Dashboard(){
     ]
 
 
+    //UseStates para el buscador o search de la seccion precandidates
+    const [searchTerm, setSearchTerm] = useState('');
+    
+    useEffect(()=>{
+        if(searchTerm === ''){
+            setFilteredCandidates(allCandidates)
+        }else{
+            setFilteredCandidates(allCandidates.filter(candidate => {
+                return candidate.fullname.toLowerCase().includes(searchTerm.toLowerCase())
+            }))
+        }
+    },[searchTerm])
+
 
     return(
         <main className="dashboard">
@@ -122,7 +189,7 @@ function Dashboard(){
                             (getTypeUser() == 'tl' ? <Overview info="tl"/> : ( getTypeUser() == "gm" ? <Overview info="gm"/> : <Overview info="gw"/>))//Evaluamos que overvies mostramos, depende del tipo de usuario que ha iniciado sesion
                         :(interfaceShowed == 'board' ? 
                             <Board/>
-                        :(interfaceShowed == "precandidate" ? <Precandidate rows={rowsTLU} columns={columnsTLU}/>
+                        :(interfaceShowed == "precandidate" ? <Precandidate rows={filteredCandidates} columns={columnsTLU} setColumnsTLU={setColumnsTLU} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
                         : <></>)) 
                     }              
                 </div>
