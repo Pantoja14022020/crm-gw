@@ -15,9 +15,9 @@ import { FaCheck } from "react-icons/fa6";
 
 
 
-function Icon({type,name, url, spaceHorizontal, spaceVertical, width, height,fn,color,size}){
+function Icon({type,name, url, spaceHorizontal, spaceVertical, width, height,fn,color,size,center}){
     return(
-        <div onClick={fn} className={`${type == 'icon' ? 'icon' : ''}`} style={{backgroundImage: `url(${ type==="image" ? url : ''})`, marginRight: `${spaceHorizontal ? '0.5rem' : ''}`, marginBottom: `${spaceVertical ? '1rem' : ''}`, width: width, height: height, cursor: `${type == "icon" ? "pointer" : ""}`, backgroundPosition:'center',backgroundSize:'cover'   }}>
+        <div onClick={fn} className={`${type == 'icon' ? 'icon' : ''}`} style={{backgroundImage: `url(${ type==="image" ? url : ''})`, marginRight: `${spaceHorizontal ? '0.5rem' : ''}`, marginBottom: `${spaceVertical ? '1rem' : ''}`, width: width, height: height, cursor: `${type == "icon" ? "pointer" : ""}`, backgroundPosition:'center',backgroundSize:'cover', margin: `${center ? 'auto' : ''}`   }}>
             {
                 type === "icon" 
                 ? 
@@ -51,7 +51,7 @@ function Icon({type,name, url, spaceHorizontal, spaceVertical, width, height,fn,
                             name === 'search' ? <RiSearchLine color={color} size={size} /> : <></>
                         }
                         {
-                            name === 'arrow' ? <MdArrowDropDown color={color} size={size} /> : <></>
+                            name === 'arrow' ? <MdArrowDropDown color={color} size={size} style={{margin:'auto'}}/> : <></>
                         }
                         {
                             name === 'delete' ? <MdDelete color={color} size={size}/> : <></>

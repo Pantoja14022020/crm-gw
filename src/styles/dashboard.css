@@ -4,7 +4,7 @@
     overflow: hidden;
 }
 .dashboard > aside{
-    width: calc(100% - 250px);
+    width: calc(100% - 200px);
     height: 100vh;
     background-color: rgb(240, 240, 240);
     overflow: hidden;

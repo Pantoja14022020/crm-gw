@@ -22,7 +22,8 @@ import tlu from './public/tl.png';
 import gm from './public/gm.png';
 import gw from './public/gw.jpg';
 import { getTypeUser,getOptionSelectedFromLocalStorage,getUserLogged} from './helpers/localstorage';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import {fetchUrlGet} from './helpers/fetchs'
 import Board from './components/Board'
 import Precandidate from './components/Precandidate'
 
@@ -35,26 +36,27 @@ function Dashboard(){
 
     const [interfaceShowed,setInterfaceShowed] = useState(localStorage.getItem('optionSelected'));
     
-    /*const profiles = [
-        {
-            id: 0,
-            name: "tlu",
-            txt: 'Trabajo Legal USA',
-            image: tlu
-        },
-        {
-            id: 1,
-            name: "gmi",
-            txt: 'GM International',
-            image: gm
-        },
-        {
-            id: 2,
-            name: "gw",
-            txt: 'GW CPA',
-            image: gw
+
+
+
+    
+    const [columnsTLU, setColumnsTLU] = useState([]);
+    const [rowsTLU, setRowsTLU] = useState([]);
+    async function getPrecandidates(){
+        const {candidates} = await fetchUrlGet('https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/');   
+        //Definir columnas
+        setColumnsTLU(candidates[0]);
+        //Definir filas
+        const justRows = candidates.slice(1)//Saca el primer arreglo ya que ese son las columnas y nos quedamos con puras filas
+        setRowsTLU(justRows);
+    }
+    useEffect(()=>{//Aqui hago peticion para obtener los candidatos del excel para TL GM o GW
+        if(getTypeUser() == 'tl'){
+            getPrecandidates();
         }
-    ]*/
+    },[])
+
+
 
 
 
@@ -120,7 +122,7 @@ function Dashboard(){
                             (getTypeUser() == 'tl' ? <Overview info="tl"/> : ( getTypeUser() == "gm" ? <Overview info="gm"/> : <Overview info="gw"/>))//Evaluamos que overvies mostramos, depende del tipo de usuario que ha iniciado sesion
                         :(interfaceShowed == 'board' ? 
                             <Board/>
-                        :(interfaceShowed == "precandidate" ? <Precandidate/>
+                        :(interfaceShowed == "precandidate" ? <Precandidate rows={rowsTLU} columns={columnsTLU}/>
                         : <></>)) 
                     }              
                 </div>

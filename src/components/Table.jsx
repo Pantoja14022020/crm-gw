@@ -27,7 +27,7 @@ function Table({columns,rows,setCheckedOptions,checkedOptions}){
                 <table>
                     <thead>
                         <tr>
-                            <th><Icon name="arrow" size="1.2rem"/></th>
+                            <th><Icon name="arrow" size="1.2rem" center={true}/></th>
                             {
                                 columns.map(({id,txt})=>(
                                     <th key={id}>{txt}</th>

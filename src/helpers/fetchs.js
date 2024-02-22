@@ -1,6 +1,23 @@
 import axios from 'axios'
 
 
+const fetchUrlGet = async (url) => {
+
+    try {
+
+        const response = await axios.get(url)
+
+        return response.data
+       
+    } catch (error) {
+        
+        throw error
+
+    }
+
+}
+
+
 const fetchUrlPost = async (url,body) => {
 
     try {
@@ -39,5 +56,6 @@ const fetchUrlPut = async (url,body) => {
 
 export {
     fetchUrlPost,
-    fetchUrlPut
+    fetchUrlPut,
+    fetchUrlGet
 }

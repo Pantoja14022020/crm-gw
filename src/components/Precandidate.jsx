@@ -9,7 +9,7 @@ import Table from "./Table";
 import ActionBar from "./ActionBar";
 import Form  from "./Form";
 
-function Precandidate(){
+function Precandidate({columns,rows}){
 
     const formRef = useRef(null); //Creamos la referencia del fomulario, algo como global var
 
@@ -87,21 +87,16 @@ function Precandidate(){
     ]
 
 
-    const columns = [
-        {id: 1,txt: 'Fullname'},
-        {id: 2,txt: 'Email'},
-        {id: 3,txt: 'Phone'},
-        {id: 4,txt: 'Country'},
-        {id: 5,txt: 'Date Of Birth'},
-        {id: 6,txt: 'Civil Status'},
-        {id: 7,txt: 'Gender'},
-        {id: 8,txt: 'Level Of Last Studies'},
-        {id: 9,txt: 'Position'},
-        {id: 10,txt: 'English Level'}
-    ]
+
+    let columnsTableTLU = [];//Voy resetear y crear un nuevo arreglo de columnas ( es el formato que necesito para pasarlo como props) con las que estoy recibiendo
+    columns.map((column,idx) => {
+        columnsTableTLU.push({id: idx, txt: column})
+    })
+
+    console.log(rows)
 
 
-    const rows = [
+    /*const rows = [
         {id:0,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
         {id:1,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
         {id:2,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
@@ -129,7 +124,7 @@ function Precandidate(){
         {id:24,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
         {id:25,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
         {id:26,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-    ]
+    ]*/
     
 
     const actionsBarPrecandidates = [//Defino las opciones que tendra el nav de actions
@@ -185,7 +180,7 @@ function Precandidate(){
                 <div className="search-container animate__animated animate__bounceInDown">
                     <Search/>
                 </div>
-                <Table columns={columns} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions}/>
+                <Table columns={columnsTableTLU} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions}/>
             </div>
             {
                 showActions 
