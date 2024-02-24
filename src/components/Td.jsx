@@ -10,7 +10,7 @@ function Td({txt, optionMore}){
 
     return (
         optionMore 
-        ? <td>{more ? txt : `${txt.substring(0,5)}...`} <p onClick={handleClick}>{more ? 'Least' : 'See more'}</p> </td>
+        ? <td style={{backgroundColor: `${more ? '#ecf0ff' : ''}`}}>{more ? txt : `${txt.substring(0,5)}...`} <p onClick={handleClick}>{more ? 'Least' : 'See more'}</p> </td>
         : <td>{txt}</td>
     )
 }
