@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Icon from "./Icon";
+import Load from "./Load";
+import Td from "./Td";
 
 
 
@@ -24,42 +26,58 @@ function Table({columns,rows,setCheckedOptions,checkedOptions,setColumnsTLU,setR
         }
     }
     
+    
+    //STATE PARA LA FUNCION 'VER MAS' de una cadena
+    const [more, setMore] = useState(false);
+
 
     return(
         <>
-            <div className="table-container animate__animated animate__slideInUp">
-                <table>
-                    <thead>
-                        <tr>
-                            <th><Icon name="arrow" size="1.2rem" center={true}/></th>
-                            {
-                                columns.map(({id,txt})=>(
-                                    <th key={id}>{txt}</th>
-                                ))
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                            {
-                                rows.map(({id,select,fullname,email,phone,country,dateBirth,civilStatus,gender,levelStudies,position,englishLevel})=>(
-                                    <tr key={id}>
-                                        <td><input type="checkbox" id={id} className="checkbox" onChange={e => handleCheckboxChange(e,id)}/></td>
-                                        <td>{fullname}</td>
-                                        <td>{email}</td>
-                                        <td>{phone}</td>
-                                        <td>{country}</td> 
-                                        <td>{dateBirth}</td>
-                                        <td>{civilStatus}</td>
-                                        <td>{gender}</td>
-                                        <td>{levelStudies}</td>
-                                        <td>{position}</td>
-                                        <td>{englishLevel}</td>
-                                    </tr>
-                                ))
-                            }
-                    </tbody>
-                </table>
-            </div>
+            {
+                <div className="table-container animate__animated animate__slideInUp">
+                    <table>
+                        <thead>
+                            <tr>     
+                                    <th key="0"><Icon name="arrow" size="1.2rem" center={true}/></th>                          
+                                {
+                                    columns.map(({id,txt})=>( 
+                                        <th key={id}>{txt}</th>
+                                    ))
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                                {
+                                    rows.map(({id,select,fullname,email,phone,country,dateBirth,civilStatus,gender,levelStudies,position,englishLevel})=>(
+                                        <tr key={id}>
+                                            <td><input type="checkbox" id={id} className="checkbox" onChange={e => handleCheckboxChange(e,id)}/></td>
+                                            {/**<td>{fullname.substring(0,10)}...</td>
+                                            <td>{email.substring(0,7)}...</td>
+                                            <td>{phone}</td>
+                                            <td>{country.substring(0,8)}...</td> 
+                                            <td>{dateBirth.substring(0,5)}...</td>
+                                            <td>{civilStatus}</td>
+                                            <td>{gender}</td>
+                                            <td>{levelStudies.substring(0,10)}...</td>
+                                            <td>{position.substring(0,10)}...</td>
+                                            <td>{englishLevel}</td>**/}
+                                            <Td txt={fullname}/>
+                                            <Td txt={email} optionMore={true}/>
+                                            <Td txt={phone} optionMore={true}/>
+                                            <Td txt={country} optionMore={true}/>
+                                            <Td txt={dateBirth} />
+                                            <Td txt={civilStatus} />
+                                            <Td txt={gender} />
+                                            <Td txt={levelStudies} />
+                                            <Td txt={position} optionMore={true} />
+                                            <Td txt={englishLevel} />
+                                        </tr>
+                                    ))
+                                }
+                        </tbody>
+                    </table>
+                </div>
+            }
         </>
     )
 }

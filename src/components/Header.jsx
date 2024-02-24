@@ -71,6 +71,7 @@ function Header({interfaceShowed,fullname}){
             <div className="icons-header-aside">
                 <Icon type="icon" name="notification" spaceHorizontal={true} width="40px" height="40px"/>
                 <Icon type="icon" name="options" spaceHorizontal={true} width="40px" height="40px" fn={showModalOptions}/>
+                <Icon type="image"  url={getTypeUser() == 'gm' ? gm : ( getTypeUser() == 'gw' ? gw : tlu)} width="30px" height="30px"/>
                 {/**<div className="profile-icon"><Icon shape="circle" width="40px" height="40px" type="image" url={ getTypeUser() == 'gm' ? gm : ( getTypeUser() == 'gw' ? gw : tlu) }/></div>**/}
             </div>
             {

@@ -17,7 +17,7 @@ import { FaCheck } from "react-icons/fa6";
 
 function Icon({type,name, url, spaceHorizontal, spaceVertical, width, height,fn,color,size,center}){
     return(
-        <div onClick={fn} className={`${type == 'icon' ? 'icon' : ''}`} style={{backgroundImage: `url(${ type==="image" ? url : ''})`, marginRight: `${spaceHorizontal ? '0.5rem' : ''}`, marginBottom: `${spaceVertical ? '1rem' : ''}`, width: width, height: height, cursor: `${type == "icon" ? "pointer" : ""}`, backgroundPosition:'center',backgroundSize:'cover', margin: `${center ? 'auto' : ''}`   }}>
+        <div onClick={fn} className={`${type == 'icon' ? 'icon' : ''}`} style={{backgroundImage: `url(${ type==="image" ? url : ''})`, marginRight: `${spaceHorizontal ? '0.5rem' : ''}`, marginBottom: `${spaceVertical ? '1rem' : ''}`, width: width, height: height, cursor: `${type == "icon" ? "pointer" : ""}`, backgroundPosition:'center',backgroundSize:'cover', margin: `${center ? 'auto' : ''}`, borderRadius: `${type !== 'icon' ? '50%' : ''}`}}>
             {
                 type === "icon" 
                 ? 

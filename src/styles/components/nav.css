@@ -1,55 +1,78 @@
-.navbar-dashboard{
-    position: relative;
-    background-color: white;
+.navbar-dashboard{/*ES EL NAVBAR EN SI*/
+    background-color: var(--blue);
     width: 200px;
     height: 100vh;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    transition: all ease-in-out 0.3s;
+}
+.position-relative{
+    position: relative !important;
+}
+
+
+.hide-navbar-dashboard{/*ESTE DESPLAZA EL NAVBAR HACIA LA IZQUIERDA PARA ESCONDERLO*/
+    transition: all ease-in-out 0.3s;
+    transform: translateX(-100%) !important;
+    display: none;
+}
+.move-arrow{/*Cuando se oculte el navbar, el icono de la flecha del boton, se debe mover para que siga apareciendo*/
+    right: -1.5rem !important;
+    justify-content: end !important;
+    transform: rotate(0) !important;
 }
 
 
 
 
-.header-navbar{
-    width: 88%;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    margin-bottom: 1rem;
-    padding: 0rem 1rem 0rem 0rem;
-    border-bottom: 1px solid #e7e7e7;
+/*ATENCION ATENCION ATENCION ATENCION ATENCION ATENCION ATENCION ATENCION*/
+/*ESTOOS TENDREN QUE MODIFICAR DE ACUERDO A LOS TAMAÑOS DE PANTALLA. ESTO ES PARA LA POSICION DE LA FLECHA O BOTON DE FLECHA PARA MOSTRAR O OCULTAR EL NAVBAR*/
+.left-hide{
+    left: -1.5rem;
 }
-.header-navbar > div{
+.right-show{
+    left: 10.8rem;
+}
+
+
+
+.btn-menu-nav{ /*ES EL BOTON PARA OCULTAR O MOSTRAR EL NAVBAR*/
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transform: rotate(180deg);
+    z-index: 8;
+    width: 50px;
+    height: 50px;
+    padding: 0.5rem;
+    background-color: rgb(8, 8, 8);
     display: flex;
-    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-}
-.header-navbar > div > .icon-header-navbar{
-    background-color: var(--blue);
-    font-size: 2rem;
-    padding: 0.4rem;
-    border-radius: 0.4rem;
-    margin-right: 1rem;
-}
-.header-navbar > div > p{
-    text-transform: uppercase;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
     font-size: 1rem;
-    font-weight: 900;
+    transition: all ease-in-out 0.3s;
 }
-
+.btn-menu-nav:hover{
+    background-color: rgb(26, 26, 26);
+}
 
 
 
 .options-navbar{/*Es el ul que contiene los li u opciones*/
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
     list-style: none;
 }
 .options-navbar li i{
-    margin-left: 0.3rem;
+    margin-left: 0.2rem;
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+    color: #6d6dff;
 }
 
 
@@ -61,18 +84,19 @@
     align-items: center;
     font-size: 0.8rem;
     margin-bottom: 1rem;
-    padding: 0.8rem;
+    padding: 1.2rem;
     border-right: 3px solid transparent;
+    letter-spacing: 0.05rem;
     transition: all ease-in-out 0.3s;
 }
 .options-navbar a p{
     margin-left: 0.5rem;
-    color: #000 !important;
+    color: #ffffff !important;
 }
 .selected{
-    color: var(--blue);
-    border-right-color: var(--blue) !important;
-    background-color: #ededff;
+    color: #b4b4ff;
+    border-right-color: #3636dd !important;
+    background-color: #3636dd;
 }
 
 

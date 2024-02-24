@@ -1,3 +1,4 @@
+import io from 'socket.io-client';
 import Nav from './components/Nav'
 import Header from './components/Header'
 import Overview from './components/Overview'
@@ -28,6 +29,8 @@ import {fetchUrlGet} from './helpers/fetchs'
 import Board from './components/Board'
 import Precandidate from './components/Precandidate'
 
+
+
 function Dashboard(){
 
 
@@ -39,7 +42,7 @@ function Dashboard(){
     
 
 
-
+    const [showSpinner, setShowSpinner] = useState(true);
 
 
 
@@ -49,8 +52,10 @@ function Dashboard(){
     const [allCandidates, setAllCandidates] = useState([]);//Vraiable auxiliar
     //const [rowsTLU, setRowsTLU] = useState([]);
     async function getPrecandidates(){
+        //Aqui decido que url voy a consumir los datos de excelm si el de local o el que esta desplegado
         const {candidates} = await fetchUrlGet('https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/');   
-        
+        //const {candidates} = await fetchUrlGet('http://localhost:8080/tl/excel/candidate/')
+
         //Definir columnas
         const columns= candidates[0]
         const formattedColumns = columns.map((column, idx) => {
@@ -106,10 +111,16 @@ function Dashboard(){
         if(getTypeUser() == 'tl'){
             getPrecandidates();
         }
+        //setShowSpinner(false);
     },[])
 
 
-
+    const socket = io('https://api-gw-cpa-pc-20aq.onrender.com');//Me conecto o inicializo
+    //const socket = io('http://localhost:8080')
+    
+    socket.on('notify', (mensaje) => {
+        console.log('Mensaje recibido solo para este cliente:', mensaje);
+    });
 
 
 
@@ -177,10 +188,17 @@ function Dashboard(){
     },[searchTerm])
 
 
+
+    
+    const [showNavbar, setShowNavbar] = useState(true);//Variable para definir si se muestra el navbar
+
+
+
+
     return(
         <main className="dashboard">
-            <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**/ setInterfaceShowed={setInterfaceShowed}/>
-            <aside style={{backgroundColor: `${interfaceShowed !== 'overview' ? '#fff' : '' }`}}>
+            <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**/ setInterfaceShowed={setInterfaceShowed} showNavbar={showNavbar} setShowNavbar={setShowNavbar}/>
+            <aside style={{backgroundColor: `${interfaceShowed !== 'overview' ? '#fff' : '' }`}} className={`${showNavbar ? 'part-width' : 'all-width'}`}>
                 <Header interfaceShowed={interfaceShowed} fullname={fullname}/>
                 <div className="content-dashboard">
                     {   /*Aqui decidimo que tipo de Overview vamos a mostrar, dependiendo el tipo de usuario que inicio sesion */
@@ -189,7 +207,7 @@ function Dashboard(){
                             (getTypeUser() == 'tl' ? <Overview info="tl"/> : ( getTypeUser() == "gm" ? <Overview info="gm"/> : <Overview info="gw"/>))//Evaluamos que overvies mostramos, depende del tipo de usuario que ha iniciado sesion
                         :(interfaceShowed == 'board' ? 
                             <Board/>
-                        :(interfaceShowed == "precandidate" ? <Precandidate rows={filteredCandidates} columns={columnsTLU} setColumnsTLU={setColumnsTLU} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+                        :(interfaceShowed == "precandidate" ? <Precandidate rows={filteredCandidates} columns={columnsTLU} setColumnsTLU={setColumnsTLU} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner}/>
                         : <></>)) 
                     }              
                 </div>

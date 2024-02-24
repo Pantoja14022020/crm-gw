@@ -17,6 +17,8 @@
 .icons-header-aside{
     display: flex;
     flex-direction: row;
+    align-items: center;
+    padding-right: 1rem !important;
 }
 .profile-icon{
     margin-left: 2rem;

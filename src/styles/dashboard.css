@@ -2,17 +2,24 @@
     display: flex;
     flex-direction: row;
     overflow: hidden;
+    position: relative;
 }
-.dashboard > aside{
+.part-width{
     width: calc(100% - 200px);
     height: 100vh;
     background-color: rgb(240, 240, 240);
     overflow: hidden;
 }
-
+.all-width{/*Es la clase para ocupar todo lo largo de la pantalla una vez que desaparezca el navbar*/
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(240, 240, 240);
+    overflow: hidden;
+}
 
 .content-dashboard{
     width: 100%;
     height: calc(100% - 75px);
     overflow: hidden;
+    transition: all ease-in-out 0.3s;
 }

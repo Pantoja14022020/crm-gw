@@ -7,8 +7,13 @@ import Search from "./Search";
 import Table from "./Table";
 import ActionBar from "./ActionBar";
 import Form  from "./Form";
+import Load from "./Load";
 
-function Precandidate({columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searchTerm}){
+function Precandidate({columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner}){
+
+    
+   
+    rows.length > 0 ? setShowSpinner(false) : setShowSpinner(true);
 
     const formRef = useRef(null); //Creamos la referencia del fomulario, algo como global var
 
@@ -183,14 +188,21 @@ function Precandidate({columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searc
                 <></>
             }
             <div className="btn-new-candidate">
-                <Button fn={setTrueShowFormPrecandidate} txt={ getTypeUser() == 'gm' ? 'New Customer' : (getTypeUser() == 'gw' ? 'gw' : 'New Candidate') }size="100%" iconAdd={true} colorIcon="#8585b6"/>
-            </div>
-            <div className="container-candidates">
                 <div className="search-container animate__animated animate__bounceInDown">
                     <Search setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
                 </div>
-                <Table columns={columns} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setColumnsTLU={setColumnsTLU} setRowsTLU={setRowsTLU}/>
+                <div className="btn-n-c">
+                    <Button fn={setTrueShowFormPrecandidate} txt={ getTypeUser() == 'gm' ? 'New Customer' : (getTypeUser() == 'gw' ? 'gw' : 'New Candidate') }size="100%" iconAdd={true} colorIcon="#8585b6"/>
+                </div>
             </div>
+            <div className="container-candidates">
+                {
+                    showSpinner 
+                    ? <div className="spinner-table-precandidates"><Load/></div>
+                    : <Table columns={columns} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setColumnsTLU={setColumnsTLU} setRowsTLU={setRowsTLU}/>
+                }
+            </div>
+            
             {
                 showActions 
                 ? <ActionBar actions={actionsBarPrecandidates}/>
