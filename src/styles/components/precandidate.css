@@ -3,6 +3,12 @@
     display: flex;
     flex-direction: column;
 }
+.modal-msg-section-precandidates{/*Es el padre que almacena el modal de notificaicon de mensajes*/
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
 .btn-new-candidate{
     width: 98.5%;
     display: flex;
@@ -50,19 +56,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 5;
+    z-index: 8;
+    background-color: rgba(0, 0, 0, 0.123);
 }
 .form-precandidate{/*Es el hijo que contiene el componente form*/
     padding: 2rem;
     border-radius: 0.7rem;
     position: relative;
-    height: 80%;
-    width: 40%;
-    overflow-y: auto;
-    overflow-x: hidden;
+    height: fit-content;
+    width: 85%;
     background: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    color: #838383;
 }
 
+
+.form-precandidate h1{/*Es el titulo del formulario*/
+  font-size: 0.8rem;
+  margin-bottom: 1.5rem;
+  color: black;
+  font-weight: 500;
+}
 
 
 

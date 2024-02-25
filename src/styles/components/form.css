@@ -1,6 +1,7 @@
 form{
     font-size: 0.8rem;
     position: relative;
+    height: 100%;
 }
 form fieldset{
     display: flex;

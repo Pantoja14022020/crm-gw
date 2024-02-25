@@ -9,6 +9,7 @@ import ActionBar from "./ActionBar";
 import Form  from "./Form";
 import Load from "./Load";
 import SelectDefault from "./SelectDefault";
+import Modal from "./Modal";
 
 function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel}){
 
@@ -18,6 +19,16 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
     levelStudiesOptions.push('Studies Level');
     levelEnglishOptions.reverse();//Rvertimos el orden de los elementos para que aparezca al inicio la opcion que agregamos
     levelStudiesOptions.reverse();
+
+
+
+    const [modal,setModal] = useState(false);
+    const [message,setMessage] = useState("");
+    const [title, setTitle] = useState("");
+    const [type,setType] = useState("");
+    const formRefNewPrecandidate = useRef(null); //Creamos la referencia del fomulario, algo como global var
+
+
 
     useEffect(()=>{
         if(rows.length == 0){
@@ -61,22 +72,22 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
         {
             id: 3,
             name: "country",
-            type: "select",
+            type: "text",
             htmlfor: "country",
             txt: "Country"
         },
         {
             id: 4,
-            name: "date_birth",
-            type: "date",
-            htmlfor: "date_birth",
+            name: "dateBirth",
+            type: "text",
+            htmlfor: "dateBirth",
             txt: "Date Birth"
         },
         {
             id: 5,
-            name: "civil_status",
-            type: "select",
-            htmlfor: "civil_status",
+            name: "civilStatus",
+            type: "text",
+            htmlfor: "civilStatus",
             txt: "Civil Status"
         },
         {
@@ -84,13 +95,14 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
             name: "gender",
             type: "select",
             htmlfor: "gender",
-            txt: "Gender"
+            txt: "Gender",
+            options: ['Masculino', 'Femenino']
         },
         {
             id: 7,
-            name: "level_studies",
-            type: "select",
-            htmlfor: "level_studies",
+            name: "levelStudies",
+            type: "text",
+            htmlfor: "levelStudies",
             txt: "Level of Last Studies"
         },
         {
@@ -102,10 +114,11 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
         },
         {
             id: 9,
-            name: "english_level",
+            name: "englishLevel",
             type: "select",
-            htmlfor: "english_level",
-            txt: "English Level"
+            htmlfor: "englishLevel",
+            txt: "English Level",
+            options: ['Ninguno','Basico','Intermedio','Avanzado']
         },
     ]
 
@@ -192,14 +205,108 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
             setShowActions(false)
     },[checkedOptions])
 
+
+
+
+
+
+
+
+
+
+
+
+
+    //-----------------------------FORMULARIO------------------------------
+    //INICIO. APARTADO PARA VALIDAR QUE EL FORMULARIO ENVIA TODOS LOS DATOS REQUERIDOS
+    const [valoresNewPrecandidate, setValoresNewPrecandidate] = useState({
+        fullname: '',
+        country: '',
+        email: '',
+        dateBirth: '',
+        levelStudies: '',
+        phone: '',
+        civilStatus: '',
+        position: ''
+    });
+    const [gender,setGender] = useState('');
+    const  [levelEnglish, setLevelEnglish] =  useState('');
+    const handleChangeNewPrecandidate = e => {//Funcion para cuando se este escribiendo en un input del formulario 'new precandidate'
+        const { name, value } = e.target;//Actaulizar el estado de los valores 
+        setValoresNewPrecandidate({
+            ...valoresNewPrecandidate,
+            [name]: value
+        });
+    }
+    const handleSubmitNewPrecandidate = async e => {//Funcion para cuando se envia el formulario
+        e.preventDefault();
+        const {fullname,country,email,dateBirth,levelStudies,phone,civilStatus,position} = valoresNewPrecandidate;
+        const datosForm = {
+            fullname,
+            country,
+            email,
+            dateBirth,
+            levelEnglish,
+            phone,
+            gender,
+            levelStudies,
+            civilStatus,
+            position
+        }
+        if(fullname.length == 0 || country.length == 0 || email.length == 0 || dateBirth.length == 0 || levelEnglish.length == 0 || phone.length == 0 || gender.length == 0 || levelStudies.length == 0 || civilStatus.length == 0 || position.length == 0){//Si ambos inputs no estan completos
+            setModal(true)
+            setTitle("Incomplete Fields")
+            setMessage("Fill all fields")
+            setType("error")
+        }else{
+            console.log(datosForm)
+            console.log("Creando new precandidate....")
+        }
+    }
+    //FIN. APARTADO PARA VALIDAR QUE EL FORMULARIO ENVIA TODOS LOS DATOS REQUERIDOS
+
+
+
+
+
+
+
+
+
+    //Una vez aparezca el moda, eliminarlo pasado los x segundos
+    useEffect(()=>{
+        const timer = setTimeout(()=>{
+            setModal(false)
+        },5000)
+        return () => clearTimeout(timer)
+    },[modal])
+
+
+
+
+
+
+
+
     return (
         <section className="section-precandidates">
+            {
+                modal ? 
+                    <>
+                        <div className="modal-msg-section-precandidates">{/*Es el cuadro padre que almacena el modal */}
+                            <Modal title={title} message={message} type={type}/>
+                        </div>
+                    </>
+                :
+                    <></>
+            }
             {
                 showFormPrecandidate ? //Es para mostrar el formulario para crear precandidato
                 <>
                     <div className="container-signup-precandidate" onClick={e => setFalseShowFormPrecandidate(e)}>
                         <div className="form-precandidate animate__animated animate__bounceInRight">
-                            <Form width="100%" action="#" method="#" fieldsets={fieldsetsFormSignupPrecandidate} txtButtonSubmit="Done"  reform={formRef}/>
+                            <h1>New Precandidate</h1>
+                            <Form flexDirection="row" widthFieldset="30%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsFormSignupPrecandidate} txtButtonSubmit="Create" fnChange={handleChangeNewPrecandidate} fnSubmit={handleSubmitNewPrecandidate} reform={formRefNewPrecandidate} setGender={setGender} setLevelEnglish={setLevelEnglish}/>
                         </div>
                     </div>
                 </>

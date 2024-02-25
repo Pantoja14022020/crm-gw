@@ -273,12 +273,12 @@ export function Login(){
                     ?
                         <>
                             <h1>Sign In</h1>
-                            <Form width="300px" action="#" method="#" fieldsets={fieldsetsFormLogin} txtButtonSubmit="Enter" fnSubmit={handleSubmitLogin} fnChange={handleChangeLogin} showSpinner={showSpinner} reform={formRef}/>
+                            <Form widthForm="300px" action="#" method="#" fieldsets={fieldsetsFormLogin} txtButtonSubmit="Enter" fnSubmit={handleSubmitLogin} fnChange={handleChangeLogin} showSpinner={showSpinner} reform={formRef}/>
                         </>
                     :
                         <>
                             <h1>New Password</h1>
-                            <Form width="300px" action="#" method="#" fieldsets={fieldsetsFormNewPassword} txtButtonSubmit="Done" fnSubmit={handleSubmitNewPassword} fnChange={handleChangeNewPassword} showSpinner={showSpinner} reform={formRef}/>
+                            <Form widthForm="300px" action="#" method="#" fieldsets={fieldsetsFormNewPassword} txtButtonSubmit="Done" fnSubmit={handleSubmitNewPassword} fnChange={handleChangeNewPassword} showSpinner={showSpinner} reform={formRef}/>
                         </>
                 }
             </div>

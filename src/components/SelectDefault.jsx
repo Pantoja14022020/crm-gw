@@ -2,7 +2,7 @@ import { useState } from "react"
 import { MdArrowDropDown } from "react-icons/md";
 
 
-function SelectDefault({width,padding,color,title,options, setParam}){
+function SelectDefault({width,padding,color,title,options, setParam, fontSize}){
 
     
     const [txtSelect, setTxtSelect] = useState(title);//Es el texto que aparece al inicio del select
@@ -15,11 +15,13 @@ function SelectDefault({width,padding,color,title,options, setParam}){
     USE STATE Y SE PUEDA FILTRAR LOS CANDIDATOS, ESTE VALOR SE OCUPA EN EL 'Dashboard.jsx' linea 178 */
     function setTxtGlobalVariable(optionSelected){
         setTxtSelect(optionSelected);
-        setParam(optionSelected)//Lo hacemos global para ser utilizado en el filter   
+        if(setParam){
+            setParam(optionSelected)//Lo hacemos global para ser utilizado en el filter 
+        }  
     }
 
     return(
-        <div className="select" style={{width: width, backgroundColor: color}} onClick={e => setShowOptionsSelect(!showOptionsSelect)}>
+        <div className="select" style={{width: width, backgroundColor: color, fontSize: fontSize}} onClick={e => setShowOptionsSelect(!showOptionsSelect)}>
             <p style={{display:"flex", flexDirection: "row", justifyContent: "space-between"}}>{txtSelect} <MdArrowDropDown/></p>
             {
                 showOptionsSelect 
