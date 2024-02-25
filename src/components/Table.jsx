@@ -37,8 +37,11 @@ function Table({columns,rows,setCheckedOptions,checkedOptions,setColumnsTLU,setR
                 <div className="table-container">
                     <table>
                         <thead>
-                            <tr>     
-                                    <th key="0"><Icon name="arrow" size="1.2rem" center={true}/></th>                          
+                            <tr>   
+                                {
+                                    columns.length > 0 ? <th key="0"><Icon name="arrow" size="1.2rem" center={true}/></th> : <></>
+                                }  
+                                                              
                                 {
                                     columns.map(({id,txt})=>( 
                                         <th key={id}>{txt}</th>

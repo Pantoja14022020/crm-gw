@@ -22,10 +22,11 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
     useEffect(()=>{
         if(rows.length == 0){
             console.log("apga spinner")
+            //setShowSpinner(false)
         }else{
             setShowSpinner(false)
         }
-        console.log("cambiando longitud rows....")
+        //console.log("cambiando longitud rows....")
     },[rows])
 
     //console.log(rows.length)///////////////////////////////////////////////

@@ -182,7 +182,7 @@ function Dashboard(){
     const [paramStudiesLevel, setParamStudiesLevel] = useState('');
 
     useEffect(()=>{
-        console.log("cambios")
+        //console.log("cambios")
         if(searchTerm === '' && paramEnglishLevel === '' && paramStudiesLevel === ''){
             setFilteredCandidates(allCandidates)
         }else{
@@ -196,7 +196,7 @@ function Dashboard(){
             const filterData = {
                 searchTerm,paramEnglishLevel,paramStudiesLevel
             }
-            console.log(filterData)
+            //console.log(filterData)
 
             setFilteredCandidates(
                 allCandidates.filter(candidate => {
