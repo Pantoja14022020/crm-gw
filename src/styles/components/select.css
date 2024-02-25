@@ -1,54 +1,38 @@
-.table-container{
-    margin-top: 1rem;
-    width: 100%;
-    position: relative;
-    height: 400px;
-    overflow-y: auto;
-    overflow-x: auto;
-}
-table{
-    width: 100%;
+.select{
+    border-radius: 0.3rem;
     font-size: 0.6rem;
+    position: relative;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-right: 1rem;
 }
-table thead th{
-    width: fit-content;
-    padding: 0.7rem 0;
-    font-weight: 100;
-    letter-spacing: 0.02rem;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background-color: #f0f0fa;
-    color: #0e0e0e;
-}
-table thead th:last-child{
-    border-top-right-radius: 0.5rem;
-}
-table thead th:first-child{
-    border-top-left-radius: 0.5rem;
-}
-table tbody tr td{
-    padding: 1rem;
-    text-align: center;
+.options{
+    width: 100%;
+    max-height: 300px;
+    position: absolute;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 3;
+    margin: none !important;
+    margin-top: 0.8rem;
+    border: 1px solid rgb(238, 238, 238);
     border-radius: 0.5rem;
+    left: 0;
+    background-color: white;
+    padding: 0.5rem;
 }
-table tbody tr td p{
-  color: #274eff;
-  cursor: pointer;
+.options .option{
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 0.3rem;
+    transition: all ease-in-out 0.3s;
 }
-
-
-
-
-
-.checkbox{
-  background-color: var(--blue);
-  color: var(--blue);
-  outline: none;
-  padding: 1rem;
+.options .option:last-child{
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
 }
-.rowSelected{
-  background-color: #f2eff7;
+.options .option:hover{
+    background-color: #f1f1f1;
 }
 
 
@@ -56,31 +40,37 @@ table tbody tr td p{
 
 
 
-/* Estilos para el contenedor de la tabla */
 
-  
-  /* Estilos para el scroll vertical */
-  .table-container::-webkit-scrollbar {
+
+
+
+
+
+
+
+/*ESTILOS PARA EL SCROLL*/
+/* Estilos para el scroll vertical */
+.options::-webkit-scrollbar {
     width: 5px; /* Ancho del scroll */
     height: 5px;
   }
   
-  .table-container::-webkit-scrollbar-track {
+  .options::-webkit-scrollbar-track {
     background: #ffffff; /* Color de fondo del track */
   }
   
-  .table-container::-webkit-scrollbar-thumb {
+  .options::-webkit-scrollbar-thumb {
     background: #d4d4d4; /* Color del thumb (barra deslizante) */
     opacity: 0;
     border-radius: 3px; /* Borde redondeado del thumb */
   }
   
   /* Pseudoelemento antes del thumb */
-  .table-container::-webkit-scrollbar-thumb:hover::before {
+  .options::-webkit-scrollbar-thumb:hover::before {
     opacity: 1; /* Hace visible el pseudoelemento */
   }
   
-  .table-container::-webkit-scrollbar-thumb::before {
+  .options::-webkit-scrollbar-thumb::before {
     content: ''; /* Contenido del pseudoelemento */
     position: absolute; /* Establece la posición absoluta */
     width: 8px; /* Ancho igual al del thumb */
@@ -94,7 +84,7 @@ table tbody tr td p{
   }
   
   /* Pseudoelemento después del thumb */
-  .table-container::-webkit-scrollbar-thumb::after {
+  .options::-webkit-scrollbar-thumb::after {
     content: ''; /* Contenido del pseudoelemento */
     position: absolute; /* Establece la posición absoluta */
     width: 8px; /* Ancho igual al del thumb */
@@ -108,7 +98,7 @@ table tbody tr td p{
   }
   
   /* Al hacer hover sobre el scroll */
-  .table-container:hover::-webkit-scrollbar-thumb::before,
-  .table-container:hover::-webkit-scrollbar-thumb::after {
+  .options:hover::-webkit-scrollbar-thumb::before,
+  .options:hover::-webkit-scrollbar-thumb::after {
     opacity: 1; /* Hace visible los pseudoelementos */
   }

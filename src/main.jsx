@@ -4,8 +4,12 @@ import './styles/index.css'
 import App from "./App.jsx"
 import 'animate.css/animate.min.css';
 
+// @material-tailwind/react
+import { ThemeProvider } from "@material-tailwind/react";
+
+
 ReactDOM.createRoot(document.getElementById("root")).render(
-    
-    <App/>
-    
+    <ThemeProvider>
+         <App/>
+    </ThemeProvider>
 )

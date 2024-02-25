@@ -8,12 +8,30 @@ import Table from "./Table";
 import ActionBar from "./ActionBar";
 import Form  from "./Form";
 import Load from "./Load";
+import SelectDefault from "./SelectDefault";
 
-function Precandidate({columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner}){
+function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel}){
 
-    
-   
-    rows.length > 0 ? setShowSpinner(false) : setShowSpinner(true);
+    const levelEnglishOptions = [...new Set (options.map((option) => option.englishLevel))]//Obtengo los valores para el select nivel de ingles
+    const levelStudiesOptions = [...new Set (options.map((option) => option.levelStudies))]//Obtengo los valores para el select nivel de estudios
+    levelEnglishOptions.push('English Level');//Agregamos el titulo como opcion para que no pierda
+    levelStudiesOptions.push('Studies Level');
+    levelEnglishOptions.reverse();//Rvertimos el orden de los elementos para que aparezca al inicio la opcion que agregamos
+    levelStudiesOptions.reverse();
+
+    useEffect(()=>{
+        if(rows.length == 0){
+            console.log("apga spinner")
+        }else{
+            setShowSpinner(false)
+        }
+        console.log("cambiando longitud rows....")
+    },[rows])
+
+    //console.log(rows.length)///////////////////////////////////////////////
+    //console.log(options)
+    //rows.length > 0 ? setShowSpinner(false) : setShowSpinner(true);//Cuando ya se tenga registros en la tabla... quitar el spinner
+    //console.log("precandidate jsx, cuando es la primera vez que carga", showSpinner)
 
     const formRef = useRef(null); //Creamos la referencia del fomulario, algo como global var
 
@@ -196,10 +214,18 @@ function Precandidate({columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searc
                 </div>
             </div>
             <div className="container-candidates">
+                    <div className="params-filter-precandidate">
+                        <SelectDefault width="110px" color="#f1f1f1" title="English Level" options={levelEnglishOptions} setParam={setParamEnglishLevel} />
+                        <SelectDefault width="250px" color="#f1f1f1" title="Studies Level" options={levelStudiesOptions} setParam={setParamStudiesLevel} />
+                    </div>
                 {
                     showSpinner 
-                    ? <div className="spinner-table-precandidates"><Load/></div>
-                    : <Table columns={columns} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setColumnsTLU={setColumnsTLU} setRowsTLU={setRowsTLU}/>
+                    ? 
+                        <div className="spinner-table-precandidates"><Load/></div>
+                    : 
+                        <>
+                            <Table columns={columns} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setColumnsTLU={setColumnsTLU} setRowsTLU={setRowsTLU}/>
+                        </>
                 }
             </div>
             

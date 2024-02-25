@@ -17,6 +17,7 @@ import './styles/components/barstatus.css'
 import './styles/components/search.css'
 import './styles/components/table.css'
 import './styles/components/actionbar.css'
+import './styles/components/select.css'
 import { RxDashboard } from "react-icons/rx";
 import { FaUserFriends } from "react-icons/fa";
 import { IoMdCheckmark } from "react-icons/io";
@@ -175,17 +176,57 @@ function Dashboard(){
 
 
     //UseStates para el buscador o search de la seccion precandidates
+    //INICIO----AQUI DEFINO TODOS LOS CAMBIOS DE LOS PARAMETROS PARA FILTRAR
     const [searchTerm, setSearchTerm] = useState('');
-    
+    const [paramEnglishLevel, setParamEnglishLevel] = useState('')
+    const [paramStudiesLevel, setParamStudiesLevel] = useState('');
+
     useEffect(()=>{
-        if(searchTerm === ''){
+        console.log("cambios")
+        if(searchTerm === '' && paramEnglishLevel === '' && paramStudiesLevel === ''){
             setFilteredCandidates(allCandidates)
         }else{
-            setFilteredCandidates(allCandidates.filter(candidate => {
-                return candidate.fullname.toLowerCase().includes(searchTerm.toLowerCase())
-            }))
+            if(paramEnglishLevel === 'English Level'){ //Es el option que inserte en Precandidate.jsx linea 17
+                setParamEnglishLevel('');
+            }
+            if(paramStudiesLevel === 'Studies Level'){
+                setParamStudiesLevel('');
+            }
+
+            const filterData = {
+                searchTerm,paramEnglishLevel,paramStudiesLevel
+            }
+            console.log(filterData)
+
+            setFilteredCandidates(
+                allCandidates.filter(candidate => {
+                    //!filterData.searchTerm || candidate.fullname === filterData.searchTerm
+                    return (candidate.fullname.toLowerCase().includes(filterData.searchTerm.toLocaleLowerCase())) &&
+                           (!filterData.paramEnglishLevel || candidate.englishLevel === filterData.paramEnglishLevel) &&
+                           (!filterData.paramStudiesLevel || candidate.levelStudies === filterData.paramStudiesLevel);
+                })
+            )
+
+            //console.log(filteredCandidates.length == 0)
+            //console.log(allCandidates)
+            /*setFilteredCandidates(
+                allCandidates.filter(candidate => 
+                    {
+                        return candidate.fullname.toLowerCase().includes(searchTerm.toLowerCase())
+                    }
+                ).filter(candidate => 
+                    {
+                        return candidate.englishLevel.toLowerCase() === paramEnglishLevel.toLocaleLowerCase()
+                    }
+                ).filter(candidate => 
+                    {
+                        return candidate.levelStudies.toLowerCase() === paramStudiesLevel.toLocaleLowerCase()
+                    }
+                )
+            )*/
         }
-    },[searchTerm])
+    },[searchTerm,paramEnglishLevel,paramStudiesLevel])
+    //FIN-----AQUI DEFINO TODOS LOS CAMBIOS DE LOS PARAMETROS PARA FILTRAR
 
 
 
@@ -194,7 +235,7 @@ function Dashboard(){
 
 
 
-
+    
     return(
         <main className="dashboard">
             <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**/ setInterfaceShowed={setInterfaceShowed} showNavbar={showNavbar} setShowNavbar={setShowNavbar}/>
@@ -207,7 +248,7 @@ function Dashboard(){
                             (getTypeUser() == 'tl' ? <Overview info="tl"/> : ( getTypeUser() == "gm" ? <Overview info="gm"/> : <Overview info="gw"/>))//Evaluamos que overvies mostramos, depende del tipo de usuario que ha iniciado sesion
                         :(interfaceShowed == 'board' ? 
                             <Board/>
-                        :(interfaceShowed == "precandidate" ? <Precandidate rows={filteredCandidates} columns={columnsTLU} setColumnsTLU={setColumnsTLU} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner}/>
+                        :(interfaceShowed == "precandidate" ? <Precandidate options={allCandidates} rows={filteredCandidates} columns={columnsTLU} setColumnsTLU={setColumnsTLU} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel}/>
                         : <></>)) 
                     }              
                 </div>

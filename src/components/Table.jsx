@@ -34,7 +34,7 @@ function Table({columns,rows,setCheckedOptions,checkedOptions,setColumnsTLU,setR
     return(
         <>
             {
-                <div className="table-container animate__animated animate__slideInUp">
+                <div className="table-container">
                     <table>
                         <thead>
                             <tr>     
