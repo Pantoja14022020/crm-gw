@@ -31,6 +31,9 @@ function Table({columns,rows,setCheckedOptions,checkedOptions,setColumnsTLU,setR
     const [more, setMore] = useState(false);
 
 
+
+    //console.log(rows)   es para ver como son los id de cada registro y poder ver que id modificar
+
     return(
         <>
             {

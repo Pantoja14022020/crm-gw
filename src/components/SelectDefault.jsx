@@ -1,13 +1,25 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { MdArrowDropDown } from "react-icons/md";
 
 
-function SelectDefault({width,padding,color,title,options, setParam, fontSize}){
+function SelectDefault({width,padding,color,title,options, setParam, fontSize, setParamDefaultEdit, valueDefault,precandidateSelected}){
 
-    
+   
     const [txtSelect, setTxtSelect] = useState(title);//Es el texto que aparece al inicio del select
 
     const [showOptionsSelect, setShowOptionsSelect] =  useState(false); //Para mostrar las opciones del select
+
+
+    //ESTO ES PARA ESTABLECER POR DEFAULT EL VALOR CUANDO SE RENDERICE, ESTO SE IMPLEMENTA CUANDO EDITAMOS UN PRECANDIDATO Y
+    //QUERMOS QUE SE PINTE DE FORMA AUTOMATICA LOS DATOS
+    
+    useEffect(()=>{
+        if(setParamDefaultEdit == true && precandidateSelected != null){
+            console.log("lo cambie")
+            setTxtSelect(valueDefault)
+            setParam(valueDefault)
+        }
+    },[precandidateSelected])
 
 
     /*ESTA FUNCION ESTABLECE EL TEXTO QUE TENDRA EL SELECT Y SE MUESTRE
@@ -19,6 +31,8 @@ function SelectDefault({width,padding,color,title,options, setParam, fontSize}){
             setParam(optionSelected)//Lo hacemos global para ser utilizado en el filter 
         }  
     }
+
+    console.log(txtSelect)
 
     return(
         <div className="select" style={{width: width, backgroundColor: color, fontSize: fontSize}} onClick={e => setShowOptionsSelect(!showOptionsSelect)}>

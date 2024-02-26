@@ -4,7 +4,7 @@
     flex-direction: row;
     padding: 1rem;
     border-radius: 0.6rem;
-    background-color: var(--modal-color-primary);
+    background-color: #fff;
 }
 .modal-primary h1{
     text-transform: uppercase;
