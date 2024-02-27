@@ -258,11 +258,11 @@ export function Login(){
                     ?
                         <>
                             <p>Forgot your password?</p>
-                            <Button txt='Click here' fn={setNewPasswordForm} size="auto-fit"/>
+                            <Button txt='Click here' fn={setNewPasswordForm} size="auto-fit" bgColor="#2020cc"/>
                         </> 
                     : 
                         <>
-                            <Button txt='Sign In' fn={setLoginForm} size="auto-fit"/>
+                            <Button txt='Sign In' fn={setLoginForm} size="auto-fit" bgColor="#2020cc"/>
                         </>
                 }
             </nav>
