@@ -12,7 +12,7 @@ import SelectDefault from "./SelectDefault";
 import Modal from "./Modal";
 import { fetchUrlPost, fetchUrlPut } from "../helpers/fetchs";
 
-function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel}){
+function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel, getPrecandidates}){
 
     const levelEnglishOptions = [...new Set (options.map((option) => option.englishLevel))]//Obtengo los valores para el select nivel de ingles
     const levelStudiesOptions = [...new Set (options.map((option) => option.levelStudies))]//Obtengo los valores para el select nivel de estudios
@@ -212,6 +212,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     civilStatus: '',
                     position: ''
                 })
+                setFetchUpdate(false)
 
                 const checkBoxs = document.querySelectorAll('.checkbox')
                 if(checkBoxs){
@@ -414,9 +415,10 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
 
 
             //Do fetch to update ESTE ESTA RELACIONADON CON EL EFFECT
+            console.log("fetchUpdate",fetchUpdate)
             
             if(fetchUpdate){
-
+                console.log("updating...")
                 //Hide formulario
                 setFormPrecandidate(false);
 
@@ -430,6 +432,11 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     setMessage(msg)
                     setType("success")
                     setShowSpinnerFormPre(false)
+
+                    setFetchUpdate(false)
+
+                    //Hay que actualizar la pagina o la tabla
+                    getPrecandidates()
                 }else{
                     //Mostramos un modal
                     setModal(true)
@@ -437,14 +444,17 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     setMessage(msg)
                     setType('error')
                     setShowSpinnerFormPre(false)
+
+                    setFetchUpdate(false)
                 }
             }else{
+                console.log("creating...")
+                //Hide formulario
+                setFormPrecandidate(false);
+
                 const {added,msg} = await fetchUrlPost("https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/",datosForm)//Creamos un nuevo registro (precandidato)
         
                 if(added){
-
-                    //Hide formulario
-                    setFormPrecandidate(false);
 
                     //Show modal
                     setModal(true)
@@ -452,6 +462,9 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     setMessage(msg)
                     setType("success")
                     setShowSpinnerFormPre(false)
+
+                    //Hay que actualizar la pagina o la tabla
+                    getPrecandidates()
                 }else{
                     //Mostramos un modal
                     setModal(true)
@@ -463,7 +476,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
             }
 
             //Reset inputs in form
-            //e.target.reset()
+            e.target.reset()
         }
     }
     //FIN. APARTADO PARA VALIDAR QUE EL FORMULARIO ENVIA TODOS LOS DATOS REQUERIDOS
@@ -542,7 +555,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                         <div className="spinner-table-precandidates"><Load/></div>
                     : 
                         <>
-                            <Table columns={columns} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setColumnsTLU={setColumnsTLU} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate}/>
+                            <Table columns={columns} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setColumnsTLU={setColumnsTLU} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate}/>
                         </>
                 }
             </div>

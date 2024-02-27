@@ -6,6 +6,11 @@
     overflow-y: auto;
     overflow-x: auto;
 }
+@media screen and (min-height: 800px){
+  .table-container{
+    height: 650px;
+  }
+}
 table{
     width: 100%;
     font-size: 0.6rem;

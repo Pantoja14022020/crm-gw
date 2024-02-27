@@ -248,7 +248,7 @@ function Dashboard(){
                             (getTypeUser() == 'tl' ? <Overview info="tl"/> : ( getTypeUser() == "gm" ? <Overview info="gm"/> : <Overview info="gw"/>))//Evaluamos que overvies mostramos, depende del tipo de usuario que ha iniciado sesion
                         :(interfaceShowed == 'board' ? 
                             <Board/>
-                        :(interfaceShowed == "precandidate" ? <Precandidate options={allCandidates} rows={filteredCandidates} columns={columnsTLU} setColumnsTLU={setColumnsTLU} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel}/>
+                        :(interfaceShowed == "precandidate" ? <Precandidate options={allCandidates} rows={filteredCandidates} columns={columnsTLU} setColumnsTLU={setColumnsTLU} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel} getPrecandidates={getPrecandidates}/>
                         : <></>)) 
                     }              
                 </div>
