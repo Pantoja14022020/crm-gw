@@ -5,7 +5,7 @@ import Td from "./Td";
 
 
 
-function Table({columns,rows,setCheckedOptions,checkedOptions,setColumnsTLU,setRowsTLU}){
+function Table({columns,rows,setCheckedOptions,checkedOptions,setColumnsTLU,setRowsTLU,setPrecandidateSelected, setValoresNewPrecandidate}){
 
 
 
@@ -22,6 +22,19 @@ function Table({columns,rows,setCheckedOptions,checkedOptions,setColumnsTLU,setR
             if(checkedOptions.includes(id)){
                 checkedOptions = checkedOptions.filter(option => option !== id)
                 setCheckedOptions(checkedOptions)
+
+                //Restaurar valores tambien a aqui
+                setPrecandidateSelected(null)
+                setValoresNewPrecandidate({
+                    fullname: '',
+                    country: '',
+                    email: '',
+                    dateBirth: '',
+                    levelStudies: '',
+                    phone: '',
+                    civilStatus: '',
+                    position: ''
+                })
             }
         }
     }

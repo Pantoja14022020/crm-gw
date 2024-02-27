@@ -15,8 +15,8 @@ function Form({flexDirection,widthFieldset,widthForm,action,method,fieldsets,txt
                         {
                             type != 'select' ? 
                                 <>
-                                    <label htmlFor={htmlfor}>{txt}</label>
-                                    <input value={value} type={type} name={name} id={id} onChange={fnChange} style={{ WebkitAutofill: 'none', autocomplete: 'off' }}/>
+                                    <label htmlFor={id}>{txt}</label>
+                                    <input defaultValue={value} type={type} name={name} id={id} onChange={fnChange} style={{ WebkitAutofill: 'none', autocomplete: 'off' }}/>
                                 </>
                             : (name == 'gender' ? <SelectDefault options={options} title={txt} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setGender} setParamDefaultEdit={setParamDefault} valueDefault={value} precandidateSelected={precandidateSelected}/>
                                 : ( name === 'englishLevel' ? <SelectDefault options={options} title={txt} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setLevelEnglish} setParamDefaultEdit={setParamDefault} valueDefault={value} precandidateSelected={precandidateSelected}/>

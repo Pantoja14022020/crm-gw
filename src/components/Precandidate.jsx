@@ -416,11 +416,13 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
             //Do fetch to update ESTE ESTA RELACIONADON CON EL EFFECT
             
             if(fetchUpdate){
+
+                //Hide formulario
+                setFormPrecandidate(false);
+
                 const {updated,msg} = await fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${checkedOptions[0]+2}`,datosForm)//Creamos un nuevo registro (precandidato)
-                //console.log()
+                
                 if(updated){
-                    //Hide formulario
-                    setFormPrecandidate(false);
 
                     //Show modal
                     setModal(true)
@@ -461,7 +463,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
             }
 
             //Reset inputs in form
-            e.target.reset()
+            //e.target.reset()
         }
     }
     //FIN. APARTADO PARA VALIDAR QUE EL FORMULARIO ENVIA TODOS LOS DATOS REQUERIDOS
@@ -540,7 +542,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                         <div className="spinner-table-precandidates"><Load/></div>
                     : 
                         <>
-                            <Table columns={columns} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setColumnsTLU={setColumnsTLU} setRowsTLU={setRowsTLU}/>
+                            <Table columns={columns} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setColumnsTLU={setColumnsTLU} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate}/>
                         </>
                 }
             </div>
