@@ -5,6 +5,7 @@ import Td from "./Td";
 
 
 
+
 function Table({columns,rows,setCheckedOptions,checkedOptions,setColumnsTLU,setRowsTLU,setPrecandidateSelected, setValoresNewPrecandidate, setFetchUpdate}){
 
 

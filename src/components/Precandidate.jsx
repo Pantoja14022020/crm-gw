@@ -502,6 +502,15 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
 
 
 
+    //FUNCION PARA EL EVENTO CUANDO SE DE CLICK EN EL BOTON 'REFRESH'
+    async function refreshTable(){
+        setShowSpinner(true)
+        await getPrecandidates()
+        setShowSpinner(false)
+    }
+
+
+
 
 
     return (
@@ -540,7 +549,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                 </div>
                 <div className="btn-n-c">
                     {
-                        checkedOptions.length <= 0 ? <Button fn={setTrueShowFormPrecandidate} txt={ getTypeUser() == 'gm' ? 'New Customer' : (getTypeUser() == 'gw' ? 'gw' : 'New Candidate') }size="100%" iconAdd={true} colorIcon="#8585b6"/> : <></>
+                        checkedOptions.length <= 0 ? <Button fn={setTrueShowFormPrecandidate} txt={ getTypeUser() == 'gm' ? 'New Customer' : (getTypeUser() == 'gw' ? 'gw' : 'New Candidate') }size="100%" iconAdd={true} colorIcon="#8585b6" bgColor="#2020cc"/> : <></>
                     }
                 </div>
             </div>
@@ -548,6 +557,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     <div className="params-filter-precandidate">
                         <SelectDefault width="110px" color="#f1f1f1" title="English Level" options={levelEnglishOptions} setParam={setParamEnglishLevel} />
                         <SelectDefault width="250px" color="#f1f1f1" title="Studies Level" options={levelStudiesOptions} setParam={setParamStudiesLevel} />
+                        <Button txt="refresh" colorIcon="#000" size="fit-content" iconRefresh={true} fn={refreshTable}/>
                     </div>
                 {
                     showSpinner 
