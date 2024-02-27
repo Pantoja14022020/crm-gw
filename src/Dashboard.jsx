@@ -56,28 +56,34 @@ function Dashboard(){
         //Aqui decido que url voy a consumir los datos de excelm si el de local o el que esta desplegado
         const {candidates} = await fetchUrlGet('https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/');   
         //const {candidates} = await fetchUrlGet('http://localhost:8080/tl/excel/candidate/')
-
+        //console.log(candidates)
         //Definir columnas
-        const columns= candidates[0]
+        const columns= candidates[0] //[Tomas todas las columnas]
+        //console.log(columns);
         const formattedColumns = columns.map((column, idx) => {
-            if (idx <= 9) {
+            if (idx <= 10 && idx !== 0) {
                 return { id: idx, txt: column }; // Devolvemos un objeto con id y txt
             }
             return null; // Si no cumple la condición, devolvemos null
         }).filter(col => col !== null); // Filtramos los elementos nulos
         setColumnsTLU(formattedColumns)  //Solo almacenamos las primeras 8 columnas  
-        
+        //console.log(columnsTLU)
         
         //Definir filas
         const rows = candidates.slice(1)//Saca el primer arreglo ya son las columnas
+        //console.log(rows);
         setFilteredCandidates(prevRows => {
             return rows.map((row, idx) => { // Recorro arreglo por arreglo [[],[],[]] o fila por fila
                 let precandidate = {fullname:'', email:'', phone:'', country:'', dateBirth:'', civilStatus:'', gender:'', levelStudies:'', position:'', englishLevel:''};
-        
+                //let precandidate = {fullname:'', email:'', phone:'', dateBirth:'', civilStatus:'', gender:'', country:'', levelStudies:'', position:'', englishLevel:''};
+                let idd = 0;
                 row.forEach((pre, idy) => {
-                    if (idy <= 9) {
-                        let attribute = Object.keys(precandidate)[idy];
-                        precandidate[attribute] = pre;
+                    if(idy !== 0){
+                        if (idy <= 10) {
+                            let attribute = Object.keys(precandidate)[idd];
+                            precandidate[attribute] = pre;
+                            idd++;
+                        }
                     }
                 });
         
@@ -87,17 +93,23 @@ function Dashboard(){
                 return precandidate;
             });
         });
+        //console.log(filteredCandidates);
 
 
         //Crear un respaldo d elas filas como variable auxiliar y se pueda restablecer todos cuando en el buscador es vacio
         setAllCandidates(prevRows => {
             return rows.map((row, idx) => { // Recorro arreglo por arreglo [[],[],[]] o fila por fila
                 let precandidate = {fullname:'', email:'', phone:'', country:'', dateBirth:'', civilStatus:'', gender:'', levelStudies:'', position:'', englishLevel:''};
-        
+                //let precandidate = {fullname:'', email:'', phone:'', dateBirth:'', civilStatus:'', gender:'', country:'', levelStudies:'', position:'', englishLevel:''};
+                let idd = 0;
+
                 row.forEach((pre, idy) => {
-                    if (idy <= 9) {
-                        let attribute = Object.keys(precandidate)[idy];
-                        precandidate[attribute] = pre;
+                    if(idy !== 0){
+                        if (idy <= 10) {
+                            let attribute = Object.keys(precandidate)[idd];
+                            precandidate[attribute] = pre;
+                            idd++
+                        }
                     }
                 });
         
@@ -107,6 +119,7 @@ function Dashboard(){
                 return precandidate;
             });
         });
+        console.log(allCandidates);
     }
     useEffect(()=>{//Aqui hago peticion para obtener los candidatos del excel para TL GM o GW
         if(getTypeUser() == 'tl'){

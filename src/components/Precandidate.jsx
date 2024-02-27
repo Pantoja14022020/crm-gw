@@ -14,6 +14,9 @@ import { fetchUrlPost, fetchUrlPut } from "../helpers/fetchs";
 
 function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel, getPrecandidates}){
 
+    //console.log(options);
+
+    //ESTO ES PARA LOS FILTROS O PARAMETROS DE BUSQUEDA, AQUI SE DEFINEN SUS OPCIONES
     const levelEnglishOptions = [...new Set (options.map((option) => option.englishLevel))]//Obtengo los valores para el select nivel de ingles
     const levelStudiesOptions = [...new Set (options.map((option) => option.levelStudies))]//Obtengo los valores para el select nivel de estudios
     levelEnglishOptions.push('English Level');//Agregamos el titulo como opcion para que no pierda
