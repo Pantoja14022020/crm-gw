@@ -10,7 +10,8 @@ import Form  from "./Form";
 import Load from "./Load";
 import SelectDefault from "./SelectDefault";
 import Modal from "./Modal";
-import { fetchUrlPost, fetchUrlPut } from "../helpers/fetchs";
+import { fetchUrlPost, fetchUrlPut} from "../helpers/fetchs";
+import {getDateTemporary} from "../helpers/fechas"
 
 function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel, getPrecandidates}){
 
@@ -75,55 +76,64 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
         },
         {
             id: 3,
-            name: "country",
-            type: "text",
-            htmlfor: "country",
-            txt: "Country"
-        },
-        {
-            id: 4,
             name: "dateBirth",
             type: "text",
             htmlfor: "dateBirth",
             txt: "Date Birth"
         },
         {
-            id: 5,
+            id: 4,
             name: "civilStatus",
-            type: "text",
+            type: "select",
             htmlfor: "civilStatus",
-            txt: "Civil Status"
+            txt: "Select your civil status",
+            options: ['Casado(a)','Soltero(o)','Divorciado(a)','Unión Libre','Viudo(a)']
         },
         {
-            id: 6,
+            id: 5,
             name: "gender",
             type: "select",
             htmlfor: "gender",
-            txt: "Gender",
-            options: ['Masculino', 'Femenino']
+            txt: "Select gender",
+            options: ['Masculino', 'Femenino','Otro']
+        },
+        {
+            id: 6,
+            name: "country",
+            type: "text",
+            htmlfor: "country",
+            txt: "Country (Ciudad, Estado, Pais)",
         },
         {
             id: 7,
             name: "levelStudies",
-            type: "text",
+            type: "select",
             htmlfor: "levelStudies",
-            txt: "Level of Last Studies"
+            txt: "Select level of last studies",
+            options: ['Posgrado','Licenciatura o Ingenieria','Bachillerato','Secundaria','Primaria','Ninguno']
         },
-        {
+        /*{
             id: 8,
-            name: "position",
+            name: "professionalArea",
             type: "text",
-            htmlfor: "position",
-            txt: "Position"
-        },
+            htmlfor: "professionalArea",
+            txt: "Carrera profesional o campo de experiencia"
+        },*/
         {
             id: 9,
             name: "englishLevel",
             type: "select",
             htmlfor: "englishLevel",
-            txt: "English Level",
+            txt: "Select english level",
             options: ['Ninguno','Basico','Intermedio','Avanzado']
         },
+        {
+            id: 10,
+            name: "position",
+            type: "text",
+            htmlfor: "position",
+            txt: "Position"
+        }
     ]
 
 
@@ -204,15 +214,19 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
             //setCheckedOptions([]);
             //if(precandidateSelected == null){
                 setPrecandidateSelected(null);
+                
+                setGender('')
+                setLevelEnglish('')
+                setCivilStatus('')
+                setLevelStudies('')
                 setCheckedOptions([])
                 setValoresNewPrecandidate({
                     fullname: '',
                     country: '',
                     email: '',
                     dateBirth: '',
-                    levelStudies: '',
                     phone: '',
-                    civilStatus: '',
+                    //professionalArea: '',
                     position: ''
                 })
                 setFetchUpdate(false)
@@ -252,15 +266,16 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
         if (checkedOptions.length == 1) {  //Evaluar cuando mostrar la opcion de editar, solo cuando haya un 1 check seleccionado
             setOptionEdit(true)//Se muestra la opcion editar ya que solo hay una opcion seleccionada
             //Entonces sacamos los datos de ese precandidato seleccionado
+            console.log(rows)
             const rowFounded = rows.find(row => row.id == checkedOptions[0]);
             //console.log(rowFounded)
-            
+            //console.log("El usser seleccionado es:",rowFounded)//----------------------
             setPrecandidateSelected(rowFounded)
             //console.log(precandidateSelected)
             setValoresNewPrecandidate(rowFounded)//-----------------------
-
+            //console.log("El founded es:", rowFounded)
             setFetchUpdate(false)
-            console.log(fetchUpdate)
+            //console.log(fetchUpdate)
             const fieldsetsEditPrecandidateForm = [
                 {
                     id: 0,
@@ -288,14 +303,6 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                 },
                 {
                     id: 3,
-                    name: "country",
-                    type: "text",
-                    htmlfor: "country",
-                    txt: "Country",
-                    value: rowFounded['country']
-                },
-                {
-                    id: 4,
                     name: "dateBirth",
                     type: "text",
                     htmlfor: "dateBirth",
@@ -303,38 +310,48 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     value: rowFounded['dateBirth']
                 },
                 {
-                    id: 5,
+                    id: 4,
                     name: "civilStatus",
-                    type: "text",
+                    type: "select",
                     htmlfor: "civilStatus",
                     txt: "Civil Status",
+                    options: ['Casado(a)','Soltero(o)','Divorciado(a)','Unión Libre','Viudo(a)'],
                     value: rowFounded['civilStatus']
                 },
                 {
-                    id: 6,
+                    id: 5,
                     name: "gender",
                     type: "select",
                     htmlfor: "gender",
                     txt: "Gender",
-                    options: ['Masculino', 'Femenino'],
+                    options: ['Masculino', 'Femenino','Otro'],
                     value: rowFounded['gender']
+                },
+                {
+                    id: 6,
+                    name: "country",
+                    type: "text",
+                    htmlfor: "country",
+                    txt: "Country (Ciudad, Estado, Pais)",
+                    value: rowFounded['country']
                 },
                 {
                     id: 7,
                     name: "levelStudies",
-                    type: "text",
+                    type: "select",
                     htmlfor: "levelStudies",
                     txt: "Level of Last Studies",
+                    options: ['Posgrado','Licenciatura o Ingenieria','Bachillerato','Secundaria','Primaria','Ninguno'],
                     value: rowFounded['levelStudies']
                 },
-                {
+                /*{
                     id: 8,
-                    name: "position",
+                    name: "professionalArea", 
                     type: "text",
-                    htmlfor: "position",
-                    txt: "Position",
-                    value: rowFounded['position']
-                },
+                    htmlfor: "professionalArea",
+                    txt: "Carrera profesional o campo de experiencia",
+                    value: rowFounded['professionalArea']
+                },*/
                 {
                     id: 9,
                     name: "englishLevel",
@@ -344,6 +361,14 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     options: ['Ninguno','Basico','Intermedio','Avanzado'],
                     value: rowFounded['englishLevel']
                 },
+                {
+                    id: 10,
+                    name: "position",
+                    type: "text",
+                    htmlfor: "position",
+                    txt: "Position",
+                    value: rowFounded['position']
+                }
             ]
             setFieldsetsEditPrecandidate(fieldsetsEditPrecandidateForm)
 
@@ -367,16 +392,18 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
     //INICIO. APARTADO PARA VALIDAR QUE EL FORMULARIO ENVIA TODOS LOS DATOS REQUERIDOS
     const [valoresNewPrecandidate, setValoresNewPrecandidate] = useState({
         fullname: '',
-        country: '',
         email: '',
-        dateBirth: '',
-        levelStudies: '',
         phone: '',
-        civilStatus: '',
+        dateBirth: '',
+        country: '',
+        //professionalArea: '',
         position: ''
     });
+    //Son los sets para los select del formulario y asignar la opcion seleccionada
     const [gender,setGender] = useState('');
     const  [levelEnglish, setLevelEnglish] =  useState('');
+    const [civilStatus, setCivilStatus] = useState('');
+    const [levelStudies, setLevelStudies] = useState('');
     const [showSpinnerFormPre, setShowSpinnerFormPre] = useState(false);//Es el spinner que muestra en el boton del formulario una vez que se registra un precandidato
     const handleChangeNewPrecandidate = e => {//Funcion para cuando se este escribiendo en un input del formulario 'new precandidate'
         const { name, value } = e.target;//Actaulizar el estado de los valores 
@@ -388,19 +415,24 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
     const [fetchUpdate,setFetchUpdate] = useState(false);
     const handleSubmitNewPrecandidate = async e => {//Funcion para cuando se envia el formulario
         e.preventDefault();
-        const {fullname,country,email,dateBirth,levelStudies,phone,civilStatus,position} = valoresNewPrecandidate;
+        const {fullname,country,email,dateBirth,phone,professionalArea,position} = valoresNewPrecandidate;
         const datosForm = {
-            "fullname":fullname,
-            "email":email,
-            "phone":phone,
-            "country":country,
-            "dateBirth":dateBirth,
-            "civilStatus":civilStatus,
-            "gender":gender,
-            "levelStudies":levelStudies,
-            "position":position,
-            "englishLevel":levelEnglish
+            "dateTemporal": getDateTemporary(),
+            "fullname":fullname,//
+            "email":email,//
+            "phone":phone,//
+            "dateBirth":dateBirth,//
+            "civilStatus":civilStatus,//
+            "gender":gender,//
+            "country":country,//
+            "levelStudies":levelStudies,//
+            "professionalArea": "",//
+            "englishLevel":levelEnglish,//
+            "position":position,//
+            "dependencies": "",
+            "emailRepeat": ""
         }
+        console.log("se envia estooo",datosForm)
         if(fullname.length == 0 || country.length == 0 || email.length == 0 || dateBirth.length == 0 || levelEnglish.length == 0 || phone.length == 0 || gender.length == 0 || levelStudies.length == 0 || civilStatus.length == 0 || position.length == 0){//Si ambos inputs no estan completos
             //AQUI ENTRA PORQUE NO SE LLENAORON TODOS LOS CAMPOS
             setModal(true)
@@ -418,8 +450,8 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
 
 
             //Do fetch to update ESTE ESTA RELACIONADON CON EL EFFECT
-            console.log("fetchUpdate",fetchUpdate)
-            
+            //console.log("fetchUpdate",fetchUpdate)
+            //console.log(checkedOptions[0]+2)
             if(fetchUpdate){
                 console.log("updating...")
                 //Hide formulario
@@ -428,6 +460,16 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                 const {updated,msg} = await fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${checkedOptions[0]+2}`,datosForm)//Creamos un nuevo registro (precandidato)
                 
                 if(updated){
+
+                    const checkBoxs = document.querySelectorAll('.checkbox')
+                    if(checkBoxs){
+                        checkBoxs.forEach(checkbox => {
+                            checkbox.checked = false;
+                            checkbox.parentElement.parentElement.classList.remove('rowSelected')
+                        });
+                    }
+                    setPrecandidateSelected(null)
+                    setCheckedOptions([])
 
                     //Show modal
                     setModal(true)
@@ -440,6 +482,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
 
                     //Hay que actualizar la pagina o la tabla
                     getPrecandidates()
+
                 }else{
                     //Mostramos un modal
                     setModal(true)
@@ -536,9 +579,9 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                             <h1>{precandidateSelected !== null ? 'Edit this candidate' : 'Create new precandidate'}</h1>
                             {
                                 precandidateSelected === null ?    
-                                    <Form flexDirection="row" widthFieldset="30%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsFormSignupPrecandidate} txtButtonSubmit="Create" fnChange={handleChangeNewPrecandidate} fnSubmit={handleSubmitNewPrecandidate} reform={formRefNewPrecandidate} setGender={setGender} setLevelEnglish={setLevelEnglish} showSpinner={showSpinnerFormPre} setParamDefault={false}/>
+                                    <Form flexDirection="row" widthFieldset="48%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsFormSignupPrecandidate} txtButtonSubmit="Create" fnChange={handleChangeNewPrecandidate} fnSubmit={handleSubmitNewPrecandidate} reform={formRefNewPrecandidate} setGender={setGender} setLevelEnglish={setLevelEnglish} setCivilStatus={setCivilStatus} setLevelStudies={setLevelStudies} showSpinner={showSpinnerFormPre} setParamDefault={false}/>
                                 :
-                                    <Form flexDirection="row" widthFieldset="30%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsEditPrecandidate} txtButtonSubmit="Update" fnChange={handleChangeNewPrecandidate} fnSubmit={handleSubmitNewPrecandidate} reform={formRefNewPrecandidate} setGender={setGender} setLevelEnglish={setLevelEnglish} showSpinner={showSpinnerFormPre} precandidateSelected={precandidateSelected} setParamDefault={true}/>
+                                    <Form flexDirection="row" widthFieldset="48%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsEditPrecandidate} txtButtonSubmit="Update" fnChange={handleChangeNewPrecandidate} fnSubmit={handleSubmitNewPrecandidate} reform={formRefNewPrecandidate} setGender={setGender} setLevelEnglish={setLevelEnglish} setCivilStatus={setCivilStatus} setLevelStudies={setLevelStudies} showSpinner={showSpinnerFormPre} precandidateSelected={precandidateSelected} setParamDefault={true}/>
                             }
                         </div>
                     </div>

@@ -88,13 +88,13 @@ function Table({columns,rows,setCheckedOptions,checkedOptions,setColumnsTLU,setR
                                             <Td txt={fullname}/>
                                             <Td txt={email} optionMore={true}/>
                                             <Td txt={phone} optionMore={true}/>
-                                            <Td txt={country} optionMore={true}/>
                                             <Td txt={dateBirth} />
                                             <Td txt={civilStatus} />
                                             <Td txt={gender} />
+                                            <Td txt={country} optionMore={true}/>
                                             <Td txt={levelStudies} />
+                                            <Td txt={englishLevel} optionMore={true} />
                                             <Td txt={position} optionMore={true} />
-                                            <Td txt={englishLevel} />
                                         </tr>
                                     ))
                                 }

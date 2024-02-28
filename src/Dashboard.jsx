@@ -61,7 +61,7 @@ function Dashboard(){
         const columns= candidates[0] //[Tomas todas las columnas]
         //console.log(columns);
         const formattedColumns = columns.map((column, idx) => {
-            if (idx <= 10 && idx !== 0) {
+            if (idx <= 11 && idx !== 0 && idx !== 9) {
                 return { id: idx, txt: column }; // Devolvemos un objeto con id y txt
             }
             return null; // Si no cumple la condición, devolvemos null
@@ -74,12 +74,12 @@ function Dashboard(){
         //console.log(rows);
         setFilteredCandidates(prevRows => {
             return rows.map((row, idx) => { // Recorro arreglo por arreglo [[],[],[]] o fila por fila
-                let precandidate = {fullname:'', email:'', phone:'', country:'', dateBirth:'', civilStatus:'', gender:'', levelStudies:'', position:'', englishLevel:''};
-                //let precandidate = {fullname:'', email:'', phone:'', dateBirth:'', civilStatus:'', gender:'', country:'', levelStudies:'', position:'', englishLevel:''};
+                //let precandidate = {fullname:'', email:'', phone:'', country:'', dateBirth:'', civilStatus:'', gender:'', levelStudies:'', position:'', englishLevel:''};
+                let precandidate = {fullname:'', email:'', phone:'', dateBirth:'', civilStatus:'', gender:'', country:'', levelStudies:'', englishLevel:'', position:''};
                 let idd = 0;
                 row.forEach((pre, idy) => {
-                    if(idy !== 0){
-                        if (idy <= 10) {
+                    if(idy !== 0 && idy !== 9){
+                        if (idy <= 11) {
                             let attribute = Object.keys(precandidate)[idd];
                             precandidate[attribute] = pre;
                             idd++;
@@ -93,19 +93,19 @@ function Dashboard(){
                 return precandidate;
             });
         });
-        //console.log(filteredCandidates);
+        //console.log("filteres",filteredCandidates);
 
 
         //Crear un respaldo d elas filas como variable auxiliar y se pueda restablecer todos cuando en el buscador es vacio
         setAllCandidates(prevRows => {
             return rows.map((row, idx) => { // Recorro arreglo por arreglo [[],[],[]] o fila por fila
-                let precandidate = {fullname:'', email:'', phone:'', country:'', dateBirth:'', civilStatus:'', gender:'', levelStudies:'', position:'', englishLevel:''};
-                //let precandidate = {fullname:'', email:'', phone:'', dateBirth:'', civilStatus:'', gender:'', country:'', levelStudies:'', position:'', englishLevel:''};
+                //let precandidate = {fullname:'', email:'', phone:'', country:'', dateBirth:'', civilStatus:'', gender:'', levelStudies:'', position:'', englishLevel:''};
+                let precandidate = {fullname:'', email:'', phone:'', dateBirth:'', civilStatus:'', gender:'', country:'', levelStudies:'', englishLevel:'', position:''};
                 let idd = 0;
 
                 row.forEach((pre, idy) => {
-                    if(idy !== 0){
-                        if (idy <= 10) {
+                    if(idy !== 0 && idy !== 9){
+                        if (idy <= 11) {
                             let attribute = Object.keys(precandidate)[idd];
                             precandidate[attribute] = pre;
                             idd++
@@ -119,7 +119,7 @@ function Dashboard(){
                 return precandidate;
             });
         });
-        console.log(allCandidates);
+        console.log("all candidates",allCandidates);
     }
     useEffect(()=>{//Aqui hago peticion para obtener los candidatos del excel para TL GM o GW
         if(getTypeUser() == 'tl'){
