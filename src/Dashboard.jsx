@@ -1,4 +1,4 @@
-//import io from 'socket.io-client';
+import io from 'socket.io-client';//Prueba 1
 import Nav from './components/Nav'
 import Header from './components/Header'
 import Overview from './components/Overview'
@@ -129,12 +129,12 @@ function Dashboard(){
     },[])
 
 
-    //const socket = io('https://api-gw-cpa-pc-20aq.onrender.com');//Me conecto o inicializo
-    //const socket = io('http://localhost:8080')
+    const socket = io('https://api-gw-cpa-pc-20aq.onrender.com');//PRUEBA 2 Me conecto o inicializo
+    //const socket = io('http://localhost:8080')//PRUEBA 2
     
-    /*socket.on('notify', (mensaje) => {
+    socket.on('notify', (mensaje) => {//PRUEBA 3 FINALLLLLLLLL
         console.log('Mensaje recibido solo para este cliente:', mensaje);
-    });*/
+    });
 
 
 
