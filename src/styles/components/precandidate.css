@@ -74,9 +74,10 @@
 
 .form-precandidate h1{/*Es el titulo del formulario*/
   font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.05rem;
   margin-bottom: 1.5rem;
   color: black;
-  font-weight: 500;
 }
 
 

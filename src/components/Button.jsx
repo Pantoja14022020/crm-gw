@@ -13,7 +13,7 @@ function Button({txt,fn,type="",showSpinner,size,marginTop, show, iconAdd, color
                 iconAdd ? <FaPlus color={colorIcon} style={{marginRight:'1rem'}}/> : <></>
             }
             {
-                iconRefresh ? <RxUpdate color={colorIcon} style={{marginRight:'1rem'}} /> : <></>
+                iconRefresh ? <RxUpdate color={colorIcon} style={{marginRight:'1rem', fontSize: '1rem'}} /> : <></>
             }
             {
                 showSpinner ? 
