@@ -30,7 +30,8 @@ import {fetchUrlGet} from './helpers/fetchs'
 import Board from './components/Board'
 import Precandidate from './components/Precandidate'
 
-
+const socket = io('https://api-gw-cpa-pc-20aq.onrender.com/notify-changes-excel');//PRUEBA 2  llega a prueba 3. Me conecto o inicializo
+//const socket = io('http://localhost:8080')//PRUEBA 2    llega a prueba 3
 
 function Dashboard(){
 
@@ -128,9 +129,6 @@ function Dashboard(){
         //setShowSpinner(false);
     },[])
 
-
-    const socket = io('https://api-gw-cpa-pc-20aq.onrender.com');//PRUEBA 2 Me conecto o inicializo
-    //const socket = io('http://localhost:8080')//PRUEBA 2
     
     socket.on('notify', (mensaje) => {//PRUEBA 3 FINALLLLLLLLL
         console.log('Mensaje recibido solo para este cliente:', mensaje);
