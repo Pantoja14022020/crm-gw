@@ -48,7 +48,7 @@ function Table({columns,rows,setCheckedOptions,checkedOptions,setColumnsTLU,setR
     //STATE PARA LA FUNCION 'VER MAS' de una cadena
     const [more, setMore] = useState(false);
 
-    rows.reverse();
+    //rows.reverse();
 
     //console.log(rows)   es para ver como son los id de cada registro y poder ver que id modificar
 
