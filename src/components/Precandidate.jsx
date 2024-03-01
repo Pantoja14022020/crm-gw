@@ -89,7 +89,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
             type: "select",
             htmlfor: "civilStatus",
             txt: "Select your civil status",
-            options: ['Casado(a)','Soltero(o)','Divorciado(a)','Unión Libre','Viudo(a)']
+            options: ['Casado (a)','Soltero (o)','Divorciado (a)','Unión Libre','Viudo (a)']
         },
         {
             id: 5,
@@ -112,7 +112,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
             type: "select",
             htmlfor: "levelStudies",
             txt: "Select level of last studies",
-            options: ['Posgrado','Licenciatura o Ingenieria','Bachillerato','Secundaria','Primaria','Ninguno']
+            options: ['Posgrado','Licenciatura o Ingeniaría','Bachillerato','Secundaria','Primaria','Ninguno']
         },
         /*{
             id: 8,
@@ -127,7 +127,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
             type: "select",
             htmlfor: "englishLevel",
             txt: "Select english level",
-            options: ['Ninguno','Basico','Intermedio','Avanzado']
+            options: ['Ninguno','Básico','Intermedio','Avanzado']
         },
         {
             id: 10,
@@ -317,7 +317,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     type: "select",
                     htmlfor: "civilStatus",
                     txt: "Civil Status",
-                    options: ['Casado(a)','Soltero(o)','Divorciado(a)','Unión Libre','Viudo(a)'],
+                    options: ['Casado (a)','Soltero (o)','Divorciado (a)','Unión Libre','Viudo (a)'],
                     value: rowFounded['civilStatus']
                 },
                 {
@@ -343,7 +343,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     type: "select",
                     htmlfor: "levelStudies",
                     txt: "Level of Last Studies",
-                    options: ['Posgrado','Licenciatura o Ingenieria','Bachillerato','Secundaria','Primaria','Ninguno'],
+                    options: ['Posgrado','Licenciatura o Ingeniería','Bachillerato','Secundaria','Primaria','Ninguno'],
                     value: rowFounded['levelStudies']
                 },
                 /*{
@@ -360,7 +360,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     type: "select",
                     htmlfor: "englishLevel",
                     txt: "English Level",
-                    options: ['Ninguno','Basico','Intermedio','Avanzado'],
+                    options: ['Ninguno','Básico','Intermedio','Avanzado'],
                     value: rowFounded['englishLevel']
                 },
                 {
@@ -418,23 +418,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
     const handleSubmitNewPrecandidate = async e => {//Funcion para cuando se envia el formulario
         e.preventDefault();
         const {fullname,country,email,dateBirth,phone,professionalArea,position} = valoresNewPrecandidate;
-        const datosForm = {
-            "dateTemporal": getDateTemporary(),
-            "fullname":fullname,//
-            "email":email,//
-            "phone":phone,//
-            "dateBirth":dateBirth,//
-            "civilStatus":civilStatus,//
-            "gender":gender,//
-            "country":country,//
-            "levelStudies":levelStudies,//
-            "professionalArea": "",//
-            "englishLevel":levelEnglish,//
-            "position":position,//
-            "dependencies": "",
-            "emailRepeat": ""
-        }
-        console.log("se envia estooo",datosForm)
+        //console.log("se envia estooo",datosForm)
         if(fullname.length == 0 || country.length == 0 || email.length == 0 || dateBirth.length == 0 || levelEnglish.length == 0 || phone.length == 0 || gender.length == 0 || levelStudies.length == 0 || civilStatus.length == 0 || position.length == 0){//Si ambos inputs no estan completos
             //AQUI ENTRA PORQUE NO SE LLENAORON TODOS LOS CAMPOS
             setModal(true)
@@ -455,9 +439,28 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
             //console.log("fetchUpdate",fetchUpdate)
             //console.log(checkedOptions[0]+2)
             if(fetchUpdate){
-                console.log("updating...")
+                //console.log("updating...")
                 //Hide formulario
                 setFormPrecandidate(false);
+
+
+                const datosForm = {
+                    //"dateTemporal": getDateTemporary(),
+                    "fullname":fullname,//
+                    "email":email,//
+                    "phone":phone,//
+                    "dateBirth":dateBirth,//
+                    "civilStatus":civilStatus,//
+                    "gender":gender,//
+                    "country":country,//
+                    "levelStudies":levelStudies,//
+                    "professionalArea": "",//
+                    "englishLevel":levelEnglish,//
+                    "position":position,//
+                    "dependencies": "",
+                    "emailRepeat": ""
+                }
+
 
                 const {updated,msg} = await fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${checkedOptions[0]+2}`,datosForm)//Creamos un nuevo registro (precandidato)
                 
@@ -496,9 +499,27 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     setFetchUpdate(false)
                 }
             }else{
-                console.log("creating...")
+                //console.log("creating...")
                 //Hide formulario
                 setFormPrecandidate(false);
+
+
+                const datosForm = {
+                    "dateTemporal": getDateTemporary(),
+                    "fullname":fullname,//
+                    "email":email,//
+                    "phone":phone,//
+                    "dateBirth":dateBirth,//
+                    "civilStatus":civilStatus,//
+                    "gender":gender,//
+                    "country":country,//
+                    "levelStudies":levelStudies,//
+                    "professionalArea": "",//
+                    "englishLevel":levelEnglish,//
+                    "position":position,//
+                    "dependencies": "",
+                    "emailRepeat": ""
+                }
 
                 const {added,msg} = await fetchUrlPost("https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/",datosForm)//Creamos un nuevo registro (precandidato)
         
