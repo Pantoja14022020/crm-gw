@@ -3,6 +3,8 @@
     background-color: #000;
     padding: 0.5rem;
     border-radius: 0.5rem;
+    position: relative;
+    margin-top: -1.5rem;
 }
 .actions-bar button{
     margin-right: 1rem;

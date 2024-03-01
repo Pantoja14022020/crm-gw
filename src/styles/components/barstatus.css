@@ -1,6 +1,5 @@
 .barStatus{
-   width: 100%;
-   margin-top: 1rem;
+   width: fit-content;
 }
 .barStatus ul{
     width: fit-content;
@@ -16,7 +15,7 @@
     flex-direction: row;
     align-items: center;
     padding: 1rem;
-    background-color: #2020cc0c;
+    background-color: #ffffff;
 }
 .painted{
     background-color: var(--blue) !important;

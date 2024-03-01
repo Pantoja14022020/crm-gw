@@ -7,7 +7,7 @@ function Button({txt,fn,type="",showSpinner,size,marginTop, show, iconAdd, color
 
     return(
 
-        <button id="button" onClick={fn} type={type} style={{width: size,marginTop: marginTop,color: color, backgroundColor: bgColor}}>
+        <button id="button" onClick={fn} type={type} style={{width: size,marginTop: marginTop,color: color, backgroundColor: bgColor, fontSize: `${iconRefresh ? '0.6rem' : ''}`}}>
             
             {
                 iconAdd ? <FaPlus color={colorIcon} style={{marginRight:'1rem'}}/> : <></>

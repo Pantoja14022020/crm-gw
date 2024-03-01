@@ -259,11 +259,11 @@ function Dashboard(){
 
 
 
-    
+    //style={{backgroundColor: `${interfaceShowed !== 'overview' ? '#fff' : '' }`}} 
     return(
         <main className="dashboard">
             <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**/ setInterfaceShowed={setInterfaceShowed} showNavbar={showNavbar} setShowNavbar={setShowNavbar}/>
-            <aside style={{backgroundColor: `${interfaceShowed !== 'overview' ? '#fff' : '' }`}} className={`${showNavbar ? 'part-width' : 'all-width'}`}>
+            <aside className={`${showNavbar ? 'part-width' : 'all-width'}`}>
                 <Header interfaceShowed={interfaceShowed} fullname={fullname} notificationsStored={notificationsStored} numNotifications={numNotifications} setNumNotifications={setNumNotifications} setNotificationsStored={setNotificationsStored}/>
                 <div className="content-dashboard">
                     {   /*Aqui decidimo que tipo de Overview vamos a mostrar, dependiendo el tipo de usuario que inicio sesion */

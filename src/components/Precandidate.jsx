@@ -1,5 +1,6 @@
 import { getTypeUser } from "../helpers/localstorage";
 import { useEffect, useState, useRef } from "react";
+import { LiaFilterSolid } from "react-icons/lia";
 import BarStatus from "./BarStatus";
 import Button from "./Button";
 import Icon from "./Icon";
@@ -620,8 +621,9 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
             </div>
             <div className="container-candidates">
                     <div className="params-filter-precandidate">
-                        <SelectDefault width="150px" color="#f1f1f1" title="English Level" options={levelEnglishOptions} setParam={setParamEnglishLevel} />
-                        <SelectDefault width="250px" color="#f1f1f1" title="Studies Level" options={levelStudiesOptions} setParam={setParamStudiesLevel} />
+                        <LiaFilterSolid />
+                        <SelectDefault width="150px" color="#fff" title="English Level" options={levelEnglishOptions} setParam={setParamEnglishLevel} />
+                        <SelectDefault width="250px" color="#fff" title="Studies Level" options={levelStudiesOptions} setParam={setParamStudiesLevel} />
                         <Button txt="Refresh table" color="#2020cc" colorIcon="#000" size="fit-content" iconRefresh={true} fn={refreshTable}/>
                     </div>
                 {
