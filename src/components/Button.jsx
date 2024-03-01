@@ -20,7 +20,6 @@ function Button({txt,fn,type="",showSpinner,size,marginTop, show, iconAdd, color
                   <Load/>
                 : txt
             }
-            
         </button>
     )
 }

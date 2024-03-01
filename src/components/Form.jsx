@@ -28,7 +28,7 @@ function Form({flexDirection,widthFieldset,widthForm,action,method,fieldsets,txt
                 ))
             }
             <fieldset>
-                <Button txt={txtButtonSubmit} type="submit" showSpinner={showSpinner} size="100%" marginTop="1rem" bgColor="#2020cc" />
+                <Button txt={txtButtonSubmit} type="submit" showSpinner={showSpinner} size="100%" marginTop="1rem" bgColor="#2020cc" color="#fff"/>
             </fieldset>
         </form>
     )
