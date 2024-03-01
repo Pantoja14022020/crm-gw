@@ -441,6 +441,13 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
             if(fetchUpdate){
                 //console.log("updating...")
                 //Hide formulario
+                const checkBoxs = document.querySelectorAll('.checkbox')
+                if(checkBoxs){
+                    checkBoxs.forEach(checkbox => {
+                        checkbox.checked = false;
+                        checkbox.parentElement.parentElement.classList.remove('rowSelected')
+                    });
+                }
                 setFormPrecandidate(false);
 
 
@@ -466,13 +473,6 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                 
                 if(updated){
 
-                    const checkBoxs = document.querySelectorAll('.checkbox')
-                    if(checkBoxs){
-                        checkBoxs.forEach(checkbox => {
-                            checkbox.checked = false;
-                            checkbox.parentElement.parentElement.classList.remove('rowSelected')
-                        });
-                    }
                     setPrecandidateSelected(null)
                     setCheckedOptions([])
 
