@@ -130,8 +130,20 @@ function Dashboard(){
     },[])
 
     
-    socket.on('notify', (mensaje) => {//PRUEBA 3 FINALLLLLLLLL
-        console.log('Mensaje recibido solo para este cliente:', mensaje);
+
+
+
+    //Estados para mostrar el modal de notificaciones
+    const [notificationModal, setNotificationModal] = useState(false);
+    const [notificationsStored, setNotificationsStored] = useState([]);
+    const [numNotifications, setNumNotifications] = useState(0);
+    socket.on('notify', (mensaje) => {
+        const {fechaAccion,msg} = mensaje;//Obtengo las propiedades que manda el servidor
+        const itemNotification = {status:true,fechaAccion,txt:msg,icon:"sheets"}//Creo un objeto con esas propiedades
+        setNotificationsStored([...notificationsStored, itemNotification])//Lo almaceno en mi arreglo
+        setNotificationModal(true)
+        setNumNotifications(1)//Es el numerito que esta en la campanita
+       // console.log('Mensaje recibido solo para este cliente:', mensaje);
     });
 
 
@@ -251,7 +263,7 @@ function Dashboard(){
         <main className="dashboard">
             <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**/ setInterfaceShowed={setInterfaceShowed} showNavbar={showNavbar} setShowNavbar={setShowNavbar}/>
             <aside style={{backgroundColor: `${interfaceShowed !== 'overview' ? '#fff' : '' }`}} className={`${showNavbar ? 'part-width' : 'all-width'}`}>
-                <Header interfaceShowed={interfaceShowed} fullname={fullname}/>
+                <Header interfaceShowed={interfaceShowed} fullname={fullname} notificationsStored={notificationsStored} numNotifications={numNotifications} setNumNotifications={setNumNotifications} setNotificationsStored={setNotificationsStored}/>
                 <div className="content-dashboard">
                     {   /*Aqui decidimo que tipo de Overview vamos a mostrar, dependiendo el tipo de usuario que inicio sesion */
                         
@@ -259,7 +271,7 @@ function Dashboard(){
                             (getTypeUser() == 'tl' ? <Overview info="tl"/> : ( getTypeUser() == "gm" ? <Overview info="gm"/> : <Overview info="gw"/>))//Evaluamos que overvies mostramos, depende del tipo de usuario que ha iniciado sesion
                         :(interfaceShowed == 'board' ? 
                             <Board/>
-                        :(interfaceShowed == "precandidate" ? <Precandidate options={allCandidates} rows={filteredCandidates} columns={columnsTLU} setColumnsTLU={setColumnsTLU} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel} getPrecandidates={getPrecandidates}/>
+                        :(interfaceShowed == "precandidate" ? <Precandidate options={allCandidates} rows={filteredCandidates} columns={columnsTLU} setColumnsTLU={setColumnsTLU} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal}/>
                         : <></>)) 
                     }              
                 </div>

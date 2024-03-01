@@ -13,7 +13,7 @@ import Modal from "./Modal";
 import { fetchUrlPost, fetchUrlPut} from "../helpers/fetchs";
 import {getDateTemporary} from "../helpers/fechas"
 
-function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel, getPrecandidates}){
+function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel, getPrecandidates, notificationModal, setNotificationModal}){
 
     //console.log(options);
 
@@ -28,6 +28,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
 
 
     const [modal,setModal] = useState(false);
+    
     const [message,setMessage] = useState("");
     const [title, setTitle] = useState("");
     const [type,setType] = useState("");
@@ -535,13 +536,21 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
 
 
     //ES PARA QUITAR EL MODAL PASADO CIERTO TIEMPO (SEGUNDOS)
-    //Una vez aparezca el moda, eliminarlo pasado los x segundos
+    //Una vez aparezca el modal de mensaje, eliminarlo pasado los x segundos
     useEffect(()=>{
         const timer = setTimeout(()=>{
             setModal(false)
         },5000)
         return () => clearTimeout(timer)
     },[modal])
+
+    //Para quitar el modal de notificacion una vez aparezca
+    useEffect(()=>{
+        const timer = setTimeout(()=>{
+            setNotificationModal(false)
+        },10000)
+        return () => clearTimeout(timer)
+    },[notificationModal])
 
 
 
@@ -561,7 +570,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
 
     return (
         <section className="section-precandidates">
-            {
+            {  //El el modal o alert cuando se crear o edita un precandidato
                 modal ? 
                     <>
                         <div className="modal-msg-section-precandidates">{/*Es el cuadro padre que almacena el modal */}
@@ -570,6 +579,16 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     </>
                 :
                     <></>
+            }
+            {//Es el modal de notificacion cuando hay cambios en el excel
+                notificationModal ? 
+                    <>
+                        <div className="modal-notify-section-precandidates">{/*Es el cuadro padre que almacena el modal */}
+                            <Modal title="New Changes" message="It was changes in your SpreadSheets, update Table" type="notify" modalType="alert"/>
+                        </div>
+                    </>
+                :
+                <></>
             }
             {
                 showFormPrecandidate ? //Es para mostrar el formulario para crear precandidato

@@ -9,6 +9,12 @@
   right: 1rem;
   z-index: 10;
 }
+.modal-notify-section-precandidates{/*Es el padre que almacena el modal de notificaicon de mensajes*/
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
 .btn-new-candidate{
     width: 98.5%;
     display: flex;

@@ -9,15 +9,19 @@ import { RiSearchLine } from "react-icons/ri";
 import { MdArrowDropDown } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";
+import { RiFileExcel2Fill } from "react-icons/ri";
 
 
 
 
 
 
-function Icon({type,name, url, spaceHorizontal, spaceVertical, width, height,fn,color,size,center}){
+function Icon({num,showCounter,type,name, url, spaceHorizontal, spaceVertical, width, height,fn,color,size,center}){
     return(
         <div onClick={fn} className={`${type == 'icon' ? 'icon' : ''}`} style={{backgroundImage: `url(${ type==="image" ? url : ''})`, marginRight: `${spaceHorizontal ? '0.5rem' : ''}`, marginBottom: `${spaceVertical ? '1rem' : ''}`, width: width, height: height, cursor: `${type == "icon" ? "pointer" : ""}`, backgroundPosition:'center',backgroundSize:'cover', margin: `${center ? 'auto' : ''}`, borderRadius: `${type !== 'icon' ? '50%' : ''}`}}>
+            {//Este es para el contador de la opcion 'notifcaciones', si hay notificaciones entonces mostrar el contador
+                showCounter ? <span className='counter-notify'>{num}</span> : <></>
+            }
             {
                 type === "icon" 
                 ? 
@@ -31,6 +35,9 @@ function Icon({type,name, url, spaceHorizontal, spaceVertical, width, height,fn,
                         }
                         {
                             name === "logout" ? <FaPowerOff size="1rem" color="#dd0000"/> : <></>
+                        }
+                        {
+                            name === 'sheets' ? <RiFileExcel2Fill color={color} size={size} /> : <></>
                         }
                     </> 
                 : 

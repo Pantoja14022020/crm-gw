@@ -29,4 +29,42 @@
     transform: translateY(100%);
     z-index: 2;
     width: fit-content;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+
+
+
+
+
+
+.notifications-header{
+    position: absolute;
+    right: 1.5rem;
+    transform: translateY(68%);
+    z-index: 2;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    width: fit-content;
+    overflow: hidden;
+    border-radius: 0.5rem;
+}
+.counter-notify{
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 0.8rem;
+    background-color: rgb(207, 53, 53);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.notifications-header .modal-options h1{
+    margin-left: 0.8rem !important;
+    font-size: 0.8rem !important;
 }
