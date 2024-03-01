@@ -3,6 +3,7 @@
     flex-direction: row;
     overflow: hidden;
     position: relative;
+    z-index: 10;
 }
 .part-width{
     width: calc(100% - 200px);

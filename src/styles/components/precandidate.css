@@ -65,7 +65,7 @@
 
 /*Es el cuadro padre que contiene el formulario de registro de precandidato en el centro*/
 .container-signup-precandidate{
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
@@ -73,7 +73,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 8;
+    z-index: 20;
     background-color: rgba(0, 0, 0, 0.418);
 }
 .form-precandidate{/*Es el hijo que contiene el componente form*/
