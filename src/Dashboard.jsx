@@ -143,6 +143,7 @@ function Dashboard(){
         setNotificationsStored([...notificationsStored, itemNotification])//Lo almaceno en mi arreglo
         setNotificationModal(true)
         setNumNotifications(1)//Es el numerito que esta en la campanita
+        getPrecandidates();//Actualizamos la tabla
        // console.log('Mensaje recibido solo para este cliente:', mensaje);
     });
 
