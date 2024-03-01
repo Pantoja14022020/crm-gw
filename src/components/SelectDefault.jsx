@@ -15,7 +15,7 @@ function SelectDefault({width,padding,color,title,options, setParam, fontSize, s
     
     useEffect(()=>{
         if(setParamDefaultEdit == true && precandidateSelected != null){
-            console.log("lo cambie")
+            //console.log("lo cambie")
             setTxtSelect(valueDefault)
             setParam(valueDefault)
         }
@@ -32,7 +32,7 @@ function SelectDefault({width,padding,color,title,options, setParam, fontSize, s
         }  
     }
 
-    console.log(txtSelect)
+    //console.log(txtSelect)
 
     return(
         <div className="select" style={{width: width, backgroundColor: color, fontSize: fontSize}} onClick={e => setShowOptionsSelect(!showOptionsSelect)}>
