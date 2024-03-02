@@ -14,7 +14,7 @@ function Header({interfaceShowed,fullname, notificationsStored, numNotifications
 
     const logout = () => {//Funcion para cerrar sesion
         localStorage.removeItem("session")
-        localStorage.clear()
+        //localStorage.clear()
         window.location.href = '/'
     }
 
@@ -105,7 +105,7 @@ function Header({interfaceShowed,fullname, notificationsStored, numNotifications
             {
                 interfaceShowed == 'overview' 
                     ? <h1 className='animate__animated animate__bounceInDown'>¡Hola {fullname}! 👋</h1> 
-                    : (interfaceShowed == 'precandidate' ? <BarStatus effect="animate__animated animate__bounceInDown" stages={stagesP} /> : <></>) 
+                    : (interfaceShowed == 'precandidate' ? <BarStatus stages={stagesP} /> : <></>) 
             }
             <div className="icons-header-aside">
                 <Icon num={numNotifications} type="icon" name="notification" spaceHorizontal={true} width="40px" height="40px" fn={showModalNotifis} showCounter={true}/>

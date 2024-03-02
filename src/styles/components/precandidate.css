@@ -5,16 +5,16 @@
     position: relative;
 }
 .modal-msg-section-precandidates{/*Es el padre que almacena el modal de notificaicon de mensajes*/
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 10;
+  position: fixed;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 15;
 }
 .modal-notify-section-precandidates{/*Es el padre que almacena el modal de notificaicon de mensajes*/
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-  z-index: 10;
+  position: fixed;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  z-index: 15;
 }
 .btn-new-candidate{
     width: 100%;
@@ -73,7 +73,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 20;
+    z-index: 13;
     background-color: rgba(0, 0, 0, 0.418);
 }
 .form-precandidate{/*Es el hijo que contiene el componente form*/

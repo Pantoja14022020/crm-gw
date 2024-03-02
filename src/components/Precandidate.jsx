@@ -14,7 +14,7 @@ import Modal from "./Modal";
 import { fetchUrlPost, fetchUrlPut} from "../helpers/fetchs";
 import {getDateTemporary} from "../helpers/fechas"
 
-function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel, getPrecandidates, notificationModal, setNotificationModal}){
+function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel, getPrecandidates, notificationModal, setNotificationModal, showBtnRefresh, setShowBtnRefresh}){
 
     //console.log(options);
 
@@ -488,6 +488,11 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     //Hay que actualizar la pagina o la tabla
                     getPrecandidates()
 
+                    //Mejor hay que mostrar un boton para actualizar 
+                    /*if(!showBtnRefresh){
+                        setShowBtnRefresh(true)
+                    }*/
+
                 }else{
                     //Mostramos un modal
                     setModal(true)
@@ -534,6 +539,11 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
 
                     //Hay que actualizar la pagina o la tabla
                     getPrecandidates()
+
+                    //Mejor hay que mostrar un boton para actualizar 
+                    /*if(!showBtnRefresh){
+                        setShowBtnRefresh(true)
+                    }*/
                 }else{
                     //Mostramos un modal
                     setModal(true)
@@ -584,6 +594,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
         setShowSpinner(true)
         await getPrecandidates()
         setShowSpinner(false)
+        setShowBtnRefresh(false)
     }
 
 
@@ -645,7 +656,11 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                         <LiaFilterSolid />
                         <SelectDefault width="150px" color="#fff" title="English Level" options={levelEnglishOptions} setParam={setParamEnglishLevel} />
                         <SelectDefault width="250px" color="#fff" title="Studies Level" options={levelStudiesOptions} setParam={setParamStudiesLevel} />
-                        <Button txt="Refresh table" color="#2020cc" colorIcon="#000" size="fit-content" iconRefresh={true} fn={refreshTable}/>
+                        {
+                            showBtnRefresh 
+                            ? <Button txt="News precandidates in SpreadSheets, refresh table" color="#2020cc" colorIcon="#000" size="fit-content" iconRefresh={true} fn={refreshTable}/>
+                            : <></>
+                        }
                     </div>
                 {
                     showSpinner 

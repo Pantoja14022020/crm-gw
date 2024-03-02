@@ -137,13 +137,15 @@ function Dashboard(){
     const [notificationModal, setNotificationModal] = useState(false);
     const [notificationsStored, setNotificationsStored] = useState([]);
     const [numNotifications, setNumNotifications] = useState(0);
+    const [showBtnRefresh, setBtnRefresh] = useState(false)
     socket.on('notify', (mensaje) => {
         const {fechaAccion,msg} = mensaje;//Obtengo las propiedades que manda el servidor
         const itemNotification = {status:true,fechaAccion,txt:msg,icon:"sheets"}//Creo un objeto con esas propiedades
         setNotificationsStored([...notificationsStored, itemNotification])//Lo almaceno en mi arreglo
         setNotificationModal(true)
         setNumNotifications(1)//Es el numerito que esta en la campanita
-        getPrecandidates();//Actualizamos la tabla
+        setBtnRefresh(true)
+        //getPrecandidates();//Actualizamos la tabla
        // console.log('Mensaje recibido solo para este cliente:', mensaje);
     });
 
@@ -272,7 +274,7 @@ function Dashboard(){
                             (getTypeUser() == 'tl' ? <Overview info="tl"/> : ( getTypeUser() == "gm" ? <Overview info="gm"/> : <Overview info="gw"/>))//Evaluamos que overvies mostramos, depende del tipo de usuario que ha iniciado sesion
                         :(interfaceShowed == 'board' ? 
                             <Board/>
-                        :(interfaceShowed == "precandidate" ? <Precandidate options={allCandidates} rows={filteredCandidates} columns={columnsTLU} setColumnsTLU={setColumnsTLU} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal}/>
+                        :(interfaceShowed == "precandidate" ? <Precandidate options={allCandidates} rows={filteredCandidates} columns={columnsTLU} setColumnsTLU={setColumnsTLU} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal} showBtnRefresh={showBtnRefresh} setShowBtnRefresh={setBtnRefresh}/>
                         : <></>)) 
                     }              
                 </div>
