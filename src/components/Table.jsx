@@ -6,7 +6,7 @@ import Td from "./Td";
 
 
 
-function Table({columns,rows,setCheckedOptions,checkedOptions,setColumnsTLU,setRowsTLU,setPrecandidateSelected, setValoresNewPrecandidate, setFetchUpdate}){
+function Table({idElementEdited,columns,rows,setCheckedOptions,checkedOptions,setRowsTLU,setPrecandidateSelected, setValoresNewPrecandidate, setFetchUpdate}){
 
 
 
@@ -73,7 +73,7 @@ function Table({columns,rows,setCheckedOptions,checkedOptions,setColumnsTLU,setR
                         <tbody>
                                 {
                                     rows.map(({id,select,fullname,email,phone,country,dateBirth,civilStatus,gender,levelStudies,position,englishLevel})=>(
-                                        <tr key={id}>
+                                        <tr key={id} style={{color: `${idElementEdited.includes(id) ? '#000' : ''}`, fontWeight: `${idElementEdited.includes(id) ? '600' : ''}`}}>
                                             <td><input type="checkbox" id={id} className="checkbox" onChange={e => handleCheckboxChange(e,id)}/></td>
                                             {/**<td>{fullname.substring(0,10)}...</td>
                                             <td>{email.substring(0,7)}...</td>

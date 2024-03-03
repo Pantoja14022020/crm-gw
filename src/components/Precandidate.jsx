@@ -14,9 +14,20 @@ import Modal from "./Modal";
 import { fetchUrlPost, fetchUrlPut} from "../helpers/fetchs";
 import {getDateTemporary} from "../helpers/fechas"
 
-function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel, getPrecandidates, notificationModal, setNotificationModal, showBtnRefresh, setShowBtnRefresh}){
+function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel, getPrecandidates, notificationModal, setNotificationModal, showBtnRefresh, setShowBtnRefresh, idElementEdited, setIdElementEdited}){
 
-    //console.log(options);
+    const columns = [
+        {id:0,txt:'Nombre(s) y apellidos'},
+        {id:1,txt:'Correo electrónico'},
+        {id:2,txt:'Número telefónico'},
+        {id:3,txt:'Fecha de nacimiento'},
+        {id:4,txt:'Estado de civil'},
+        {id:5,txt:'Género'},
+        {id:6,txt:'Lugar de residencia: Ciudad, Estado y País'},
+        {id:7,txt:'Grado de últimos estudios (Comprobable con certificado, titulo y/o cedula profesional)'},
+        {id:8,txt:'Nivel de Inglés'},
+        {id:9,txt:'Coloca el tipo de vacante a la que estas aplicando o deseas aplicar en un futuro'}
+    ]
 
     //ESTO ES PARA LOS FILTROS O PARAMETROS DE BUSQUEDA, AQUI SE DEFINEN SUS OPCIONES
     const levelEnglishOptions = [...new Set (options.map((option) => option.englishLevel))]//Obtengo los valores para el select nivel de ingles
@@ -38,11 +49,9 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
 
 
     useEffect(()=>{
-        if(rows.length == 0){
-            console.log("apga spinner")
-            //setShowSpinner(false)
-        }else{
+        if(rows.length != 0){
             setShowSpinner(false)
+            //setShowSpinner(false)
         }
         //console.log("cambiando longitud rows....")
     },[rows])
@@ -194,7 +203,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
     ]
 
     const [checkedOptions, setCheckedOptions] = useState([])//Un estado par gaurdar el id de los checkbox seleccionados 
-    console.log(checkedOptions)
+    //console.log(checkedOptions)
     const [showActions, setShowActions] = useState(false)//Definir estado para mostrar o no mostrar barra de acciones 
 
 
@@ -414,6 +423,9 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
         });
     }
     const [fetchUpdate,setFetchUpdate] = useState(false);
+    
+
+
     const handleSubmitNewPrecandidate = async e => {//Funcion para cuando se envia el formulario
         e.preventDefault();
         const {fullname,country,email,dateBirth,phone,professionalArea,position} = valoresNewPrecandidate;
@@ -447,10 +459,11 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                         checkbox.parentElement.parentElement.classList.remove('rowSelected')
                     });
                 }
+                setCheckedOptions([])
                 setFormPrecandidate(false);
 
 
-                const datosForm = {
+                const datosForm = {//Datos para actaulizar
                     //"dateTemporal": getDateTemporary(),
                     "fullname":fullname,//
                     "email":email,//
@@ -464,28 +477,56 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     "englishLevel":levelEnglish,//
                     "position":position,//
                     "dependencies": "",
-                    "emailRepeat": ""
+                    "emailRepeat": "",
+                    "generalInformation": true,
+                    "recruitmenProcess": false,
+                    "tipoTrabajo": "",
+                    "personalityTest": "",
+                    "testGorila": "",
+                    "contratoReclutamiento": "",
+                    "applicationCv": "",
+                    "selectionProcess": false,
+                    "employer": "",
+                    "referred": "",
+                    "methodContact": "",
+                    "interviewed": "",
+                    "status": "",
+                    "clientDocuments": false,
+                    "birthCertificate": "",
+                    "passport": "",
+                    "proofAddress": "",
+                    "haveFamily": "",
+                    "documentsFamily": [],
+                    "gmProcess": false,
+                    "callExplaining": "",
+                    "contractAndPaymentPlan": "",
+                    "documentsFile": "",
+                    "questionnaire": "",
+                    "docsUpload": "",
+                    "initialPayment": "",
+                    "sentToKeny": ""
                 }
 
-
-                const {updated,msg} = await fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${checkedOptions[0]+2}`,datosForm)//Creamos un nuevo registro (precandidato)
+                //console.log(checkedOptions[0])
+                //const elementIdEdited = checkedOptions[0]
+                const {updated} = await fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${checkedOptions[0]}`,datosForm)//Creamos un nuevo registro (precandidato)
                 
+                setPrecandidateSelected(null)
+                //Hay que actualizar la pagina o la tabla
+                getPrecandidates()
+
                 if(updated){
 
-                    setPrecandidateSelected(null)
-                    setCheckedOptions([])
-
+                    setIdElementEdited([...idElementEdited,checkedOptions[0]])//Establezco el id del elemento editado
+                    
                     //Show modal
                     setModal(true)
                     setTitle("Updated Successfully")
-                    setMessage(msg)
+                    setMessage('Precandidate was updated')
                     setType("success")
                     setShowSpinnerFormPre(false)
 
                     setFetchUpdate(false)
-
-                    //Hay que actualizar la pagina o la tabla
-                    getPrecandidates()
 
                     //Mejor hay que mostrar un boton para actualizar 
                     /*if(!showBtnRefresh){
@@ -496,7 +537,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     //Mostramos un modal
                     setModal(true)
                     setTitle('Error In Server')
-                    setMessage(msg)
+                    setMessage('Its not posible to update')
                     setType('error')
                     setShowSpinnerFormPre(false)
 
@@ -522,22 +563,52 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     "englishLevel":levelEnglish,//
                     "position":position,//
                     "dependencies": "",
-                    "emailRepeat": ""
+                    "emailRepeat": "",
+                    "generalInformation": true,
+                    "recruitmenProcess": false,
+                    "tipoTrabajo": "",
+                    "personalityTest": "",
+                    "testGorila": "",
+                    "contratoReclutamiento": "",
+                    "applicationCv": "",
+                    "selectionProcess": false,
+                    "employer": "",
+                    "referred": "",
+                    "methodContact": "",
+                    "interviewed": "",
+                    "status": "",
+                    "clientDocuments": false,
+                    "birthCertificate": "",
+                    "passport": "",
+                    "proofAddress": "",
+                    "haveFamily": "",
+                    "documentsFamily": [],
+                    "gmProcess": false,
+                    "callExplaining": "",
+                    "contractAndPaymentPlan": "",
+                    "documentsFile": "",
+                    "questionnaire": "",
+                    "docsUpload": "",
+                    "initialPayment": "",
+                    "sentToKeny": ""
                 }
 
-                const {added,msg} = await fetchUrlPost("https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/",datosForm)//Creamos un nuevo registro (precandidato)
-        
+                const {added,nuevoPrecandidato} = await fetchUrlPost("https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/",datosForm)//Creamos un nuevo registro (precandidato)
+
+                //Hay que actualizar la pagina o la tabla
+                getPrecandidates()
+
                 if(added){
+
+                    const {id} = nuevoPrecandidato;
+                    setIdElementEdited([...idElementEdited,id])
 
                     //Show modal
                     setModal(true)
                     setTitle("Added Successfully")
-                    setMessage(msg)
+                    setMessage('It was added to database')
                     setType("success")
                     setShowSpinnerFormPre(false)
-
-                    //Hay que actualizar la pagina o la tabla
-                    getPrecandidates()
 
                     //Mejor hay que mostrar un boton para actualizar 
                     /*if(!showBtnRefresh){
@@ -547,7 +618,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                     //Mostramos un modal
                     setModal(true)
                     setTitle('Error In Server')
-                    setMessage(msg)
+                    setMessage('Its not was posible to add')
                     setType('error')
                     setShowSpinnerFormPre(false)
                 }
@@ -616,7 +687,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                 notificationModal ? 
                     <>
                         <div className="modal-notify-section-precandidates">{/*Es el cuadro padre que almacena el modal */}
-                            <Modal title="New Changes" message="It was changes in your SpreadSheets, update Table" type="notify" modalType="alert"/>
+                            <Modal title="New Changes" message="There's changes in your SpreadSheets, its been added" type="notify" modalType="alert"/>
                         </div>
                     </>
                 :
@@ -667,7 +738,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                         <div className="spinner-table-precandidates"><Load/></div>
                     : 
                         <>
-                            <Table columns={columns} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setColumnsTLU={setColumnsTLU} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate}/>
+                            <Table idElementEdited={idElementEdited} columns={columns} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate}/>
                         </>
                 }
             </div>

@@ -50,48 +50,48 @@ function Dashboard(){
 
     //DEFINIR LAS FILAS Y COLUMNAS DE LA TABLA TLU 
     const [filteredCandidates, setFilteredCandidates] = useState([]);//Defino los elementos filtrados o filas filtradas en un inicio tendra todod
-    const [columnsTLU, setColumnsTLU] = useState([]);
+    //const [columnsTLU, setColumnsTLU] = useState([]);
     const [allCandidates, setAllCandidates] = useState([]);//Vraiable auxiliar
     //const [rowsTLU, setRowsTLU] = useState([]);
     async function getPrecandidates(){
         //Aqui decido que url voy a consumir los datos de excelm si el de local o el que esta desplegado
-        const {candidates} = await fetchUrlGet('https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/');   
+        const {precandidatos} = await fetchUrlGet('https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/');   
         //const {candidates} = await fetchUrlGet('http://localhost:8080/tl/excel/candidate/')
         //console.log(candidates)
         //Definir columnas
-        const columns= candidates[0] //[Tomas todas las columnas]
+        //const columns= candidates[0] //[Tomas todas las columnas]
         //console.log(columns);
-        const formattedColumns = columns.map((column, idx) => {
+        /*const formattedColumns = columns.map((column, idx) => {
             if (idx <= 11 && idx !== 0 && idx !== 9) {
                 return { id: idx, txt: column }; // Devolvemos un objeto con id y txt
             }
             return null; // Si no cumple la condición, devolvemos null
         }).filter(col => col !== null); // Filtramos los elementos nulos
-        setColumnsTLU(formattedColumns)  //Solo almacenamos las primeras 8 columnas  
+        setColumnsTLU(formattedColumns) */ //Solo almacenamos las primeras 8 columnas  
         //console.log(columnsTLU)
         
         //Definir filas
-        const rows = candidates.slice(1)//Saca el primer arreglo ya son las columnas
+        //const rows = candidates.slice(1)//Saca el primer arreglo ya son las columnas
         //console.log(rows);
         setFilteredCandidates(prevRows => {
-            return rows.map((row, idx) => { // Recorro arreglo por arreglo [[],[],[]] o fila por fila
+            return precandidatos.reverse().map((row, idx) => { // Recorro arreglo por arreglo [[],[],[]] o fila por fila
                 //let precandidate = {fullname:'', email:'', phone:'', country:'', dateBirth:'', civilStatus:'', gender:'', levelStudies:'', position:'', englishLevel:''};
-                let precandidate = {fullname:'', email:'', phone:'', dateBirth:'', civilStatus:'', gender:'', country:'', levelStudies:'', englishLevel:'', position:''};
-                let idd = 0;
-                row.forEach((pre, idy) => {
-                    if(idy !== 0 && idy !== 9){
-                        if (idy <= 11) {
-                            let attribute = Object.keys(precandidate)[idd];
-                            precandidate[attribute] = pre;
-                            idd++;
-                        }
-                    }
-                });
-        
-                precandidate['select'] = <IoMdCheckmark size="1rem" />;
-                precandidate['id'] = idx;
-        
-                return precandidate;
+                /*const {
+                    id, 
+                    fullname,
+                    email,
+                    phone,
+                    dateBirth,
+                    civilStatus, 
+                    gender, 
+                    country, 
+                    levelStudies,
+                    englishLevel, 
+                    position
+                } = row;
+                precandidate*/
+                row['select'] = <IoMdCheckmark size="1rem" />;
+                return row;
             });
         });
         //console.log("filteres",filteredCandidates);
@@ -99,28 +99,28 @@ function Dashboard(){
 
         //Crear un respaldo d elas filas como variable auxiliar y se pueda restablecer todos cuando en el buscador es vacio
         setAllCandidates(prevRows => {
-            return rows.map((row, idx) => { // Recorro arreglo por arreglo [[],[],[]] o fila por fila
+            return precandidatos.reverse().map((row, idx) => { // Recorro arreglo por arreglo [[],[],[]] o fila por fila
                 //let precandidate = {fullname:'', email:'', phone:'', country:'', dateBirth:'', civilStatus:'', gender:'', levelStudies:'', position:'', englishLevel:''};
-                let precandidate = {fullname:'', email:'', phone:'', dateBirth:'', civilStatus:'', gender:'', country:'', levelStudies:'', englishLevel:'', position:''};
-                let idd = 0;
-
-                row.forEach((pre, idy) => {
-                    if(idy !== 0 && idy !== 9){
-                        if (idy <= 11) {
-                            let attribute = Object.keys(precandidate)[idd];
-                            precandidate[attribute] = pre;
-                            idd++
-                        }
-                    }
-                });
-        
+                /*const {
+                    id, 
+                    fullname,
+                    email,
+                    phone,
+                    dateBirth,
+                    civilStatus, 
+                    gender, 
+                    country, 
+                    levelStudies,
+                    englishLevel, 
+                    position
+                } = row;
                 precandidate['select'] = <IoMdCheckmark size="1rem" />;
-                precandidate['id'] = idx;
-        
-                return precandidate;
+                return precandidate;*/
+                row['select'] = <IoMdCheckmark size="1rem" />;
+                return row;
             });
         });
-        console.log("all candidates",allCandidates);
+        //.log("all candidates",allCandidates);
     }
     useEffect(()=>{//Aqui hago peticion para obtener los candidatos del excel para TL GM o GW
         if(getTypeUser() == 'tl'){
@@ -138,14 +138,23 @@ function Dashboard(){
     const [notificationsStored, setNotificationsStored] = useState([]);
     const [numNotifications, setNumNotifications] = useState(0);
     const [showBtnRefresh, setBtnRefresh] = useState(false)
+    const [idElementEdited, setIdElementEdited] = useState([])
+    useEffect(()=>{//Monitorear cuando cambie el valor del id del elemento editado
+        if(idElementEdited.length > 0){//Si el id no es nulo, (quiere decir que si hay un id de un elemento editado)
+            setTimeout(()=>{
+                setIdElementEdited([])
+            },6000)
+        }
+    },[idElementEdited])
     socket.on('notify', (mensaje) => {
-        const {fechaAccion,msg} = mensaje;//Obtengo las propiedades que manda el servidor
+        const {fechaAccion,msg,ids} = mensaje;//Obtengo las propiedades que manda el servidor
         const itemNotification = {status:true,fechaAccion,txt:msg,icon:"sheets"}//Creo un objeto con esas propiedades
         setNotificationsStored([...notificationsStored, itemNotification])//Lo almaceno en mi arreglo
         setNotificationModal(true)
         setNumNotifications(1)//Es el numerito que esta en la campanita
-        setBtnRefresh(true)
-        //getPrecandidates();//Actualizamos la tabla
+        //setBtnRefresh(true)
+        ids.forEach(id => setIdElementEdited([...idElementEdited,id]))
+        getPrecandidates();//Actualizamos la tabla
        // console.log('Mensaje recibido solo para este cliente:', mensaje);
     });
 
@@ -274,7 +283,7 @@ function Dashboard(){
                             (getTypeUser() == 'tl' ? <Overview info="tl"/> : ( getTypeUser() == "gm" ? <Overview info="gm"/> : <Overview info="gw"/>))//Evaluamos que overvies mostramos, depende del tipo de usuario que ha iniciado sesion
                         :(interfaceShowed == 'board' ? 
                             <Board/>
-                        :(interfaceShowed == "precandidate" ? <Precandidate options={allCandidates} rows={filteredCandidates} columns={columnsTLU} setColumnsTLU={setColumnsTLU} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal} showBtnRefresh={showBtnRefresh} setShowBtnRefresh={setBtnRefresh}/>
+                        :(interfaceShowed == "precandidate" ? <Precandidate options={allCandidates} rows={filteredCandidates} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal} showBtnRefresh={showBtnRefresh} setShowBtnRefresh={setBtnRefresh} idElementEdited={idElementEdited} setIdElementEdited={setIdElementEdited} />
                         : <></>)) 
                     }              
                 </div>
