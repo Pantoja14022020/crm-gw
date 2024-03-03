@@ -1,23 +1,40 @@
 .barStatus{
-   width: fit-content;
-}
-.barStatus ul{
     width: fit-content;
-    display: flex;
-    flex-direction: row;
-    list-style: none;
-    border-radius: 0.5rem;
     overflow: hidden;
 }
-.barStatus ul li{
-    font-size: 0.8rem;
+
+
+
+.barStatus ul{
+    list-style: none;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    padding: 1rem;
-    background-color: #ffffff;
 }
+
+
+
+.barStatus ul li{
+    padding: 0.7rem;
+    border-top: 2px solid var(--blue);
+    border-bottom: 2px solid var(--blue);
+    border-left: 2px solid var(--blue);
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: var(--blue);
+}
+.barStatus ul li:last-child{
+    border-right: 2px solid var(--blue);
+    border-top-right-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+}
+.barStatus ul li:first-child{
+    border-top-left-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
+}
+
+
+
 .painted{
-    background-color: var(--blue) !important;
+    background-color: var(--blue);
     color: white !important;
 }

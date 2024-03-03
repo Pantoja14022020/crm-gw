@@ -1,16 +1,13 @@
 import { GrFormNext } from "react-icons/gr";
 
-function BarStatus({stages,effect}){
+function BarStatus({sections, sectionSelectedTLU, setSectionSelectedTLU}){
     return(
-        <nav className={`barStatus ${effect}`}>
+        <nav className={`barStatus`}>
             <ul>
                 {
-                    stages.map(({id,title,description,paint,end,icon})=> (
-                        <li key={id} className={paint ? 'painted' : ''}>
+                    sections.map(({id,title,paint,name})=> (
+                        <li onClick={e => setSectionSelectedTLU(name)} key={id} className={sectionSelectedTLU === name ? 'painted' : ''}>
                             <p>{title}</p>
-                            {
-                                !end ? <div><GrFormNext size="1rem" /></div> : <></>
-                            }
                         </li>
                     ))
                 }

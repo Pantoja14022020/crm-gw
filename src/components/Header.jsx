@@ -71,33 +71,23 @@ function Header({interfaceShowed,fullname, notificationsStored, numNotifications
 
 
 
-    const stagesP = [
+    //Son las subsecciones para la etapa Precandidate
+    const sectionsPrecanditeTLU = [
         {
             id: 0,
-            title: 'Pre-Candidates',
-            description: 'General Information and Recruitment Process',
-            icon: <Icon color="#2020cc" size="1rem" name="edit" spaceHorizontal="true"/>,
-            paint: true,
-            end: false
+            title: 'General Information',
+            name: 'gi',
+            paint: true
         },
         {
             id: 1,
-            title: 'Candidates',
-            description: 'Selection Process',
-            icon: <Icon color="#2020cc" size="1rem" name="user" spaceHorizontal="true"/>,
-            paint: false,
-            end: false
-        },
-        {
-            id: 2,
-            title: 'EB3 Workers',
-            description: 'Client Documents and GM Process',
-            icon: <Icon color="#00833b" size="1rem" name="check" spaceHorizontal="true"/>,
-            paint: false,
-            end: true
+            title: 'Process Recruitment',
+            name: 'pr',
+            paint: false
         }
 
-    ]
+    ]//Cual subseccion esta seleccionado en el Togle
+    const [sectionSelectedTLU, setSectionSelectedTLU] =  useState('gi');
 
 
     return(
@@ -105,7 +95,7 @@ function Header({interfaceShowed,fullname, notificationsStored, numNotifications
             {
                 interfaceShowed == 'overview' 
                     ? <h1 className='animate__animated animate__bounceInDown'>¡Hola {fullname}! 👋</h1> 
-                    : (interfaceShowed == 'precandidate' ? <BarStatus stages={stagesP} /> : <></>) 
+                    : (interfaceShowed == 'precandidate' ? <BarStatus sections={sectionsPrecanditeTLU} sectionSelectedTLU={sectionSelectedTLU} setSectionSelectedTLU={setSectionSelectedTLU} /> : <></>) 
             }
             <div className="icons-header-aside">
                 <Icon num={numNotifications} type="icon" name="notification" spaceHorizontal={true} width="40px" height="40px" fn={showModalNotifis} showCounter={true}/>

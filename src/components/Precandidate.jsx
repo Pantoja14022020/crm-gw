@@ -190,12 +190,11 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
     
 
     const actionsBarPrecandidates = [//Defino las opciones que tendra el nav de actions
-        {id:0,icon:<Icon name="delete" size="1rem"/>,nameClass: 'delete-pre',color:'#fff'},
         {id:1,icon:<Icon name="ready" size="1rem"/>,nameClass: 'done-pre'}
     ]
 
     const [checkedOptions, setCheckedOptions] = useState([])//Un estado par gaurdar el id de los checkbox seleccionados 
-
+    console.log(checkedOptions)
     const [showActions, setShowActions] = useState(false)//Definir estado para mostrar o no mostrar barra de acciones 
 
 
@@ -642,7 +641,7 @@ function Precandidate({options,columns,rows,setColumnsTLU,setRowsTLU,setSearchTe
                 <></>
             }
             <div className="btn-new-candidate">
-                <div className="search-container animate__animated animate__bounceInDown">
+                <div className="search-container">
                     <Search setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
                 </div>
                 <div className="btn-n-c">
