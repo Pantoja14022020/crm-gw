@@ -551,6 +551,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
 
                 const datosForm = {
                     "dateTemporal": getDateTemporary(),
+                    "creadoDirectamenteEnCRM": true,
                     "fullname":fullname,//
                     "email":email,//
                     "phone":phone,//
