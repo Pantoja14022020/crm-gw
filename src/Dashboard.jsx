@@ -270,12 +270,19 @@ function Dashboard(){
 
 
 
+
+    //Este es para seccion precandidato para CRM Trabajo Legal USA
+    //Define que tabla mostrar, si informacion general(precandidatos) o process recruitment(precandiatos)
+    const [sectionSelectedTLU, setSectionSelectedTLU] =  useState('gi');
+
+
+
     //style={{backgroundColor: `${interfaceShowed !== 'overview' ? '#fff' : '' }`}} 
     return(
         <main className="dashboard">
             <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**/ setInterfaceShowed={setInterfaceShowed} showNavbar={showNavbar} setShowNavbar={setShowNavbar}/>
             <aside className={`${showNavbar ? 'part-width' : 'all-width'}`}>
-                <Header interfaceShowed={interfaceShowed} fullname={fullname} notificationsStored={notificationsStored} numNotifications={numNotifications} setNumNotifications={setNumNotifications} setNotificationsStored={setNotificationsStored}/>
+                <Header interfaceShowed={interfaceShowed} fullname={fullname} notificationsStored={notificationsStored} numNotifications={numNotifications} setNumNotifications={setNumNotifications} setNotificationsStored={setNotificationsStored} sectionSelectedTLU={sectionSelectedTLU} setSectionSelectedTLU={setSectionSelectedTLU}/>
                 <div className="content-dashboard">
                     {   /*Aqui decidimo que tipo de Overview vamos a mostrar, dependiendo el tipo de usuario que inicio sesion */
                         
@@ -283,7 +290,7 @@ function Dashboard(){
                             (getTypeUser() == 'tl' ? <Overview info="tl"/> : ( getTypeUser() == "gm" ? <Overview info="gm"/> : <Overview info="gw"/>))//Evaluamos que overvies mostramos, depende del tipo de usuario que ha iniciado sesion
                         :(interfaceShowed == 'board' ? 
                             <Board/>
-                        :(interfaceShowed == "precandidate" ? <Precandidate options={allCandidates} rows={filteredCandidates} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal} showBtnRefresh={showBtnRefresh} setShowBtnRefresh={setBtnRefresh} idElementEdited={idElementEdited} setIdElementEdited={setIdElementEdited} />
+                        :(interfaceShowed == "precandidate" ? <Precandidate options={allCandidates} rows={filteredCandidates} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal} showBtnRefresh={showBtnRefresh} setShowBtnRefresh={setBtnRefresh} idElementEdited={idElementEdited} setIdElementEdited={setIdElementEdited} sectionSelectedTLU={sectionSelectedTLU} />
                         : <></>)) 
                     }              
                 </div>

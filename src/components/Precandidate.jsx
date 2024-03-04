@@ -14,7 +14,7 @@ import Modal from "./Modal";
 import { fetchUrlPost, fetchUrlPut} from "../helpers/fetchs";
 import {getDateTemporary} from "../helpers/fechas"
 
-function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel, getPrecandidates, notificationModal, setNotificationModal, showBtnRefresh, setShowBtnRefresh, idElementEdited, setIdElementEdited}){
+function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel, getPrecandidates, notificationModal, setNotificationModal, showBtnRefresh, setShowBtnRefresh, idElementEdited, setIdElementEdited, sectionSelectedTLU}){
 
     const columns = [
         {id:0,txt:'Nombre(s) y apellidos'},
@@ -712,37 +712,73 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                 : 
                 <></>
             }
-            <div className="btn-new-candidate">
-                <div className="search-container">
-                    <Search setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
-                </div>
-                <div className="btn-n-c">
-                    {
-                        checkedOptions.length <= 0 ? <Button color="#fff" fn={setTrueShowFormPrecandidate} txt={ getTypeUser() == 'gm' ? 'New Customer' : (getTypeUser() == 'gw' ? 'gw' : 'New Candidate') }size="100%" iconAdd={true} colorIcon="#8585b6" bgColor="#2020cc"/> : <></>
-                    }
-                </div>
-            </div>
-            <div className="container-candidates">
-                    <div className="params-filter-precandidate">
-                        <LiaFilterSolid />
-                        <SelectDefault width="150px" color="#fff" title="English Level" options={levelEnglishOptions} setParam={setParamEnglishLevel} />
-                        <SelectDefault width="250px" color="#fff" title="Studies Level" options={levelStudiesOptions} setParam={setParamStudiesLevel} />
+
+
+
+
+
+
+
+        
+
+
+            {
+                sectionSelectedTLU  === 'gi' ?
+                <>
+                    <div className="btn-new-candidate">
+                        <div className="search-container">
+                            {   //Aqui decido que componente search mostrar, si el de la subseccion informacion general o process recruitment
+                                <Search setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+                            }
+                        </div>
+                        <div className="btn-n-c">
+                            {
+                                checkedOptions.length <= 0 ? <Button color="#fff" fn={setTrueShowFormPrecandidate} txt={ getTypeUser() == 'gm' ? 'New Customer' : (getTypeUser() == 'gw' ? 'gw' : 'New Candidate') }size="100%" iconAdd={true} colorIcon="#8585b6" bgColor="#2020cc"/> : <></>
+                            }
+                        </div>
+                    </div>
+                    <div className="container-candidates">
+                            <div className="params-filter-precandidate">
+                                <LiaFilterSolid />
+                                <SelectDefault width="150px" color="#fff" title="English Level" options={levelEnglishOptions} setParam={setParamEnglishLevel} />
+                                <SelectDefault width="250px" color="#fff" title="Studies Level" options={levelStudiesOptions} setParam={setParamStudiesLevel} />
+                                {
+                                    showBtnRefresh 
+                                    ? <Button txt="News precandidates in SpreadSheets, refresh table" color="#2020cc" colorIcon="#000" size="fit-content" iconRefresh={true} fn={refreshTable}/>
+                                    : <></>
+                                }
+                            </div>
                         {
-                            showBtnRefresh 
-                            ? <Button txt="News precandidates in SpreadSheets, refresh table" color="#2020cc" colorIcon="#000" size="fit-content" iconRefresh={true} fn={refreshTable}/>
-                            : <></>
+                            showSpinner 
+                            ? 
+                                <div className="spinner-table-precandidates"><Load/></div>
+                            : 
+                                <>
+                                    <Table idElementEdited={idElementEdited} columns={columns} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate}/>
+                                </>
                         }
                     </div>
-                {
-                    showSpinner 
-                    ? 
-                        <div className="spinner-table-precandidates"><Load/></div>
-                    : 
-                        <>
-                            <Table idElementEdited={idElementEdited} columns={columns} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate}/>
-                        </>
-                }
-            </div>
+                </>
+                : (sectionSelectedTLU  === 'pr' ?
+                <>
+                    
+                </>
+                :<></>)
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
             {
                 showActions 

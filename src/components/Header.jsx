@@ -7,7 +7,7 @@ import Option from './Option'
 import { useEffect, useState } from 'react';
 import BarStatus from './BarStatus';
 
-function Header({interfaceShowed,fullname, notificationsStored, numNotifications, setNumNotifications,setNotificationsStored}){
+function Header({interfaceShowed,fullname, notificationsStored, numNotifications, setNumNotifications,setNotificationsStored, sectionSelectedTLU, setSectionSelectedTLU}){
 
     const [showModalOption, setShowModalOption] = useState(false)
     const [showModalNotifications, setShowModalNotifications] = useState(false);
@@ -51,23 +51,6 @@ function Header({interfaceShowed,fullname, notificationsStored, numNotifications
         }
     ]
 
-    /*const notifies = [//Son las notificaciones que se mostraran en el cuadro o modal al dar click en notificaciones
-        {
-            id: 0,
-            txt: 'New row added in Sheets',
-            icon: "sheets"
-        },
-        {
-            id: 1,
-            txt: 'New row added in Sheets',
-            icon: "sheets"
-        },
-        {
-            id: 2,
-            txt: 'New row added in Sheets',
-            icon: "sheets"
-        }
-    ]*/
 
 
 
@@ -87,7 +70,7 @@ function Header({interfaceShowed,fullname, notificationsStored, numNotifications
         }
 
     ]//Cual subseccion esta seleccionado en el Togle
-    const [sectionSelectedTLU, setSectionSelectedTLU] =  useState('gi');
+    
 
 
     return(
@@ -95,7 +78,7 @@ function Header({interfaceShowed,fullname, notificationsStored, numNotifications
             {
                 interfaceShowed == 'overview' 
                     ? <h1 className='animate__animated animate__bounceInDown'>¡Hola {fullname}! 👋</h1> 
-                    : (interfaceShowed == 'precandidate' ? <BarStatus sections={sectionsPrecanditeTLU} sectionSelectedTLU={sectionSelectedTLU} setSectionSelectedTLU={setSectionSelectedTLU} /> : <></>) 
+                    : (interfaceShowed == 'precandidate' ? <BarStatus sections={sectionsPrecanditeTLU} sectionSelectedTLU={sectionSelectedTLU} setSectionSelectedTLU={setSectionSelectedTLU}/> : <></>) 
             }
             <div className="icons-header-aside">
                 <Icon num={numNotifications} type="icon" name="notification" spaceHorizontal={true} width="40px" height="40px" fn={showModalNotifis} showCounter={true}/>
