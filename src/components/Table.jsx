@@ -6,7 +6,7 @@ import Td from "./Td";
 
 
 
-function Table({idElementEdited,columns,rows,setCheckedOptions,checkedOptions,setRowsTLU,setPrecandidateSelected, setValoresNewPrecandidate, setFetchUpdate}){
+function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOptions,setRowsTLU,setPrecandidateSelected, setValoresNewPrecandidate, setFetchUpdate, sectionSelectedTLU}){
 
 
 
@@ -55,7 +55,7 @@ function Table({idElementEdited,columns,rows,setCheckedOptions,checkedOptions,se
     return(
         <>
             {
-                <div className="table-container">
+                <div className={`table-container ${height}`}>
                     <table>
                         <thead>
                             <tr>   
@@ -71,7 +71,7 @@ function Table({idElementEdited,columns,rows,setCheckedOptions,checkedOptions,se
                             </tr>
                         </thead>
                         <tbody>
-                                {
+                                {   sectionSelectedTLU == 'gi' ?
                                     rows.map(({id,select,fullname,email,phone,country,dateBirth,civilStatus,gender,levelStudies,position,englishLevel})=>(
                                         <tr key={id} style={{color: `${idElementEdited.includes(id) ? '#000' : ''}`, fontWeight: `${idElementEdited.includes(id) ? '600' : ''}`}}>
                                             <td><input type="checkbox" id={id} className="checkbox" onChange={e => handleCheckboxChange(e,id)}/></td>
@@ -97,6 +97,38 @@ function Table({idElementEdited,columns,rows,setCheckedOptions,checkedOptions,se
                                             <Td txt={position} optionMore={true} />
                                         </tr>
                                     ))
+                                    : <></>
+                                }
+
+
+
+
+
+                                {   sectionSelectedTLU == 'pr' ? //Defino que filas se muestran para la tabla process recruitment
+                                    rows.map(({id,select,fullname,email,phone,tipoTrabajo,personalityTest,testGorila,contratoReclutamiento,applicationCv})=>(
+                                        <tr key={id} style={{color: `${idElementEdited.includes(id) ? '#000' : ''}`, fontWeight: `${idElementEdited.includes(id) ? '600' : ''}`}}>
+                                            <td><input type="checkbox" id={id} className="checkbox" onChange={e => handleCheckboxChange(e,id)}/></td>
+                                            {/**<td>{fullname.substring(0,10)}...</td>
+                                            <td>{email.substring(0,7)}...</td>
+                                            <td>{phone}</td>
+                                            <td>{country.substring(0,8)}...</td> 
+                                            <td>{dateBirth.substring(0,5)}...</td>
+                                            <td>{civilStatus}</td>
+                                            <td>{gender}</td>
+                                            <td>{levelStudies.substring(0,10)}...</td>
+                                            <td>{position.substring(0,10)}...</td>
+                                            <td>{englishLevel}</td>**/}
+                                            <Td txt={fullname}/>
+                                            <Td txt={email} optionMore={true}/>
+                                            <Td txt={phone} optionMore={true}/>
+                                            <Td txt={tipoTrabajo}/>
+                                            <Td txt={personalityTest} optionMore={personalityTest.length > 0 ? true : false}/>
+                                            <Td txt={testGorila}/>
+                                            <Td txt={contratoReclutamiento}/>
+                                            <Td txt={applicationCv}/>
+                                        </tr>
+                                    ))
+                                    : <></>
                                 }
                         </tbody>
                     </table>

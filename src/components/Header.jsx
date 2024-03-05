@@ -7,7 +7,7 @@ import Option from './Option'
 import { useEffect, useState } from 'react';
 import BarStatus from './BarStatus';
 
-function Header({interfaceShowed,fullname, notificationsStored, numNotifications, setNumNotifications,setNotificationsStored, sectionSelectedTLU, setSectionSelectedTLU}){
+function Header({interfaceShowed,fullname, notificationsStored, numNotifications, setNumNotifications,setNotificationsStored, sectionSelectedTLU, setSectionSelectedTLU, checkedOptions, setCheckedOptions}){
 
     const [showModalOption, setShowModalOption] = useState(false)
     const [showModalNotifications, setShowModalNotifications] = useState(false);
@@ -70,7 +70,10 @@ function Header({interfaceShowed,fullname, notificationsStored, numNotifications
         }
 
     ]//Cual subseccion esta seleccionado en el Togle
-    
+    function setSelectedOption(name){
+        setSectionSelectedTLU(name)
+        setCheckedOptions([])
+    }    
 
 
     return(
@@ -78,7 +81,7 @@ function Header({interfaceShowed,fullname, notificationsStored, numNotifications
             {
                 interfaceShowed == 'overview' 
                     ? <h1 className='animate__animated animate__bounceInDown'>¡Hola {fullname}! 👋</h1> 
-                    : (interfaceShowed == 'precandidate' ? <BarStatus sections={sectionsPrecanditeTLU} sectionSelectedTLU={sectionSelectedTLU} setSectionSelectedTLU={setSectionSelectedTLU}/> : <></>) 
+                    : (interfaceShowed == 'precandidate' ? <BarStatus sections={sectionsPrecanditeTLU} sectionSelected={sectionSelectedTLU} setSectionSelected={setSelectedOption}/> : <></>) 
             }
             <div className="icons-header-aside">
                 <Icon num={numNotifications} type="icon" name="notification" spaceHorizontal={true} width="40px" height="40px" fn={showModalNotifis} showCounter={true}/>

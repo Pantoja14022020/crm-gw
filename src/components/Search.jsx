@@ -1,7 +1,7 @@
 import Icon from "./Icon";
 
 
-function Search({setFilteredCandidates,filteredCandidates,setSearchTerm,searchTerm}){
+function Search({txt,setFilteredCandidates,filteredCandidates,setSearchTerm,searchTerm}){
 
     
 
@@ -10,7 +10,7 @@ function Search({setFilteredCandidates,filteredCandidates,setSearchTerm,searchTe
             <Icon name="search" size="1.2rem" color="#888"/>
             <input
                 type="text"
-                placeholder="Search a candidate to trade"
+                placeholder={txt}
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
                 onInput={ e => setSearchTerm(e.target.value)}

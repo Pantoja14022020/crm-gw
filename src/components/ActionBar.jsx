@@ -2,12 +2,11 @@ import Icon from "./Icon";
 
 function ActionBar({actions,optionEdit,fn}){
 
-
     return(
         <div className="actions-bar animate__animated animate__slideInUp">
             {
-                actions.map(({id,icon,nameClass}) => (
-                    <button key={id} className={nameClass}>{icon}</button>
+                actions.map(({id,icon,nameClass,fn}) => (
+                    <button onClick={e => fn()} key={id} className={nameClass}>{icon}</button>
                 ))
             }
             {

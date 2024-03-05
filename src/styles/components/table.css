@@ -2,10 +2,15 @@
     margin-top: 0.5rem;
     width: 100%;
     position: relative;
-    height: 370px;
     overflow-y: auto;
     overflow-x: auto;
     padding: 0rem 0.5rem 0.5rem 0.5rem;
+}
+.gi{/*Tamaño de la tabla cuando esta en la subseccion general information */
+  height: 370px;
+}
+.pr{/*Tamaño de la tabla cuando esta en la subseccion process recruitment*/
+  height: 415px;
 }
 @media screen and (min-height: 800px){
   .table-container{

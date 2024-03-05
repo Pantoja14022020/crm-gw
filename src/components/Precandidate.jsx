@@ -13,10 +13,11 @@ import SelectDefault from "./SelectDefault";
 import Modal from "./Modal";
 import { fetchUrlPost, fetchUrlPut} from "../helpers/fetchs";
 import {getDateTemporary} from "../helpers/fechas"
+import Confirmation from "./Confirmation";
 
-function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel, getPrecandidates, notificationModal, setNotificationModal, showBtnRefresh, setShowBtnRefresh, idElementEdited, setIdElementEdited, sectionSelectedTLU}){
+function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel, getPrecandidates, notificationModal, setNotificationModal, showBtnRefresh, setShowBtnRefresh, idElementEdited, setIdElementEdited, sectionSelectedTLU, showConfirmAction, setShowConfirmAction,txtTitleConfirmationAction,setTxtTitleConfirmationAction,txtConfirmationAction,setTxtConfirmationAction, checkedOptions, setCheckedOptions}){
 
-    const columns = [
+    const columnsGeneralInformation = [ //Columnas para la tabla informacion general
         {id:0,txt:'Nombre(s) y apellidos'},
         {id:1,txt:'Correo electrónico'},
         {id:2,txt:'Número telefónico'},
@@ -27,6 +28,18 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
         {id:7,txt:'Grado de últimos estudios (Comprobable con certificado, titulo y/o cedula profesional)'},
         {id:8,txt:'Nivel de Inglés'},
         {id:9,txt:'Coloca el tipo de vacante a la que estas aplicando o deseas aplicar en un futuro'}
+    ]
+
+
+    const columnsProcessRecruitment = [//Columnas para la tabla 
+        {id:0,txt:'Nombre(s) y apellidos'},
+        {id:1,txt:'Correo electrónico'},
+        {id:2,txt:'Número telefónico'},
+        {id:3,txt:'Tipo de Trabajo'},
+        {id:4,txt:'Personality Test'},
+        {id:5,txt:'Test Gorilla'},
+        {id:6,txt:'Contrato de reclutamiento'},
+        {id:7,txt:'Application/CV'}
     ]
 
     //ESTO ES PARA LOS FILTROS O PARAMETROS DE BUSQUEDA, AQUI SE DEFINEN SUS OPCIONES
@@ -198,11 +211,24 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
     ]*/
     
 
+    //FUNCIONES o estados PARA LOS BOTONES DEL ActionBar
+    //Esta funcion aparece cuando se da click al chequear un precandidato
+    function confirmationStageProcessRecruitment(){//Accion para el boton de pasar a la subseccion Process Recruitment
+        setShowConfirmAction(true)
+        setTxtTitleConfirmationAction('Subsection Process Recruitment')
+        setTxtConfirmationAction('¿Do you want add it to this stage?')
+    }
+    
+
+
     const actionsBarPrecandidates = [//Defino las opciones que tendra el nav de actions
-        {id:1,icon:<Icon name="ready" size="1rem"/>,nameClass: 'done-pre'}
+        {id:1,icon:<Icon name="ready" size="1rem"/>,nameClass: 'done-pre', fn:confirmationStageProcessRecruitment}
     ]
 
-    const [checkedOptions, setCheckedOptions] = useState([])//Un estado par gaurdar el id de los checkbox seleccionados 
+
+
+
+    
     //console.log(checkedOptions)
     const [showActions, setShowActions] = useState(false)//Definir estado para mostrar o no mostrar barra de acciones 
 
@@ -254,6 +280,11 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
         }
     }
 
+    const setFalseShownModalConfirmation = e => {//Funcion para quitar el modal cuando se de click fuera de el
+        if(e.target.classList.contains('container-confirmation-modal')){
+            setShowConfirmAction(false)
+        }
+    }
 
 
 
@@ -672,6 +703,74 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
 
 
 
+
+
+
+
+
+
+    //ESTAS FUNCIONES ES PARA EL COMPONENTE Confirmation.jsx
+    function quitModalConfirmation(){
+        setShowConfirmAction(false)
+    }
+
+    const [showSpinnerChangeStagePR,setShowSpinnerChangeStagePR] = useState(false)
+    async function sendToSubsectionProcessRecruitment(){//Que hacer cuando se confirma la accion
+        try {
+
+            setShowSpinnerChangeStagePR(true)
+
+            const body = {
+                "generalInformation": false,
+                "recruitmenProcess": true,
+            }
+
+            //console.log(checkedOptions)
+            const promesas = checkedOptions.map(id => fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${id}`,body))
+            const resultados = await Promise.all(promesas)
+            getPrecandidates()
+
+            const checkBoxs = document.querySelectorAll('.checkbox')//Quitar o deschequear
+            if(checkBoxs){
+                checkBoxs.forEach(checkbox => {
+                    checkbox.checked = false;
+                    checkbox.parentElement.parentElement.classList.remove('rowSelected')
+                });
+            }
+            setCheckedOptions([])//Vacio el arreglo que contiene los ids de los elementos a pasar
+            setShowConfirmAction(false)//Quito el modal de confirmacion
+
+            setModal(true)
+            setTitle("Send to next stage")
+            setMessage('Your precandidates was send to process recruitment')
+            setType("success")
+            setShowSpinnerChangeStagePR(false)
+            
+        } catch (error) {
+
+            const checkBoxs = document.querySelectorAll('.checkbox')//Quitar o deschequear
+            if(checkBoxs){
+                checkBoxs.forEach(checkbox => {
+                    checkbox.checked = false;
+                    checkbox.parentElement.parentElement.classList.remove('rowSelected')
+                });
+            }
+            setCheckedOptions([])//Vacio el arreglo que contiene los ids de los elementos a pasar
+            setShowConfirmAction(false)//Quito el modal de confirmacion
+
+            setModal(true)
+            setTitle('Error In Server')
+            setMessage('Its not was posible send to next subsection')
+            setType('error')
+            setShowSpinnerChangeStagePR(false)
+
+        }
+    }
+
+
+
+
+
     return (
         <section className="section-precandidates">
             {  //El el modal o alert cuando se crear o edita un precandidato
@@ -712,7 +811,13 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                 : 
                 <></>
             }
-
+            { //Es el modal que muestra para confirmar si se quiere pasar los precandidatos a la subseccion 'process recruitment'
+                showConfirmAction ?
+                    <div className="container-confirmation-modal" onClick={e => setFalseShownModalConfirmation(e)}>
+                        <Confirmation showSpinner={showSpinnerChangeStagePR} cancel={quitModalConfirmation} ok={sendToSubsectionProcessRecruitment}/>
+                    </div> 
+                : <></>
+            }
 
 
 
@@ -728,7 +833,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                     <div className="btn-new-candidate">
                         <div className="search-container">
                             {   //Aqui decido que componente search mostrar, si el de la subseccion informacion general o process recruitment
-                                <Search setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+                                <Search txt="Search precandidate in general information subsection" setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
                             }
                         </div>
                         <div className="btn-n-c">
@@ -754,14 +859,31 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                                 <div className="spinner-table-precandidates"><Load/></div>
                             : 
                                 <>
-                                    <Table idElementEdited={idElementEdited} columns={columns} rows={rows} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate}/>
+                                    <Table height="gi" idElementEdited={idElementEdited} columns={columnsGeneralInformation} rows={rows.filter(row => row.generalInformation == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLU}/>
                                 </>
                         }
                     </div>
                 </>
                 : (sectionSelectedTLU  === 'pr' ?
                 <>
-                    
+                    <div className="btn-new-candidate">
+                        <div className="search-container">
+                            {   //Aqui decido que componente search mostrar, si el de la subseccion informacion general o process recruitment
+                                <Search txt="Search precandidate in process recruitment subsection" setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+                            }
+                        </div>
+                    </div>
+                    <div className="container-candidates">
+                        {
+                            showSpinner 
+                            ? 
+                                <div className="spinner-table-precandidates"><Load/></div>
+                            : 
+                                <>
+                                    <Table height="pr" idElementEdited={idElementEdited} columns={columnsProcessRecruitment} rows={rows.filter(row => row.recruitmenProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLU}/>
+                                </>
+                        }
+                    </div>
                 </>
                 :<></>)
             }
@@ -782,7 +904,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
             
             {
                 showActions 
-                ? <ActionBar actions={actionsBarPrecandidates} optionEdit={optionEdit} precandidateSelected={precandidateSelected} fn={setTrueShowFormEditPrecandidate}/>
+                ? <ActionBar  actions={actionsBarPrecandidates} optionEdit={optionEdit} precandidateSelected={precandidateSelected} fn={setTrueShowFormEditPrecandidate}/>
                 : <></> 
 
             }

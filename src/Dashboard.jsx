@@ -18,6 +18,7 @@ import './styles/components/search.css'
 import './styles/components/table.css'
 import './styles/components/actionbar.css'
 import './styles/components/select.css'
+import './styles/components/confirmation.css'
 import { RxDashboard } from "react-icons/rx";
 import { FaUserFriends } from "react-icons/fa";
 import { IoMdCheckmark } from "react-icons/io";
@@ -275,6 +276,17 @@ function Dashboard(){
     //Define que tabla mostrar, si informacion general(precandidatos) o process recruitment(precandiatos)
     const [sectionSelectedTLU, setSectionSelectedTLU] =  useState('gi');
 
+    const [checkedOptions, setCheckedOptions] = useState([])//Un estado par gaurdar el id de los checkbox seleccionados 
+
+
+
+
+    //Estos los utilizo en el archivo Precandidate .jsx
+    const [showConfirmAction, setShowConfirmAction] = useState(false)//Para mostrar o ocultar el modal de confirmar para hacer alguna accion
+    const [txtTitleConfirmationAction, setTxtTitleConfirmationAction] = useState('')//Establecer el titulo del modal de confirmacion de alguna accion
+    const [txtConfirmationAction, setTxtConfirmationAction] = useState('')//Ademas del titulo tambien es la descripcion de lo que se desea hacer
+
+
 
 
     //style={{backgroundColor: `${interfaceShowed !== 'overview' ? '#fff' : '' }`}} 
@@ -282,7 +294,7 @@ function Dashboard(){
         <main className="dashboard">
             <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**/ setInterfaceShowed={setInterfaceShowed} showNavbar={showNavbar} setShowNavbar={setShowNavbar}/>
             <aside className={`${showNavbar ? 'part-width' : 'all-width'}`}>
-                <Header interfaceShowed={interfaceShowed} fullname={fullname} notificationsStored={notificationsStored} numNotifications={numNotifications} setNumNotifications={setNumNotifications} setNotificationsStored={setNotificationsStored} sectionSelectedTLU={sectionSelectedTLU} setSectionSelectedTLU={setSectionSelectedTLU}/>
+                <Header interfaceShowed={interfaceShowed} fullname={fullname} notificationsStored={notificationsStored} numNotifications={numNotifications} setNumNotifications={setNumNotifications} setNotificationsStored={setNotificationsStored} sectionSelectedTLU={sectionSelectedTLU} setSectionSelectedTLU={setSectionSelectedTLU} checkedOptions={checkedOptions} setCheckedOptions={setCheckedOptions}/>
                 <div className="content-dashboard">
                     {   /*Aqui decidimo que tipo de Overview vamos a mostrar, dependiendo el tipo de usuario que inicio sesion */
                         
@@ -290,7 +302,7 @@ function Dashboard(){
                             (getTypeUser() == 'tl' ? <Overview info="tl"/> : ( getTypeUser() == "gm" ? <Overview info="gm"/> : <Overview info="gw"/>))//Evaluamos que overvies mostramos, depende del tipo de usuario que ha iniciado sesion
                         :(interfaceShowed == 'board' ? 
                             <Board/>
-                        :(interfaceShowed == "precandidate" ? <Precandidate options={allCandidates} rows={filteredCandidates} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal} showBtnRefresh={showBtnRefresh} setShowBtnRefresh={setBtnRefresh} idElementEdited={idElementEdited} setIdElementEdited={setIdElementEdited} sectionSelectedTLU={sectionSelectedTLU} />
+                        :(interfaceShowed == "precandidate" ? <Precandidate options={allCandidates} rows={filteredCandidates} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal} showBtnRefresh={showBtnRefresh} setShowBtnRefresh={setBtnRefresh} idElementEdited={idElementEdited} setIdElementEdited={setIdElementEdited} sectionSelectedTLU={sectionSelectedTLU} showConfirmAction={showConfirmAction} setShowConfirmAction={setShowConfirmAction} txtTitleConfirmationAction={txtTitleConfirmationAction} setTxtTitleConfirmationAction={setTxtTitleConfirmationAction} txtConfirmationAction={txtConfirmationAction} setTxtConfirmationAction={setTxtConfirmationAction} checkedOptions={checkedOptions} setCheckedOptions={setCheckedOptions} />
                         : <></>)) 
                     }              
                 </div>

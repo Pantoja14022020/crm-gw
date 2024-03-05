@@ -1,0 +1,25 @@
+.confirmation{
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    font-size: 0.8rem;
+    text-align: center;
+}
+.confirmation h1{
+    font-weight: 700;
+    letter-spacing: 0.03rem;
+    margin-bottom: 1rem;
+}
+.confirmation p{
+    font-size: 0.7rem;
+    color: #6d6d6d;
+    letter-spacing: 0.02rem;
+}
+.btns-confirmation{
+    width: fit-content;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
