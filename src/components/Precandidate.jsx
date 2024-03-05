@@ -218,12 +218,6 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
         setTxtTitleConfirmationAction('Subsection Process Recruitment')
         setTxtConfirmationAction('¿Do you want add it to this stage?')
     }
-    
-
-
-    const actionsBarPrecandidates = [//Defino las opciones que tendra el nav de actions
-        {id:1,icon:<Icon name="ready" size="1rem"/>,nameClass: 'done-pre', fn:confirmationStageProcessRecruitment}
-    ]
 
 
     //Opcion back para regresar objeto a informacion general subseccion
@@ -518,33 +512,33 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                     "position":position,//
                     "dependencies": "",
                     "emailRepeat": "",
-                    "generalInformation": true,
-                    "recruitmenProcess": false,
-                    "tipoTrabajo": "",
-                    "personalityTest": "",
-                    "testGorila": "",
-                    "contratoReclutamiento": "",
-                    "applicationCv": "",
-                    "selectionProcess": false,
-                    "employer": "",
-                    "referred": "",
-                    "methodContact": "",
-                    "interviewed": "",
-                    "status": "",
-                    "clientDocuments": false,
-                    "birthCertificate": "",
-                    "passport": "",
-                    "proofAddress": "",
-                    "haveFamily": "",
-                    "documentsFamily": [],
-                    "gmProcess": false,
-                    "callExplaining": "",
-                    "contractAndPaymentPlan": "",
-                    "documentsFile": "",
-                    "questionnaire": "",
-                    "docsUpload": "",
-                    "initialPayment": "",
-                    "sentToKeny": ""
+                    //"generalInformation": true,
+                    //"recruitmenProcess": false,
+                    //"tipoTrabajo": "",
+                    //"personalityTest": "",
+                    //"testGorila": "",
+                    //"contratoReclutamiento": "",
+                    //"applicationCv": "",
+                    //"selectionProcess": false,
+                    //"employer": "",
+                    //"referred": "",
+                    //"methodContact": "",
+                    //"interviewed": "",
+                    //"status": "",
+                    //"clientDocuments": false,
+                    //"birthCertificate": "",
+                    //"passport": "",
+                    //"proofAddress": "",
+                    //"haveFamily": "",
+                    //"documentsFamily": [],
+                    //"gmProcess": false,
+                    //"callExplaining": "",
+                    //"contractAndPaymentPlan": "",
+                    //"documentsFile": "",
+                    //"questionnaire": "",
+                    //"docsUpload": "",
+                    //"initialPayment": "",
+                    //"sentToKeny": ""
                 }
 
                 //console.log(checkedOptions[0])
@@ -974,7 +968,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
             
             {
                 showActions 
-                ? <ActionBar  actions={actionsBarPrecandidates} optionEdit={optionEdit} precandidateSelected={precandidateSelected} showFormEditPre={setTrueShowFormEditPrecandidate} sectionSelectedTLU={sectionSelectedTLU} confirmationStageToGI={confirmationStageToGI}/>
+                ? <ActionBar   optionEdit={optionEdit} precandidateSelected={precandidateSelected} showFormEditPre={setTrueShowFormEditPrecandidate} sectionSelectedTLU={sectionSelectedTLU} confirmationStageToGI={confirmationStageToGI} confirmationStageProcessRecruitment={confirmationStageProcessRecruitment}/>
                 : <></> 
 
             }

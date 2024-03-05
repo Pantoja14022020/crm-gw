@@ -1,13 +1,13 @@
 import Icon from "./Icon";
 
-function ActionBar({actions,optionEdit,showFormEditPre,sectionSelectedTLU,confirmationStageToGI}){
+function ActionBar({optionEdit,showFormEditPre,sectionSelectedTLU,confirmationStageToGI,confirmationStageProcessRecruitment}){
 
     return(
         <div className="actions-bar animate__animated animate__slideInUp">
             {
-                actions.map(({id,icon,nameClass,fn}) => (
-                    <button onClick={e => fn()} key={id} className={nameClass}>{icon}</button>
-                ))
+                sectionSelectedTLU == 'gi' ? 
+                    <button onClick={confirmationStageProcessRecruitment} className="done-pre"><Icon name="ready" size="1rem" color="#fff"/></button>
+                :<></>
             }
             {
                 optionEdit ? 

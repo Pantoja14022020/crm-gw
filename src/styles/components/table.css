@@ -12,9 +12,12 @@
 .pr{/*Tamaño de la tabla cuando esta en la subseccion process recruitment*/
   height: 415px;
 }
-@media screen and (min-height: 800px){
+@media screen and (min-height: 700px){
   .table-container{
-    height: 650px;
+    height: 470px !important;
+  }
+  .pr{
+    height: 515px !important;
   }
 }
 table{
