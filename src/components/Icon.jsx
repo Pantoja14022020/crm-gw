@@ -10,6 +10,8 @@ import { MdArrowDropDown } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";
 import { RiFileExcel2Fill } from "react-icons/ri";
+import { RiArrowGoBackFill } from "react-icons/ri";
+
 
 
 
@@ -38,6 +40,9 @@ function Icon({num,showCounter,type,name, url, spaceHorizontal, spaceVertical, w
                         }
                         {
                             name === 'sheets' ? <RiFileExcel2Fill color={color} size={size} /> : <></>
+                        }
+                        {
+                            name === 'back' ? <RiArrowGoBackFill color={color} size={size} /> : <></>
                         }
                     </> 
                 : 

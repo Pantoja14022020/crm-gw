@@ -226,6 +226,15 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
     ]
 
 
+    //Opcion back para regresar objeto a informacion general subseccion
+    function confirmationStageToGI(){//Funcion para regresar a la subseccion informacion general, es para el boton regrsar
+        setShowConfirmAction(true)
+        setTxtTitleConfirmationAction('Subsection General Information')
+        setTxtConfirmationAction('¿Do you want to return these items?')
+    }
+
+
+
 
 
     
@@ -768,6 +777,60 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
     }
 
 
+    async function sendToSubsectionGeneralInformation(){//Que hacer cuando se confirma la accion de enviar a la asubseccion informacion general
+        try {
+
+            setShowSpinnerChangeStagePR(true)
+
+            const body = {
+                "generalInformation": true,
+                "recruitmenProcess": false,
+            }
+
+            //console.log(checkedOptions)
+            const promesas = checkedOptions.map(id => fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${id}`,body))
+            const resultados = await Promise.all(promesas)
+            getPrecandidates()
+
+            const checkBoxs = document.querySelectorAll('.checkbox')//Quitar o deschequear
+            if(checkBoxs){
+                checkBoxs.forEach(checkbox => {
+                    checkbox.checked = false;
+                    checkbox.parentElement.parentElement.classList.remove('rowSelected')
+                });
+            }
+            setCheckedOptions([])//Vacio el arreglo que contiene los ids de los elementos a pasar
+            setShowConfirmAction(false)//Quito el modal de confirmacion
+
+            setModal(true)
+            setTitle("Back Stage")
+            setMessage('Your precandidates was return to general information')
+            setType("success")
+            setShowSpinnerChangeStagePR(false)
+            
+        } catch (error) {
+
+            const checkBoxs = document.querySelectorAll('.checkbox')//Quitar o deschequear
+            if(checkBoxs){
+                checkBoxs.forEach(checkbox => {
+                    checkbox.checked = false;
+                    checkbox.parentElement.parentElement.classList.remove('rowSelected')
+                });
+            }
+            setCheckedOptions([])//Vacio el arreglo que contiene los ids de los elementos a pasar
+            setShowConfirmAction(false)//Quito el modal de confirmacion
+
+            setModal(true)
+            setTitle('Error In Server')
+            setMessage('Its not was posible return to back stage')
+            setType('error')
+            setShowSpinnerChangeStagePR(false)
+
+        }
+    }
+
+
+
 
 
 
@@ -812,9 +875,16 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                 <></>
             }
             { //Es el modal que muestra para confirmar si se quiere pasar los precandidatos a la subseccion 'process recruitment'
-                showConfirmAction ?
+                showConfirmAction && sectionSelectedTLU == 'gi' ?
                     <div className="container-confirmation-modal" onClick={e => setFalseShownModalConfirmation(e)}>
                         <Confirmation showSpinner={showSpinnerChangeStagePR} cancel={quitModalConfirmation} ok={sendToSubsectionProcessRecruitment}/>
+                    </div> 
+                : <></>
+            }
+            { //Es el modal que muestra para confirmar si se quiere pasar los precandidatos a la subseccion 'general information'
+                showConfirmAction && sectionSelectedTLU == 'pr' ?
+                    <div className="container-confirmation-modal" onClick={e => setFalseShownModalConfirmation(e)}>
+                        <Confirmation showSpinner={showSpinnerChangeStagePR} cancel={quitModalConfirmation} ok={sendToSubsectionGeneralInformation}/>
                     </div> 
                 : <></>
             }
@@ -904,7 +974,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
             
             {
                 showActions 
-                ? <ActionBar  actions={actionsBarPrecandidates} optionEdit={optionEdit} precandidateSelected={precandidateSelected} fn={setTrueShowFormEditPrecandidate}/>
+                ? <ActionBar  actions={actionsBarPrecandidates} optionEdit={optionEdit} precandidateSelected={precandidateSelected} showFormEditPre={setTrueShowFormEditPrecandidate} sectionSelectedTLU={sectionSelectedTLU} confirmationStageToGI={confirmationStageToGI}/>
                 : <></> 
 
             }

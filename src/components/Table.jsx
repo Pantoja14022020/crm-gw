@@ -121,11 +121,11 @@ function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOpt
                                             <Td txt={fullname}/>
                                             <Td txt={email} optionMore={true}/>
                                             <Td txt={phone} optionMore={true}/>
-                                            <Td txt={tipoTrabajo}/>
-                                            <Td txt={personalityTest} optionMore={personalityTest.length > 0 ? true : false}/>
-                                            <Td txt={testGorila}/>
-                                            <Td txt={contratoReclutamiento}/>
-                                            <Td txt={applicationCv}/>
+                                            <Td txt={tipoTrabajo.length > 0 ? tipoTrabajo : 'Empty'}/>
+                                            <Td txt={personalityTest.length > 0 ? personalityTest : 'Empty'} optionMore={personalityTest.length > 0 ? true : false}/>
+                                            <Td txt={testGorila.length > 0 ? testGorila : 'Empty'}/>
+                                            <Td txt={contratoReclutamiento.length > 0 ? contratoReclutamiento : 'Empty'}/>
+                                            <Td txt={applicationCv.length > 0 ? applicationCv : 'Empty'}/>
                                         </tr>
                                     ))
                                     : <></>

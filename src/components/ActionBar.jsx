@@ -1,6 +1,6 @@
 import Icon from "./Icon";
 
-function ActionBar({actions,optionEdit,fn}){
+function ActionBar({actions,optionEdit,showFormEditPre,sectionSelectedTLU,confirmationStageToGI}){
 
     return(
         <div className="actions-bar animate__animated animate__slideInUp">
@@ -11,7 +11,12 @@ function ActionBar({actions,optionEdit,fn}){
             }
             {
                 optionEdit ? 
-                    <button onClick={fn} className="edit-pre"><Icon name="edit" size="1rem" color='#fff'/></button>
+                    <button onClick={showFormEditPre} className="edit-pre"><Icon name="edit" size="1rem" color='#fff'/></button>
+                : <></>
+            }
+            {
+                sectionSelectedTLU == 'pr' ?
+                    <button onClick={confirmationStageToGI} className="edit-pre"><Icon type="icon" name="back" color="#fff"/></button>
                 : <></>
             }
         </div>
