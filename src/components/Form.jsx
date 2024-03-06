@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Button from "./Button"
 import SelectDefault from "./SelectDefault"
+import Radio from "./Radio";
 
 
-function Form({flexDirection,widthFieldset,widthForm,action,method,fieldsets,txtButtonSubmit,fnSubmit,fnChange,showSpinner,reform, setGender, setLevelEnglish, setCivilStatus,setLevelStudies,precandidateSelected,setParamDefault}){
+function Form({flexDirection,widthFieldset,widthForm,action,method,fieldsets,txtButtonSubmit,fnSubmit,fnChange,showSpinner,reform, setGender, setLevelEnglish, setCivilStatus,setLevelStudies,precandidateSelected,setParamDefault,setTipoTrabajo,applicationCv, setApplicationCv}){
    
     //console.log(precandidateSelected)
     
@@ -13,7 +14,7 @@ function Form({flexDirection,widthFieldset,widthForm,action,method,fieldsets,txt
                 fieldsets.map(({id,name,type,htmlfor,txt,options,value})=>(
                     <fieldset key={id} style={{width: `${widthFieldset}`}}>
                         {
-                            type != 'select' ? 
+                            type != 'select' && type != 'radio' ? 
                                 <>
                                     <label htmlFor={id}>{txt}</label>
                                     <input defaultValue={value}  type={type} name={name} id={id} onChange={fnChange} style={{ WebkitAutofill: 'none', autocomplete: 'off' }}/>
@@ -22,7 +23,13 @@ function Form({flexDirection,widthFieldset,widthForm,action,method,fieldsets,txt
                                 : ( name === 'englishLevel' ? <><label htmlFor={id}>{txt}</label> <SelectDefault width="100%" options={options} title={txt} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setLevelEnglish} setParamDefaultEdit={setParamDefault} valueDefault={value} precandidateSelected={precandidateSelected}/></>
                                     : (name === 'civilStatus' ? <><label htmlFor={id}>{txt}</label> <SelectDefault width="100%" options={options} title={txt} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setCivilStatus} setParamDefaultEdit={setParamDefault} valueDefault={value} precandidateSelected={precandidateSelected}/></>
                                         : (name === 'levelStudies' ? <><label htmlFor={id}>{txt}</label> <SelectDefault width="100%" options={options} title={txt} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setLevelStudies} setParamDefaultEdit={setParamDefault} valueDefault={value} precandidateSelected={precandidateSelected}/></>
-                                            : <></>))))
+                                            : (name === 'tipoTrabajo' ? <><label htmlFor={id}>{txt}</label> <SelectDefault width="100%" options={options} title={txt} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setTipoTrabajo} setParamDefaultEdit={setParamDefault} valueDefault={value} precandidateSelected={precandidateSelected}/></>
+                                                : <></>)))))
+                        }
+                        {
+                            type == 'radio' ? 
+                                <><label>{txt}</label><Radio radiosOptions={options} name={name} valueRadio={applicationCv} setValueRadio={setApplicationCv}/></>
+                            :<></>
                         }
                     </fieldset>
                 ))

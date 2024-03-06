@@ -10,7 +10,12 @@ function ActionBar({optionEdit,showFormEditPre,sectionSelectedTLU,confirmationSt
                 :<></>
             }
             {
-                optionEdit ? 
+                optionEdit && sectionSelectedTLU == 'gi' ? //Boton de editar precandidato para la subseccion information general
+                    <button onClick={showFormEditPre} className="edit-pre"><Icon name="edit" size="1rem" color='#fff'/></button>
+                : <></>
+            }
+            {
+                optionEdit && sectionSelectedTLU == 'pr' ? //Boton de editar precandidato para la subseccion process recruitment
                     <button onClick={showFormEditPre} className="edit-pre"><Icon name="edit" size="1rem" color='#fff'/></button>
                 : <></>
             }

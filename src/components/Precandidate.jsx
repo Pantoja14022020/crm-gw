@@ -37,9 +37,8 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
         {id:2,txt:'Número telefónico'},
         {id:3,txt:'Tipo de Trabajo'},
         {id:4,txt:'Personality Test'},
-        {id:5,txt:'Test Gorilla'},
-        {id:6,txt:'Contrato de reclutamiento'},
-        {id:7,txt:'Application/CV'}
+        {id:5,txt:'Test Gorilla/Contrato de reclutamiento'},
+        {id:6,txt:'Application/CV'}
     ]
 
     //ESTO ES PARA LOS FILTROS O PARAMETROS DE BUSQUEDA, AQUI SE DEFINEN SUS OPCIONES
@@ -58,7 +57,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
     const [title, setTitle] = useState("");
     const [type,setType] = useState("");
     const formRefNewPrecandidate = useRef(null); //Creamos la referencia del fomulario, algo como global var
-
+    const formRefProcessRecruitment = useRef(null)
 
 
     useEffect(()=>{
@@ -157,6 +156,47 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
             type: "text",
             htmlfor: "position",
             txt: "Position"
+        }
+    ]
+
+
+    const fieldsetsFormProcessRecruitment = [
+        {
+            id: 0,
+            name: "tipoTrabajo",
+            type: "select",
+            htmlfor: "tipoTrabajo",
+            txt: "Tipo de trabajo a la que aspira",
+            options: ['Profesión','Oficio']
+        },
+        {
+            id: 1,
+            name: "personalityTest",
+            type: "textarea",
+            htmlfor: "personalityTest",
+            txt: "Test personality"
+        },
+        {
+            id: 2,
+            name: "testGorila",
+            type: "text",
+            htmlfor: "testGorila",
+            txt: "Test Gorilla"
+        },
+        {
+            id: 3,
+            name: "contratoReclutamiento",
+            type: "text",
+            htmlfor: "contratoReclutamiento",
+            txt: "Contrato de reclutamiento"
+        },
+        {
+            id:4,
+            name:'applicationCv',
+            type: 'radio',
+            htmlfor: 'applicationCv',
+            txt: "CV o Application?",
+            options: ['CV','Application']
         }
     ]
 
@@ -424,6 +464,39 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
         }
         //console.log(checkedOptions) ARRAY 1
     },[checkedOptions])
+
+
+
+
+
+    //INICIO. SETTERS CAMPOS FORMULARIO PROCESS RECRUITMENT
+    const [tipoTrabajo, setTipoTrabajo] = useState('')
+    const [applicationCv, setApplicationCv] = useState('')
+    const [valoresProcessRecruitment,setValoresProcessRecruitment] = useState({
+        personalityTest: '',
+        testGorila: '',
+        contratoReclutamiento: ''
+    })
+    const [showSpinnerFormPR, setShowSpinnerFormPR] = useState(false);//Es el spinner que muestra en el boton del formulario una vez que se pone datos del Process Recruitment
+    const handleChangeProcessRecruitment = e => {//Funcion para cuando se este escribiendo en un input del formulario 'process'
+        const { name, value } = e.target;//Actaulizar el estado de los valores 
+        setValoresProcessRecruitment({
+            ...valoresProcessRecruitment,
+            [name]: value
+        });
+    }
+    const [fetchUpdatePR,setFetchUpdatePR] = useState(false);
+    const handleSubmitFormProcessRecruitment = async e => {//Funcion para cuando se envia el formulario
+        e.preventDefault()
+        console.log(valoresProcessRecruitment)
+        console.log(tipoTrabajo)
+        console.log(applicationCv)
+    }
+    //FIN. SETTERS CAMPOS FORMULARIO PROCESS RECRUITMENT
+
+
+
+
 
 
 
@@ -857,10 +930,15 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                         <div className="form-precandidate animate__animated animate__bounceInRight">
                             <h1>{precandidateSelected !== null ? 'Edit this candidate' : 'Create new precandidate'}</h1>
                             {
-                                precandidateSelected === null ?    
+                                precandidateSelected === null && sectionSelectedTLU == 'gi' ?    
                                     <Form flexDirection="row" widthFieldset="48%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsFormSignupPrecandidate} txtButtonSubmit="Create" fnChange={handleChangeNewPrecandidate} fnSubmit={handleSubmitNewPrecandidate} reform={formRefNewPrecandidate} setGender={setGender} setLevelEnglish={setLevelEnglish} setCivilStatus={setCivilStatus} setLevelStudies={setLevelStudies} showSpinner={showSpinnerFormPre} setParamDefault={false}/>
-                                :
+                                : 
+                                (precandidateSelected !== null && sectionSelectedTLU == 'gi' ?
                                     <Form flexDirection="row" widthFieldset="48%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsEditPrecandidate} txtButtonSubmit="Update" fnChange={handleChangeNewPrecandidate} fnSubmit={handleSubmitNewPrecandidate} reform={formRefNewPrecandidate} setGender={setGender} setLevelEnglish={setLevelEnglish} setCivilStatus={setCivilStatus} setLevelStudies={setLevelStudies} showSpinner={showSpinnerFormPre} precandidateSelected={precandidateSelected} setParamDefault={true}/>
+                                :
+                                (sectionSelectedTLU == 'pr' ? //Formulario para la seccion process recruitment
+                                    <Form flexDirection="row" widthFieldset="48%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsFormProcessRecruitment} txtButtonSubmit="Done" fnChange={handleChangeProcessRecruitment} fnSubmit={handleSubmitFormProcessRecruitment} reform={formRefProcessRecruitment } setTipoTrabajo={setTipoTrabajo} showSpinnerFormPR={showSpinnerFormPR} setParamDefault={true} applicationCv={applicationCv} setApplicationCv={setApplicationCv}/>
+                                :<></>))
                             }
                         </div>
                     </div>
@@ -968,7 +1046,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
             
             {
                 showActions 
-                ? <ActionBar   optionEdit={optionEdit} precandidateSelected={precandidateSelected} showFormEditPre={setTrueShowFormEditPrecandidate} sectionSelectedTLU={sectionSelectedTLU} confirmationStageToGI={confirmationStageToGI} confirmationStageProcessRecruitment={confirmationStageProcessRecruitment}/>
+                ? <ActionBar optionEdit={optionEdit} precandidateSelected={precandidateSelected} showFormEditPre={setTrueShowFormEditPrecandidate} sectionSelectedTLU={sectionSelectedTLU} confirmationStageToGI={confirmationStageToGI} confirmationStageProcessRecruitment={confirmationStageProcessRecruitment}/>
                 : <></> 
 
             }

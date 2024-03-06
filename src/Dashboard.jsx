@@ -19,6 +19,7 @@ import './styles/components/table.css'
 import './styles/components/actionbar.css'
 import './styles/components/select.css'
 import './styles/components/confirmation.css'
+import './styles/components/radio.css'
 import { RxDashboard } from "react-icons/rx";
 import { FaUserFriends } from "react-icons/fa";
 import { IoMdCheckmark } from "react-icons/io";
