@@ -121,10 +121,10 @@ function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOpt
                                             <Td txt={fullname}/>
                                             <Td txt={email} optionMore={true}/>
                                             <Td txt={phone} optionMore={true}/>
-                                            <Td txt={tipoTrabajo.length > 0 ? tipoTrabajo : 'Empty'}/>
+                                            <Td txt={tipoTrabajo.length > 0 ? tipoTrabajo : 'Empty'} highlightTT={tipoTrabajo.length > 0 ? true : false}/>
                                             <Td txt={personalityTest.length > 0 ? personalityTest : 'Empty'} optionMore={personalityTest.length > 0 ? true : false}/>
-                                            <Td txt={testGorila.length > 0 ? testGorila : 'Empty'}/>
-                                            <Td txt={applicationCv.length > 0 ? applicationCv : 'Empty'}/>
+                                            <Td txt={testGorila.length > 0 || contratoReclutamiento.length > 0 ? (tipoTrabajo == 'Oficio' ? `contrato de reclutamiento: ${contratoReclutamiento}` : `test gorila: ${testGorila}`) : 'Empty'} highlightTG={testGorila.length > 0 || contratoReclutamiento.length > 0? true : false}/>
+                                            <Td txt={applicationCv.length > 0 ? applicationCv : 'Empty'} highlightAC={applicationCv.length > 0 ? true : false}/>
                                         </tr>
                                     ))
                                     : <></>

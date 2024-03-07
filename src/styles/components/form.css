@@ -2,6 +2,7 @@ form{
     font-size: 0.8rem;
     position: relative;
     height: 100%;
+    margin: auto;
 }
 form fieldset{
     display: flex;

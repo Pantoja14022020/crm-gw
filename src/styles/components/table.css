@@ -80,6 +80,31 @@ table tbody tr td p{
 .rowSelected{
   background-color: #f2eff7;
 }
+.testGorila{/*Es para subrayar el valro de la celda Test Gorilla/Contrato de reclutamiento de la tabla process recruitment*/
+  width: fit-content;
+  margin: auto;
+  padding: 0.2rem 0.5rem;
+  color: rgb(255, 255, 255);
+  background-color:#2020cc;
+  border-radius: 01rem;
+}
+.applicationCv{
+  width: fit-content;
+  margin: auto;
+  padding: 0.2rem 0.5rem;
+  color: rgb(255, 255, 255);
+  background-color:#000000;
+  border-radius: 01rem;
+}
+.tipoTrabajo{
+  width: fit-content;
+  margin: auto;
+  font-weight: 500;
+  padding: 0.2rem 0.5rem;
+  color: #2020cc;
+  border: 2px solid #2020cc;
+  border-radius: 01rem;
+}
 
 
 

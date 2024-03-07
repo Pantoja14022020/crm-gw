@@ -76,7 +76,7 @@ function Dashboard(){
         //const rows = candidates.slice(1)//Saca el primer arreglo ya son las columnas
         //console.log(rows);
         setFilteredCandidates(prevRows => {
-            return precandidatos.reverse().map((row, idx) => { // Recorro arreglo por arreglo [[],[],[]] o fila por fila
+            return precandidatos.map((row, idx) => { // Recorro arreglo por arreglo [[],[],[]] o fila por fila
                 //let precandidate = {fullname:'', email:'', phone:'', country:'', dateBirth:'', civilStatus:'', gender:'', levelStudies:'', position:'', englishLevel:''};
                 /*const {
                     id, 
@@ -101,7 +101,7 @@ function Dashboard(){
 
         //Crear un respaldo d elas filas como variable auxiliar y se pueda restablecer todos cuando en el buscador es vacio
         setAllCandidates(prevRows => {
-            return precandidatos.reverse().map((row, idx) => { // Recorro arreglo por arreglo [[],[],[]] o fila por fila
+            return precandidatos.map((row, idx) => { // Recorro arreglo por arreglo [[],[],[]] o fila por fila
                 //let precandidate = {fullname:'', email:'', phone:'', country:'', dateBirth:'', civilStatus:'', gender:'', levelStudies:'', position:'', englishLevel:''};
                 /*const {
                     id, 
@@ -275,7 +275,15 @@ function Dashboard(){
 
     //Este es para seccion precandidato para CRM Trabajo Legal USA
     //Define que tabla mostrar, si informacion general(precandidatos) o process recruitment(precandiatos)
-    const [sectionSelectedTLU, setSectionSelectedTLU] =  useState('gi');
+    const [sectionSelectedTLU, setSectionSelectedTLU] =  useState( localStorage.getItem('sectionSelectedTLU') || 'gi');
+
+
+    useEffect(()=>{
+        localStorage.setItem('sectionSelectedTLU',sectionSelectedTLU)
+        setParamEnglishLevel('')
+        setParamStudiesLevel('')
+        setSearchTerm('')
+    },[sectionSelectedTLU])
 
     const [checkedOptions, setCheckedOptions] = useState([])//Un estado par gaurdar el id de los checkbox seleccionados 
 
@@ -295,7 +303,7 @@ function Dashboard(){
         <main className="dashboard">
             <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**/ setInterfaceShowed={setInterfaceShowed} showNavbar={showNavbar} setShowNavbar={setShowNavbar}/>
             <aside className={`${showNavbar ? 'part-width' : 'all-width'}`}>
-                <Header interfaceShowed={interfaceShowed} fullname={fullname} notificationsStored={notificationsStored} numNotifications={numNotifications} setNumNotifications={setNumNotifications} setNotificationsStored={setNotificationsStored} sectionSelectedTLU={sectionSelectedTLU} setSectionSelectedTLU={setSectionSelectedTLU} checkedOptions={checkedOptions} setCheckedOptions={setCheckedOptions}/>
+                <Header interfaceShowed={interfaceShowed} fullname={fullname} notificationsStored={notificationsStored} numNotifications={numNotifications} setNumNotifications={setNumNotifications} setNotificationsStored={setNotificationsStored} sectionSelectedTLU={sectionSelectedTLU} setSectionSelectedTLU={setSectionSelectedTLU} checkedOptions={checkedOptions} setCheckedOptions={setCheckedOptions} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel}/>
                 <div className="content-dashboard">
                     {   /*Aqui decidimo que tipo de Overview vamos a mostrar, dependiendo el tipo de usuario que inicio sesion */
                         

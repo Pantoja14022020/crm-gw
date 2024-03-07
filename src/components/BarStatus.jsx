@@ -1,6 +1,6 @@
 import { GrFormNext } from "react-icons/gr";
 
-function BarStatus({sections, sectionSelected, setSectionSelected}){
+function BarStatus({sections, sectionSelected, setSectionSelected, setParamEnglishLevel, setParamStudiesLevel}){
     return(
         <nav className={`barStatus`}>
             <ul>

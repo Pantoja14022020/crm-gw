@@ -202,55 +202,6 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
 
 
 
-    //AQUI OBTENEMOS Y FORMATEAMOS LAS FILA QUE RECIBIMOS A TRAVES DEL PROPS
-    /*const rowsTableTLU = []
-    rows.map((row,idx) => {//Recorro arreglo por arreglo [[],[],[]] o fila por fila
-        //row [0,1,2,3,4,5,6,7,8,9]
-        let precandidate = {fullname:'',email:'',phone:'',country:'',dateBirth:'',civilStatus:'',gender:'',levelStudies:'',position:'',englishLevel:''}
-        row.map((pre,idy)=>{
-            if(idy <= 9) {
-                let attribute = Object.keys(precandidate)[idy]
-                precandidate[attribute] = pre
-            }
-        })
-        precandidate['select'] = <IoMdCheckmark size="1rem" />
-        precandidate['id'] = idx;
-        rowsTableTLU.push(precandidate)
-    })*/
-
-
-
-    /*const rows = [
-        {id:0,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:1,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:2,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:3,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:4,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:5,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:6,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:7,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:8,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:9,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:10,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:11,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:12,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:13,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:14,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:15,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:16,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:17,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:18,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:19,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:20,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:21,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:22,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:23,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:24,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:25,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-        {id:26,fullname: 'Daniel Tlanepantla Pantoja', email: 'tl419411@uaeh.edu.mx', phone: '7721257773', country: 'Mexico', dateBirth: '20-07-2001', civilStatus: 'Single', gender: 'Male', levelStudies: 'University', position: 'Student', englishLevel: 'B1', select: <IoMdCheckmark size="1rem" />},
-    ]*/
-    
-
     //FUNCIONES o estados PARA LOS BOTONES DEL ActionBar
     //Esta funcion aparece cuando se da click al chequear un precandidato
     function confirmationStageProcessRecruitment(){//Accion para el boton de pasar a la subseccion Process Recruitment
@@ -310,6 +261,16 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                 })
                 setFetchUpdate(false)
 
+
+                //Cuando quitemos el modal o formulario, resetear los valores a su valor inicial
+                setTipoTrabajo('')
+                setApplicationCv('')
+                setValoresProcessRecruitment({
+                    personalityTest: '',
+                    testGorila: '',
+                    contratoReclutamiento: ''
+                })
+
                 const checkBoxs = document.querySelectorAll('.checkbox')
                 if(checkBoxs){
                     checkBoxs.forEach(checkbox => {
@@ -352,6 +313,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
             //Entonces sacamos los datos de ese precandidato seleccionado
             console.log(rows)
             const rowFounded = rows.find(row => row.id == checkedOptions[0]);
+            
             //console.log(rowFounded)
             //console.log("El usser seleccionado es:",rowFounded)//----------------------
             setPrecandidateSelected(rowFounded)
@@ -456,6 +418,17 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
             ]
             setFieldsetsEditPrecandidate(fieldsetsEditPrecandidateForm)
 
+
+            //ESTO PARA EDITAR, OBTENGO LOS DATOS DEL PRECANDIDATO SELECCIONADO Y LOS ASIGNO A LOS
+            //INPUTS DEL FORMULARIO, ESTO PARA LA SECCION PROCESS RECRUITMENT
+            //setTipoTrabajo(rowFounded.tipoTrabajo)
+            const valoresCuandoEditaPR = {
+                personalityTest: rowFounded['personalityTest'],
+                testGorila: rowFounded['testGorila'],
+                contratoReclutamiento: rowFounded['contratoReclutamiento']
+            }
+            setValoresProcessRecruitment(valoresCuandoEditaPR)
+            setApplicationCv(rowFounded['applicationCv'])
             //console.log(fieldsetsEditPrecandidate)
 
         }else{
@@ -477,6 +450,26 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
         testGorila: '',
         contratoReclutamiento: ''
     })
+    useEffect(()=>{//Vaciar el input dependiendo el tipo de trabajo seleccionado
+        if(tipoTrabajo == 'Profesión'){
+            const inputContratoReclutamiento = document.querySelector("input[name='contratoReclutamiento']")
+            if(inputContratoReclutamiento) {
+                inputContratoReclutamiento.value = ""
+                const pr = {...valoresProcessRecruitment}
+                pr.contratoReclutamiento = ""
+                setValoresProcessRecruitment(pr)
+            }
+        }
+        if(tipoTrabajo == 'Oficio'){
+            const inputTestGorila = document.querySelector("input[name='testGorila']")
+            if(inputTestGorila) {
+                inputTestGorila.value = "";
+                const pr = {...valoresProcessRecruitment}
+                pr.testGorila = ""
+                setValoresProcessRecruitment(pr)
+            }
+        }
+    },[tipoTrabajo])
     const [showSpinnerFormPR, setShowSpinnerFormPR] = useState(false);//Es el spinner que muestra en el boton del formulario una vez que se pone datos del Process Recruitment
     const handleChangeProcessRecruitment = e => {//Funcion para cuando se este escribiendo en un input del formulario 'process'
         const { name, value } = e.target;//Actaulizar el estado de los valores 
@@ -488,9 +481,70 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
     const [fetchUpdatePR,setFetchUpdatePR] = useState(false);
     const handleSubmitFormProcessRecruitment = async e => {//Funcion para cuando se envia el formulario
         e.preventDefault()
-        console.log(valoresProcessRecruitment)
-        console.log(tipoTrabajo)
-        console.log(applicationCv)
+        const {personalityTest,testGorila,contratoReclutamiento} = valoresProcessRecruitment;
+        console.log(tipoTrabajo,valoresProcessRecruitment,applicationCv)
+        if(tipoTrabajo.length == 0 || personalityTest.length == 0 || (testGorila.length == 0 && contratoReclutamiento.length == 0) || applicationCv.length == 0){
+            setModal(true)
+            setTitle("Incomplete Fields")
+            setMessage("Fill all fields")
+            setType("error")
+        }else{
+            setShowSpinnerFormPR(true)
+            //console.log(valoresProcessRecruitment)
+            //console.log(tipoTrabajo)
+            //console.log(applicationCv)
+            //console.log(checkedOptions)
+            //console.log(fetchUpdatePR)
+            if(fetchUpdatePR){
+                //Aqui es para actualizar
+            }else{
+                //Aqui es para crear
+                const checkBoxs = document.querySelectorAll('.checkbox')
+                if(checkBoxs){
+                    checkBoxs.forEach(checkbox => {
+                        checkbox.checked = false;
+                        checkbox.parentElement.parentElement.classList.remove('rowSelected')
+                    });
+                }
+                setCheckedOptions([])
+                setFormPrecandidate(false);
+
+                const datosForm = {
+                    "tipoTrabajo": tipoTrabajo, //1 es oficio y 2 es profesion
+                    "personalityTest": personalityTest,
+                    "testGorila": testGorila,
+                    "contratoReclutamiento": contratoReclutamiento,//,
+                    "applicationCv": applicationCv
+                }
+
+                const {updated} = await fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${checkedOptions[0]}`,datosForm)//Creamos un nuevo registro (precandidato)
+                
+                setPrecandidateSelected(null)
+                //Hay que actualizar la pagina o la tabla
+                getPrecandidates()
+
+
+                if(updated){
+
+                    setIdElementEdited([...idElementEdited,checkedOptions[0]])//Establezco el id del elemento editado
+                    
+                    //Show modal
+                    setModal(true)
+                    setTitle("Added Succesfully")
+                    setMessage('Data process recruitment was added')
+                    setType("success")
+                    setShowSpinnerFormPR(false)
+
+                }else{
+                    //Mostramos un modal
+                    setModal(true)
+                    setTitle('Error In Server')
+                    setMessage('Its not posible to update')
+                    setType('error')
+                    setShowSpinnerFormPR(false)
+                }
+            }
+        }
     }
     //FIN. SETTERS CAMPOS FORMULARIO PROCESS RECRUITMENT
 
@@ -852,6 +906,11 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
             const body = {
                 "generalInformation": true,
                 "recruitmenProcess": false,
+                "tipoTrabajo": "",
+                "personalityTest": "",
+                "testGorila": "",
+                "contratoReclutamiento": "",
+                "applicationCv": ""
             }
 
             //console.log(checkedOptions)
@@ -928,7 +987,17 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                 <>
                     <div className="container-signup-precandidate" onClick={e => setFalseShowFormPrecandidate(e)}>
                         <div className="form-precandidate animate__animated animate__bounceInRight">
-                            <h1>{precandidateSelected !== null ? 'Edit this candidate' : 'Create new precandidate'}</h1>
+                            <h1>{
+                                precandidateSelected !== null && sectionSelectedTLU == 'gi' ? 
+                                    'Edit this candidate' 
+                                : (precandidateSelected === null && sectionSelectedTLU == 'gi' ?
+                                    'Create new precandidate' 
+                                : (precandidateSelected !== null && sectionSelectedTLU == 'pr' && precandidateSelected.tipoTrabajo == '' && precandidateSelected.personalityTest == '' && precandidateSelected.applicationCv == ''?
+                                    `Process recruitment data for ${precandidateSelected.fullname}`
+                                : (precandidateSelected !== null && precandidateSelected.tipoTrabajo !== '' && precandidateSelected.personalityTest !== '' && precandidateSelected.applicationCv !== '' ?
+                                    `Edit process recruitment data for ${precandidateSelected.fullname}`
+                                :'')))
+                            }</h1>
                             {
                                 precandidateSelected === null && sectionSelectedTLU == 'gi' ?    
                                     <Form flexDirection="row" widthFieldset="48%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsFormSignupPrecandidate} txtButtonSubmit="Create" fnChange={handleChangeNewPrecandidate} fnSubmit={handleSubmitNewPrecandidate} reform={formRefNewPrecandidate} setGender={setGender} setLevelEnglish={setLevelEnglish} setCivilStatus={setCivilStatus} setLevelStudies={setLevelStudies} showSpinner={showSpinnerFormPre} setParamDefault={false}/>
@@ -936,8 +1005,8 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                                 (precandidateSelected !== null && sectionSelectedTLU == 'gi' ?
                                     <Form flexDirection="row" widthFieldset="48%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsEditPrecandidate} txtButtonSubmit="Update" fnChange={handleChangeNewPrecandidate} fnSubmit={handleSubmitNewPrecandidate} reform={formRefNewPrecandidate} setGender={setGender} setLevelEnglish={setLevelEnglish} setCivilStatus={setCivilStatus} setLevelStudies={setLevelStudies} showSpinner={showSpinnerFormPre} precandidateSelected={precandidateSelected} setParamDefault={true}/>
                                 :
-                                (sectionSelectedTLU == 'pr' ? //Formulario para la seccion process recruitment
-                                    <Form flexDirection="row" widthFieldset="48%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsFormProcessRecruitment} txtButtonSubmit="Done" fnChange={handleChangeProcessRecruitment} fnSubmit={handleSubmitFormProcessRecruitment} reform={formRefProcessRecruitment } setTipoTrabajo={setTipoTrabajo} showSpinnerFormPR={showSpinnerFormPR} setParamDefault={true} applicationCv={applicationCv} setApplicationCv={setApplicationCv}/>
+                                (precandidateSelected !== null && sectionSelectedTLU == 'pr' ? //Formulario para la seccion process recruitment, el set paramDefault={true} es para decirle que agregara un valor por default, esto se utiliza cuando vamos a editar. El valueEditTipoTrabajo es el valor por default que va a ser, en este caso para un select
+                                    <Form flexDirection="column" widthFieldset="100%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsFormProcessRecruitment} txtButtonSubmit="Done" fnChange={handleChangeProcessRecruitment} fnSubmit={handleSubmitFormProcessRecruitment} reform={formRefProcessRecruitment } setTipoTrabajo={setTipoTrabajo} tipoTrabajo={tipoTrabajo} showSpinner={showSpinnerFormPR} applicationCv={applicationCv} setApplicationCv={setApplicationCv} precandidateSelected={precandidateSelected} setParamDefault={true} valueEditTipoTrabajo={precandidateSelected.tipoTrabajo != '' ? precandidateSelected.tipoTrabajo : 'Tipo de trabajo' }/>
                                 :<></>))
                             }
                         </div>
