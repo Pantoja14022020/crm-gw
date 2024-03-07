@@ -11,6 +11,7 @@ import { MdDelete } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";
 import { RiFileExcel2Fill } from "react-icons/ri";
 import { RiArrowGoBackFill } from "react-icons/ri";
+import { IoClose } from "react-icons/io5";
 
 
 
@@ -58,6 +59,9 @@ function Icon({num,showCounter,type,name, url, spaceHorizontal, spaceVertical, w
                         }
                         {
                             name === "check" ? <FaCheckCircle color={color} size={size} /> : <></>
+                        }
+                        {
+                            name === "not-check" ? <IoClose color={color} size={size}/> : <></>
                         }
                         {
                             name === 'search' ? <RiSearchLine color={color} size={size} /> : <></>

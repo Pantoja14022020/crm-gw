@@ -171,3 +171,8 @@ table tbody tr td p{
   .table-container:hover::-webkit-scrollbar-thumb::after {
     opacity: 1; /* Hace visible los pseudoelementos */
   }
+
+
+  .check-candidate{
+    padding: 0.3rem;
+  }

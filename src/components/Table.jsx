@@ -2,11 +2,12 @@ import { useState } from "react";
 import Icon from "./Icon";
 import Load from "./Load";
 import Td from "./Td";
+import { IoClose } from "react-icons/io5";
+import { FaCheck } from "react-icons/fa6";
 
 
 
-
-function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOptions,setRowsTLU,setPrecandidateSelected, setValoresNewPrecandidate, setFetchUpdate, sectionSelectedTLU}){
+function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOptions,setRowsTLU,setPrecandidateSelected, setValoresNewPrecandidate, setFetchUpdate, sectionSelectedTLU,confirmationStageToStageCandidates}){
 
 
 
@@ -125,6 +126,7 @@ function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOpt
                                             <Td txt={personalityTest.length > 0 ? personalityTest : 'Empty'} optionMore={personalityTest.length > 0 ? true : false}/>
                                             <Td txt={testGorila.length > 0 || contratoReclutamiento.length > 0 ? (tipoTrabajo == 'Oficio' ? `contrato de reclutamiento: ${contratoReclutamiento}` : `test gorila: ${testGorila}`) : 'Empty'} highlightTG={testGorila.length > 0 || contratoReclutamiento.length > 0? true : false}/>
                                             <Td txt={applicationCv.length > 0 ? applicationCv : 'Empty'} highlightAC={applicationCv.length > 0 ? true : false}/>
+                                            <td id={id}>{tipoTrabajo.length > 0 && (testGorila.length > 0 || contratoReclutamiento.length > 0) && applicationCv.length > 0 ? <button id={id} onClick={e => confirmationStageToStageCandidates(id)} className="check-candidate"><FaCheck id={id} color="#007a3d" size="0.9rem" /></button> : <button id={id} className="check-candidate"><IoClose color="#ce2323" size="1rem"/></button> }</td>
                                         </tr>
                                     ))
                                     : <></>

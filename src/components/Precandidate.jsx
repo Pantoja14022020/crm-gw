@@ -38,7 +38,8 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
         {id:3,txt:'Tipo de Trabajo'},
         {id:4,txt:'Personality Test'},
         {id:5,txt:'Test Gorilla/Contrato de reclutamiento'},
-        {id:6,txt:'Application/CV'}
+        {id:6,txt:'Application/CV'},
+        {id:7,txt:''}
     ]
 
     //ESTO ES PARA LOS FILTROS O PARAMETROS DE BUSQUEDA, AQUI SE DEFINEN SUS OPCIONES
@@ -221,6 +222,18 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
 
 
 
+    //Opcion ready para mandar  objeto a la segunda etapa
+    const [sendStageCandidates, setSendStageCandidates] = useState(false);
+    const [idPrecandidateSentToCandidate,setIdPrecandidateSentToCandidate] = useState(null)    
+    function confirmationStageToStageCandidates(id){//Esta funcion se ejecuta cuando damos click en el icono check de la tabla o registro
+        setIdPrecandidateSentToCandidate(id)
+        setShowConfirmAction(true)
+        setTxtTitleConfirmationAction('Stage Candidates')
+        setTxtConfirmationAction('¿Do you want send to Stage Candidates?')
+        setSendStageCandidates(true)//Habilitamos que si queremos ver el modal de Stage Candidates
+    }
+
+
 
     
     //console.log(checkedOptions)
@@ -287,6 +300,8 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
     const setFalseShownModalConfirmation = e => {//Funcion para quitar el modal cuando se de click fuera de el
         if(e.target.classList.contains('container-confirmation-modal')){
             setShowConfirmAction(false)
+            setSendStageCandidates(false)
+            setIdPrecandidateSentToCandidate(null)
         }
     }
 
@@ -842,6 +857,8 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
     //ESTAS FUNCIONES ES PARA EL COMPONENTE Confirmation.jsx
     function quitModalConfirmation(){
         setShowConfirmAction(false)
+        setSendStageCandidates(false)
+        setIdPrecandidateSentToCandidate(null)
     }
 
     const [showSpinnerChangeStagePR,setShowSpinnerChangeStagePR] = useState(false)
@@ -959,6 +976,48 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
 
 
 
+    //ACCION QUE SE EJECUTA CUANDO CONFIRMAMOS QUE LOS QUEREMOS ENVIAR A LA SEGUNDA ETAPA
+    async function sendToStageCandidates(){//Que hacer cuando se confirma la accion de enviar a la asubseccion informacion general
+        try {
+
+            setShowSpinnerChangeStagePR(true)
+
+            const body = {
+                "recruitmenProcess": false,
+                "selectionProcess": true
+            }
+            
+            const promesas = await fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${idPrecandidateSentToCandidate}`,body)
+            //const resultados = await Promise.all(promesas)
+            getPrecandidates()
+            
+            setCheckedOptions([])//Vacio el arreglo que contiene los ids de los elementos a pasar
+            setShowConfirmAction(false)//Quito el modal de confirmacion
+
+            setModal(true)
+            setTitle("Sent Succesfully")
+            setMessage('Your precandidates was send to Stage Candidate')
+            setType("success")
+            setShowSpinnerChangeStagePR(false)
+            
+        } catch (error) {
+            //console.log(error)
+            setCheckedOptions([])//Vacio el arreglo que contiene los ids de los elementos a pasar
+            setShowConfirmAction(false)//Quito el modal de confirmacion
+
+            setModal(true)
+            setTitle('Error In Server')
+            setMessage('Its not was posible send to stage candidate')
+            setType('error')
+            setShowSpinnerChangeStagePR(false)
+
+        }
+    }
+
+
+
+
+
 
     return (
         <section className="section-precandidates">
@@ -1018,15 +1077,23 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
             { //Es el modal que muestra para confirmar si se quiere pasar los precandidatos a la subseccion 'process recruitment'
                 showConfirmAction && sectionSelectedTLU == 'gi' ?
                     <div className="container-confirmation-modal" onClick={e => setFalseShownModalConfirmation(e)}>
-                        <Confirmation showSpinner={showSpinnerChangeStagePR} cancel={quitModalConfirmation} ok={sendToSubsectionProcessRecruitment}/>
+                        <Confirmation showSpinner={showSpinnerChangeStagePR} cancel={quitModalConfirmation} ok={sendToSubsectionProcessRecruitment} txtTitleConfirmationAction={txtTitleConfirmationAction} txtConfirmationAction={txtConfirmationAction}/>
                     </div> 
                 : <></>
             }
             { //Es el modal que muestra para confirmar si se quiere pasar los precandidatos a la subseccion 'general information'
                 showConfirmAction && sectionSelectedTLU == 'pr' ?
                     <div className="container-confirmation-modal" onClick={e => setFalseShownModalConfirmation(e)}>
-                        <Confirmation showSpinner={showSpinnerChangeStagePR} cancel={quitModalConfirmation} ok={sendToSubsectionGeneralInformation}/>
+                        <Confirmation showSpinner={showSpinnerChangeStagePR} cancel={quitModalConfirmation} ok={sendToSubsectionGeneralInformation} txtTitleConfirmationAction={txtTitleConfirmationAction} txtConfirmationAction={txtConfirmationAction}/>
                     </div> 
+                : <></>
+            }
+            {
+                //Es el modal que se muestra para confirmar que se quiere enviar a la segunda etapa 'Caniddates'
+                sendStageCandidates && sectionSelectedTLU == 'pr' && showConfirmAction ? 
+                <div className="container-confirmation-modal" onClick={e => setFalseShownModalConfirmation(e)}>
+                        <Confirmation showSpinner={showSpinnerChangeStagePR} cancel={quitModalConfirmation} ok={sendToStageCandidates} txtTitleConfirmationAction={txtTitleConfirmationAction} txtConfirmationAction={txtConfirmationAction}/>
+                </div> 
                 : <></>
             }
 
@@ -1091,7 +1158,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                                 <div className="spinner-table-precandidates"><Load/></div>
                             : 
                                 <>
-                                    <Table height="pr" idElementEdited={idElementEdited} columns={columnsProcessRecruitment} rows={rows.filter(row => row.recruitmenProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLU}/>
+                                    <Table height="pr" idElementEdited={idElementEdited} columns={columnsProcessRecruitment} rows={rows.filter(row => row.recruitmenProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLU} confirmationStageToStageCandidates={confirmationStageToStageCandidates}/>
                                 </>
                         }
                     </div>
