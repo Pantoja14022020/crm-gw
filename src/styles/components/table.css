@@ -105,7 +105,60 @@ table tbody tr td p{
   border: 2px solid #2020cc;
   border-radius: 01rem;
 }
-
+.contratado{
+  width: fit-content;
+  margin: auto;
+  font-weight: 500;
+  padding: 0.2rem 0.8rem;
+  color: #004e14;
+  background-color: #a1ffae;
+  border-radius: 1rem;
+}
+.consideracion{
+  width: fit-content;
+  margin: auto;
+  font-weight: 500;
+  padding: 0.2rem 0.8rem;
+  color: #5d6442;
+  background-color: #e2ffb3;
+  border-radius: 1rem;
+}
+.rechazado{
+  width: fit-content;
+  margin: auto;
+  font-weight: 500;
+  padding: 0.2rem 0.8rem;
+  color: #ff000d;
+  background-color: #ffd5de;
+  border-radius: 1rem;
+}
+.revision{
+  width: fit-content;
+  margin: auto;
+  font-weight: 500;
+  padding: 0.2rem 0.8rem;
+  color: #0057da;
+  background-color: #e6eeff;
+  border-radius: 1rem;
+}
+.pendiente{
+  width: fit-content;
+  margin: auto;
+  font-weight: 500;
+  padding: 0.2rem 0.8rem;
+  color: #afa338;
+  background-color: #fffaae;
+  border-radius: 1rem; 
+}
+.no-continuo{
+  width: fit-content;
+  margin: auto;
+  font-weight: 500;
+  padding: 0.2rem 0.8rem;
+  color: #242424;
+  background-color: #ececec;
+  border-radius: 1rem;
+}
 
 
 #btn-refresh-table{/*Estilos para el boton actualizar o refrescar la tabla*/

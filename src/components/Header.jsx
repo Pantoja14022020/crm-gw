@@ -7,7 +7,7 @@ import Option from './Option'
 import { useEffect, useState } from 'react';
 import BarStatus from './BarStatus';
 
-function Header({interfaceShowed,fullname, notificationsStored, numNotifications, setNumNotifications,setNotificationsStored, sectionSelectedTLU, setSectionSelectedTLU, checkedOptions, setCheckedOptions, setParamEnglishLevel, setParamStudiesLevel}){
+function Header({interfaceShowed,fullname, notificationsStored, numNotifications, setNumNotifications,setNotificationsStored, sectionSelectedTLU, sectionSelectedTLUCandidate, setSectionSelectedTLUCandidate, setSectionSelectedTLU, checkedOptions, setCheckedOptions, setParamEnglishLevel, setParamStudiesLevel}){
 
     const [showModalOption, setShowModalOption] = useState(false)
     const [showModalNotifications, setShowModalNotifications] = useState(false);
@@ -53,7 +53,22 @@ function Header({interfaceShowed,fullname, notificationsStored, numNotifications
 
 
 
+    //Son las subsecciones para la etapa candidate
+    const sectionsCandidateTLU = [
+        {
+            id: 0,
+            title: 'Status Board',
+            name: 'sb',
+            paint: true
+        },
+        {
+            id: 1,
+            title: 'Selection Process',
+            name: 'sp',
+            paint: false
+        }
 
+    ]
     //Son las subsecciones para la etapa Precandidate
     const sectionsPrecanditeTLU = [
         {
@@ -75,13 +90,20 @@ function Header({interfaceShowed,fullname, notificationsStored, numNotifications
         setCheckedOptions([])
     }    
 
+    //Para establecer que seccion del bar satatus esta seleccionado para la etapa Candidate
+    function setSectionSelectedTLUCandidateHandle(name){
+        setSectionSelectedTLUCandidate(name)
+        setCheckedOptions([])
+    }
 
     return(
         <header className='header-aside-dashboard'>
             {
                 interfaceShowed == 'overview' 
-                    ? <h1 className='animate__animated animate__bounceInDown'>¡Hola {fullname}! 👋</h1> 
-                    : (interfaceShowed == 'precandidate' ? <BarStatus sections={sectionsPrecanditeTLU} sectionSelected={sectionSelectedTLU} setSectionSelected={setSelectedOption} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel}/> : <></>) 
+                ? <h1 className='animate__animated animate__bounceInDown'>¡Hola {fullname}! 👋</h1> 
+                : (interfaceShowed == 'precandidate' ? <BarStatus sections={sectionsPrecanditeTLU} sectionSelected={sectionSelectedTLU} setSectionSelected={setSelectedOption} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel}/> 
+                : (interfaceShowed == 'candidate' ? <BarStatus sections={sectionsCandidateTLU} sectionSelected={sectionSelectedTLUCandidate} setSectionSelected={setSectionSelectedTLUCandidateHandle}/> 
+                : <></>)) 
             }
             <div className="icons-header-aside">
                 <Icon num={numNotifications} type="icon" name="notification" spaceHorizontal={true} width="40px" height="40px" fn={showModalNotifis} showCounter={true}/>

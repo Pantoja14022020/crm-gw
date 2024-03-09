@@ -32,6 +32,7 @@ import { useEffect, useState } from 'react'
 import {fetchUrlGet} from './helpers/fetchs'
 import Board from './components/Board'
 import Precandidate from './components/Precandidate'
+import Candidate from './components/Candidate';
 
 const socket = io("https://api-gw-cpa-pc-20aq.onrender.com/");//PRUEBA 2  llega a prueba 3. Me conecto o inicializo
 //const socket = io('http://localhost:8080')//PRUEBA 2    llega a prueba 3
@@ -45,7 +46,11 @@ function Dashboard(){
 
     const [interfaceShowed,setInterfaceShowed] = useState(localStorage.getItem('optionSelected'));
     
-
+    useEffect(()=>{
+        if(checkedOptions.length > 0){
+            setCheckedOptions([])
+        }
+    },[interfaceShowed])
 
     const [showSpinner, setShowSpinner] = useState(true);
 
@@ -126,10 +131,13 @@ function Dashboard(){
         //.log("all candidates",allCandidates);
     }
     useEffect(()=>{//Aqui hago peticion para obtener los candidatos del excel para TL GM o GW
-        if(getTypeUser() == 'tl'){
-            getPrecandidates();
+        async function loadPrecandidates(){
+            if(getTypeUser() == 'tl'){
+                await getPrecandidates();
+                setShowSpinner(false);
+            }
         }
-        //setShowSpinner(false);
+        loadPrecandidates()
     },[])
 
     
@@ -283,14 +291,27 @@ function Dashboard(){
     //Este es para seccion precandidato para CRM Trabajo Legal USA
     //Define que tabla mostrar, si informacion general(precandidatos) o process recruitment(precandiatos)
     const [sectionSelectedTLU, setSectionSelectedTLU] =  useState( localStorage.getItem('sectionSelectedTLU') || 'gi');
+    const [sectionSelectedTLUCandidate, setSectionSelectedTLUCandidate] =  useState( localStorage.getItem('sectionSelectedTLUCandidate') || 'sb');
 
-
+    //Para guardar en el local storage la seccion seleccionada de la etapa precandidate
     useEffect(()=>{
         localStorage.setItem('sectionSelectedTLU',sectionSelectedTLU)
+        //Estos set para son para cuando se cambie de seccion en el bar satatus, se resetee los select de filtros
         setParamEnglishLevel('')
         setParamStudiesLevel('')
         setSearchTerm('')
+        setCheckedOptions([])
     },[sectionSelectedTLU])
+
+
+    //Para guardar en el local storage la seccion seleccionada de la etapa candidate
+    useEffect(()=>{
+        localStorage.setItem('sectionSelectedTLUCandidate',sectionSelectedTLUCandidate)
+        setSearchTerm('')
+        setCheckedOptions([])
+    },[sectionSelectedTLUCandidate])
+
+
 
     const [checkedOptions, setCheckedOptions] = useState([])//Un estado par gaurdar el id de los checkbox seleccionados 
 
@@ -311,7 +332,7 @@ function Dashboard(){
         <main className="dashboard">
             <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**/ setInterfaceShowed={setInterfaceShowed} showNavbar={showNavbar} setShowNavbar={setShowNavbar}/>
             <aside className={`${showNavbar ? 'part-width' : 'all-width'}`}>
-                <Header interfaceShowed={interfaceShowed} fullname={fullname} notificationsStored={notificationsStored} numNotifications={numNotifications} setNumNotifications={setNumNotifications} setNotificationsStored={setNotificationsStored} sectionSelectedTLU={sectionSelectedTLU} setSectionSelectedTLU={setSectionSelectedTLU} checkedOptions={checkedOptions} setCheckedOptions={setCheckedOptions} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel}/>
+                <Header interfaceShowed={interfaceShowed} fullname={fullname} notificationsStored={notificationsStored} numNotifications={numNotifications} setNumNotifications={setNumNotifications} setNotificationsStored={setNotificationsStored} sectionSelectedTLU={sectionSelectedTLU} setSectionSelectedTLU={setSectionSelectedTLU} checkedOptions={checkedOptions} sectionSelectedTLUCandidate={sectionSelectedTLUCandidate} setSectionSelectedTLUCandidate={setSectionSelectedTLUCandidate} setCheckedOptions={setCheckedOptions} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel}/>
                 <div className="content-dashboard">
                     {   /*Aqui decidimo que tipo de Overview vamos a mostrar, dependiendo el tipo de usuario que inicio sesion */
                         
@@ -320,7 +341,8 @@ function Dashboard(){
                         :(interfaceShowed == 'board' ? 
                             <Board/>
                         :(interfaceShowed == "precandidate" ? <Precandidate options={allCandidates} rows={filteredCandidates} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal} showBtnRefresh={showBtnRefresh} setShowBtnRefresh={setBtnRefresh} idElementEdited={idElementEdited} setIdElementEdited={setIdElementEdited} sectionSelectedTLU={sectionSelectedTLU} showConfirmAction={showConfirmAction} setShowConfirmAction={setShowConfirmAction} txtTitleConfirmationAction={txtTitleConfirmationAction} setTxtTitleConfirmationAction={setTxtTitleConfirmationAction} txtConfirmationAction={txtConfirmationAction} setTxtConfirmationAction={setTxtConfirmationAction} checkedOptions={checkedOptions} setCheckedOptions={setCheckedOptions}/>
-                        : <></>)) 
+                        :(interfaceShowed == "candidate" ? <Candidate sectionSelectedTLUCandidate={sectionSelectedTLUCandidate} rows={filteredCandidates} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} idElementEdited={idElementEdited} setIdElementEdited={setIdElementEdited} checkedOptions={checkedOptions} setCheckedOptions={setCheckedOptions} getPrecandidates={getPrecandidates} showConfirmAction={showConfirmAction} setShowConfirmAction={setShowConfirmAction} txtTitleConfirmationAction={txtTitleConfirmationAction} setTxtTitleConfirmationAction={setTxtTitleConfirmationAction} txtConfirmationAction={txtConfirmationAction} setTxtConfirmationAction={setTxtConfirmationAction}/> 
+                        :<></>))) 
                     }              
                 </div>
             </aside>

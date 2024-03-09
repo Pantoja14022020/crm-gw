@@ -1,6 +1,6 @@
 import Icon from "./Icon";
 
-function ActionBar({optionEdit,showFormEditPre,sectionSelectedTLU,confirmationStageToGI,confirmationStageProcessRecruitment}){
+function ActionBar({optionEdit,showFormEditPre,sectionSelectedTLU,confirmationStageToGI,confirmationStageProcessRecruitment,showFormProcessSelection,confirmationSubsectionPR}){
 
     return(
         <div className="actions-bar animate__animated animate__slideInUp">
@@ -22,6 +22,16 @@ function ActionBar({optionEdit,showFormEditPre,sectionSelectedTLU,confirmationSt
             {
                 sectionSelectedTLU == 'pr' ?
                     <button onClick={confirmationStageToGI} className="edit-pre"><Icon type="icon" name="back" color="#fff"/></button>
+                : <></>
+            }
+            {
+                optionEdit && sectionSelectedTLU == 'sp' ? 
+                    <button onClick={showFormProcessSelection} className="edit-pre"><Icon name="edit" size="1rem" color='#fff'/></button>
+                : <></>
+            }
+            {
+                sectionSelectedTLU == 'sp' ?
+                    <button onClick={confirmationSubsectionPR} className="edit-pre"><Icon type="icon" name="back" color="#fff"/></button>
                 : <></>
             }
         </div>

@@ -197,7 +197,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
             type: 'radio',
             htmlfor: 'applicationCv',
             txt: "CV o Application?",
-            options: ['CV','Application']
+            options: ['Yes','No']
         }
     ]
 
@@ -302,6 +302,14 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
             setShowConfirmAction(false)
             setSendStageCandidates(false)
             setIdPrecandidateSentToCandidate(null)
+            const checkBoxs = document.querySelectorAll('.checkbox')
+            if(checkBoxs){
+                checkBoxs.forEach(checkbox => {
+                    checkbox.checked = false;
+                    checkbox.parentElement.parentElement.classList.remove('rowSelected')
+                });
+            }
+            setCheckedOptions([])
         }
     }
 
@@ -313,8 +321,8 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
     //una opcion
     const [optionEdit, setOptionEdit] = useState(false);
     const [precandidateSelected, setPrecandidateSelected] = useState(null);//Son los datos del objeto a editar
-     //CREANDO LOS CAMPOS DEL FORMULARIO CUANDO SE ESTE CREANDO
-     const [fieldsetsEditPrecandidate, setFieldsetsEditPrecandidate] = useState([])
+    //CREANDO LOS CAMPOS DEL FORMULARIO CUANDO SE ESTE CREANDO
+    const [fieldsetsEditPrecandidate, setFieldsetsEditPrecandidate] = useState([])
 
     useEffect(()=>{//Cuando se modifique el arreglo de opciones chequeadas, decidir si mostrar o no el action bar
         checkedOptions.length > 0 ?
@@ -536,7 +544,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                 
                 setPrecandidateSelected(null)
                 //Hay que actualizar la pagina o la tabla
-                getPrecandidates()
+                await getPrecandidates()
 
 
                 if(updated){
@@ -689,7 +697,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                 
                 setPrecandidateSelected(null)
                 //Hay que actualizar la pagina o la tabla
-                getPrecandidates()
+                await getPrecandidates()
 
                 if(updated){
 
@@ -859,6 +867,14 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
         setShowConfirmAction(false)
         setSendStageCandidates(false)
         setIdPrecandidateSentToCandidate(null)
+        const checkBoxs = document.querySelectorAll('.checkbox')
+        if(checkBoxs){
+            checkBoxs.forEach(checkbox => {
+                checkbox.checked = false;
+                checkbox.parentElement.parentElement.classList.remove('rowSelected')
+            });
+        }
+        setCheckedOptions([])
     }
 
     const [showSpinnerChangeStagePR,setShowSpinnerChangeStagePR] = useState(false)
@@ -1111,7 +1127,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                     <div className="btn-new-candidate">
                         <div className="search-container">
                             {   //Aqui decido que componente search mostrar, si el de la subseccion informacion general o process recruitment
-                                <Search txt="Search precandidate in general information subsection" setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+                                <Search txt="Search name precandidate in general information subsection" setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
                             }
                         </div>
                         <div className="btn-n-c">
@@ -1147,7 +1163,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                     <div className="btn-new-candidate">
                         <div className="search-container">
                             {   //Aqui decido que componente search mostrar, si el de la subseccion informacion general o process recruitment
-                                <Search txt="Search precandidate in process recruitment subsection" setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+                                <Search txt="Search name precandidate in process recruitment subsection" setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
                             }
                         </div>
                     </div>

@@ -131,6 +131,33 @@ function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOpt
                                     ))
                                     : <></>
                                 }
+
+
+
+
+
+
+                                {   sectionSelectedTLU == 'sp' ? //Defino que filas se muestran para la tabla process recruitment
+                                    rows.map(({id,select,fullname,email,phone,tipoTrabajo,employer,referred,methodContact,interviewed,status})=>(
+                                        <tr key={id} style={{color: `${idElementEdited.includes(id) ? '#000' : ''}`, fontWeight: `${idElementEdited.includes(id) ? '600' : ''}`}}>
+                                            <td><input type="checkbox" id={id} className="checkbox" onChange={e => handleCheckboxChange(e,id)}/></td>
+                                            <Td txt={fullname}/>
+                                            <Td txt={email} optionMore={true}/>
+                                            <Td txt={phone} optionMore={true}/>
+                                            <Td txt={tipoTrabajo.length > 0 ? tipoTrabajo : 'Empty'} highlightTT={tipoTrabajo.length > 0 ? true : false}/>
+                                            <Td txt={employer.length > 0 ? employer : 'Empty'}/>
+                                            <Td txt={referred.length > 0 ? referred : 'Empty'} />
+                                            <Td txt={methodContact.length > 0 ? methodContact : 'Empty'} />
+                                            <Td txt={interviewed.length > 0 ? interviewed : 'Empty'} />
+                                            <Td txt={status.length > 0 ? status : 'Empty'} highlightS={status.length > 0 ? true : false} />
+                                        </tr>
+                                    ))
+                                    : <></>
+                                }
+
+
+
+
                         </tbody>
                     </table>
                 </div>
