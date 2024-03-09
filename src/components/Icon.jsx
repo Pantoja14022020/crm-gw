@@ -12,6 +12,7 @@ import { FaCheck } from "react-icons/fa6";
 import { RiFileExcel2Fill } from "react-icons/ri";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
+import { IoMdEye } from "react-icons/io";
 
 
 
@@ -44,6 +45,9 @@ function Icon({num,showCounter,type,name, url, spaceHorizontal, spaceVertical, w
                         }
                         {
                             name === 'back' ? <RiArrowGoBackFill color={color} size={size} /> : <></>
+                        }
+                        {
+                            name === 'see' ? <IoMdEye color={color} size={size} /> : <></>
                         }
                     </> 
                 : 

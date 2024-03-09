@@ -1,5 +1,6 @@
 import { useEffect,useState,useRef } from 'react';
 import '../styles/components/candidate.css'
+import '../styles/components/card.css'
 import Load from './Load';
 import Search from './Search';
 import Table from './Table';
@@ -8,6 +9,7 @@ import Form from './Form';
 import Modal from './Modal';
 import { fetchUrlPut } from '../helpers/fetchs';
 import Confirmation from './Confirmation';
+import Card from './Card';
 
 function Candidate({setShowSpinner,idElementEdited,setIdElementEdited,sectionSelectedTLUCandidate,rows,setRowsTLU,setSearchTerm,searchTerm,showSpinner,checkedOptions,setCheckedOptions,getPrecandidates, showConfirmAction, setShowConfirmAction,txtTitleConfirmationAction,setTxtTitleConfirmationAction,txtConfirmationAction,setTxtConfirmationAction}){
 
@@ -306,8 +308,35 @@ function Candidate({setShowSpinner,idElementEdited,setIdElementEdited,sectionSel
             }
         }
     }
+    //PARA QUITAR EL CARD DE LA INFORMACION DEL CANDIDATO
+    const setFalseShowFormCardInfo = e => {
+        if(e.target.classList.contains('container-signup-precandidate')){
+            setShowCardInfoCandidate(false)
+
+            setPrecandidateSelected(null);
+            
+            setCheckedOptions([])//Setear a que no hay chequeados, para quitar el action bar
+            setFetchUpdate(false)
+
+            const checkBoxs = document.querySelectorAll('.checkbox')
+            if(checkBoxs){
+                checkBoxs.forEach(checkbox => {
+                    checkbox.checked = false;
+                    checkbox.parentElement.parentElement.classList.remove('rowSelected')
+                });
+            }
+        }
+    }
 
 
+
+
+
+    //VARIABLES PARA MOSTRAR EL CUADRO DE INFORMACION DEL CANDIDATO
+    const [showCardInfoCandidate,setShowCardInfoCandidate] = useState(false)
+    const setTrueShowCardInfoCandidate = () => {
+        setShowCardInfoCandidate(true)
+    }
 
     
     
@@ -406,6 +435,30 @@ function Candidate({setShowSpinner,idElementEdited,setIdElementEdited,sectionSel
 
 
 
+
+
+
+            {
+                showCardInfoCandidate ? 
+                <>
+                        <div className="container-signup-precandidate" onClick={e => setFalseShowFormCardInfo(e)}>
+                            <div className="form-candidate-card animate__animated animate__bounceInRight">
+                                {/*<h1>{
+                                    precandidateSelected !== null && sectionSelectedTLUCandidate == 'sp' ? 
+                                        `${precandidateSelected.fullname}` 
+                                    : ''
+                                }</h1>*/}
+                                <Card user={precandidateSelected}/>
+                            </div>
+                        </div>
+                    </>
+                :<></>
+            }
+
+
+
+
+
             { //Es el modal que muestra para confirmar si se quiere pasar los precandidatos a la subseccion 'process recruitment'
                 showConfirmAction && sectionSelectedTLUCandidate == 'sp' ?
                     <div className="container-confirmation-modal" onClick={e => setFalseShownModalConfirmation(e)}>
@@ -454,7 +507,7 @@ function Candidate({setShowSpinner,idElementEdited,setIdElementEdited,sectionSel
 
             {   //           optionEdit(si)          precandidateSelected(si)                                                                      sectionSelectedTLU(si)  
                 showActions 
-                ? <ActionBar optionEdit={optionEdit} precandidateSelected={precandidateSelected} showFormProcessSelection={setTrueShowFormProcessSelection} sectionSelectedTLU={sectionSelectedTLUCandidate} confirmationSubsectionPR={confirmationSubsectionPR}/>
+                ? <ActionBar optionEdit={optionEdit} precandidateSelected={precandidateSelected} showFormProcessSelection={setTrueShowFormProcessSelection} sectionSelectedTLU={sectionSelectedTLUCandidate} confirmationSubsectionPR={confirmationSubsectionPR} setTrueShowCardInfoCandidate={setTrueShowCardInfoCandidate}/>
                 : <></> 
             }
 

@@ -1,0 +1,89 @@
+.card{
+    padding: 1rem;
+}
+
+
+
+.image-card-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.image-card{
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    color: white;
+    font-size: 2rem;
+    border-radius: 50%;
+}
+
+
+.info-general{
+    margin-top: 1rem;
+    text-align: center;
+}
+.info-general h1{
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.08rem;
+    color: rgb(37, 38, 46);
+}
+.info-general p{
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+}
+.gender-ig{
+    font-size: 0.7rem;
+    padding: 0.4rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.gender-ig b{
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.8rem;
+    border: 2px solid;
+    color: #f50caf;
+}
+.gender-ig b:last-child{
+    margin-left: 0.5rem;
+    color: #fff !important;
+}
+#levelStudies{
+    letter-spacing: 0.05rem;
+    border: 2px solid #e1e1e1;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.5rem;
+}
+#englishLevelDiv{
+    font-size: 0.7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#englishLevelDiv p:last-child{
+    margin-left: 1rem;
+    background-color: black;
+    padding: 0.2rem 0.5rem;
+    color: white;
+    border-radius: 1rem;
+}
+#positionDiv{
+    font-size: 0.7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#positionDiv p:first-child{
+    margin-right: 1rem;
+    background-color: rgb(58, 58, 58);
+    padding: 0.2rem 0.5rem;
+    color: white;
+    border-radius: 1rem;
+}

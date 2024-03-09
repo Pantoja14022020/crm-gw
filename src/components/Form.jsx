@@ -4,7 +4,7 @@ import SelectDefault from "./SelectDefault"
 import Radio from "./Radio";
 
 
-function Form({flexDirection,widthFieldset,widthForm,action,method,fieldsets,txtButtonSubmit,fnSubmit,fnChange,showSpinner,reform, setGender, setLevelEnglish, setCivilStatus,setLevelStudies,precandidateSelected,setParamDefault,tipoTrabajo,setTipoTrabajo,applicationCv, setApplicationCv,valueEditTipoTrabajo,status,setStatus,methodContact,setMethodContact,interviewed,setInterviewed,valueEditStatus,valueEditMethodContact,valueEditInterviewed}){
+function Form({flexDirection,widthFieldset,widthForm,action,method,fieldsets,txtButtonSubmit,fnSubmit,fnChange,showSpinner,reform, setGender, setLevelEnglish, setCivilStatus,setLevelStudies,precandidateSelected,setParamDefault,tipoTrabajo,setTipoTrabajo,applicationCv, setApplicationCv,valueEditTipoTrabajo,status,setStatus,methodContact,setMethodContact,interviewed,setInterviewed,valueEditStatus,valueEditMethodContact,valueEditInterviewed,valueEditApplicationCv}){
    
     //console.log(precandidateSelected)
     
@@ -71,7 +71,8 @@ function Form({flexDirection,widthFieldset,widthForm,action,method,fieldsets,txt
                                                 : (name == 'status' ? <><label htmlFor={id}>{txt}</label> <SelectDefault width="100%" options={options} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setStatus} setParamDefaultEdit={setParamDefault} valueDefault={valueEditStatus} precandidateSelected={precandidateSelected}/></>
                                                     : (name == 'methodContact' ? <><label htmlFor={id}>{txt}</label> <SelectDefault width="100%" options={options} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setMethodContact} setParamDefaultEdit={setParamDefault} valueDefault={valueEditMethodContact} precandidateSelected={precandidateSelected}/></>
                                                         :(name == 'interviewed' ? <><label htmlFor={id}>{txt}</label> <SelectDefault width="100%" options={options} title={`---- Select ----`} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setInterviewed} setParamDefaultEdit={setParamDefault} valueDefault={valueEditInterviewed} precandidateSelected={precandidateSelected}/></>
-                                                            :<></>))))))))
+                                                            : (name == 'applicationCv' ? <><label htmlFor={id}>{txt}</label> <SelectDefault width="100%" options={options} title={`---- Select ----`} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setApplicationCv} setParamDefaultEdit={setParamDefault} valueDefault={valueEditApplicationCv} precandidateSelected={precandidateSelected}/></>
+                                                                :<></>)))))))))
                         }
                         {
                             type == 'radio' ? 

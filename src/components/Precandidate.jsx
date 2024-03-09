@@ -194,7 +194,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
         {
             id:4,
             name:'applicationCv',
-            type: 'radio',
+            type: 'select',
             htmlfor: 'applicationCv',
             txt: "CV o Application?",
             options: ['Yes','No']
@@ -506,7 +506,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
         e.preventDefault()
         const {personalityTest,testGorila,contratoReclutamiento} = valoresProcessRecruitment;
         console.log(tipoTrabajo,valoresProcessRecruitment,applicationCv)
-        if(tipoTrabajo.length == 0 || personalityTest.length == 0 || (testGorila.length == 0 && contratoReclutamiento.length == 0) || applicationCv.length == 0){
+        if(tipoTrabajo.length == 0 || tipoTrabajo == '---- Select ----' || personalityTest.length == 0 || (testGorila.length == 0 && contratoReclutamiento.length == 0) || applicationCv.length == 0 || applicationCv == '---- Select ----'){
             setModal(true)
             setTitle("Incomplete Fields")
             setMessage("Fill all fields")
@@ -1081,7 +1081,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                                     <Form flexDirection="row" widthFieldset="48%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsEditPrecandidate} txtButtonSubmit="Update" fnChange={handleChangeNewPrecandidate} fnSubmit={handleSubmitNewPrecandidate} reform={formRefNewPrecandidate} setGender={setGender} setLevelEnglish={setLevelEnglish} setCivilStatus={setCivilStatus} setLevelStudies={setLevelStudies} showSpinner={showSpinnerFormPre} precandidateSelected={precandidateSelected} setParamDefault={true}/>
                                 :
                                 (precandidateSelected !== null && sectionSelectedTLU == 'pr' ? //Formulario para la seccion process recruitment, el set paramDefault={true} es para decirle que agregara un valor por default, esto se utiliza cuando vamos a editar. El valueEditTipoTrabajo es el valor por default que va a ser, en este caso para un select
-                                    <Form flexDirection="column" widthFieldset="100%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsFormProcessRecruitment} txtButtonSubmit="Done" fnChange={handleChangeProcessRecruitment} fnSubmit={handleSubmitFormProcessRecruitment} reform={formRefProcessRecruitment } setTipoTrabajo={setTipoTrabajo} tipoTrabajo={tipoTrabajo} showSpinner={showSpinnerFormPR} applicationCv={applicationCv} setApplicationCv={setApplicationCv} precandidateSelected={precandidateSelected} setParamDefault={true} valueEditTipoTrabajo={precandidateSelected.tipoTrabajo != '' ? precandidateSelected.tipoTrabajo : 'Tipo de trabajo' }/>
+                                    <Form flexDirection="column" widthFieldset="100%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsFormProcessRecruitment} txtButtonSubmit="Done" fnChange={handleChangeProcessRecruitment} fnSubmit={handleSubmitFormProcessRecruitment} reform={formRefProcessRecruitment } setTipoTrabajo={setTipoTrabajo} tipoTrabajo={tipoTrabajo} showSpinner={showSpinnerFormPR} applicationCv={applicationCv} setApplicationCv={setApplicationCv} precandidateSelected={precandidateSelected} setParamDefault={true} valueEditTipoTrabajo={precandidateSelected.tipoTrabajo != '' ? precandidateSelected.tipoTrabajo : '---- Select ----' } valueEditApplicationCv={precandidateSelected.applicationCv != '' ? precandidateSelected.applicationCv : '---- Select ----' }/>
                                 :<></>))
                             }
                         </div>

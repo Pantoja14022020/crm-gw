@@ -74,7 +74,7 @@
     justify-content: center;
     align-items: center;
     z-index: 13;
-    background-color: rgba(0, 0, 0, 0.295);
+    background-color: rgba(0, 0, 0, 0.096);
 }
 .container-confirmation-modal{
     position: fixed;
@@ -97,6 +97,15 @@
     background: white;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
     color: #838383;
+}
+.form-candidate-card{/*Es el hijo que contiene el componente form*/
+  border-radius: 0.7rem;
+  position: relative;
+  height: fit-content;
+  max-width: 60%;
+  overflow: hidden;
+  background: white;
+  color: #838383;
 }
 
 
