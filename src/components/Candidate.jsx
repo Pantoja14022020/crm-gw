@@ -363,7 +363,7 @@ function Candidate({setShowSpinner,idElementEdited,setIdElementEdited,sectionSel
 
         if(checkedOptions.length == 1){
             setOptionEdit(true)//Hacemos que aparezca el boton de editar en el action bar
-            const rowFounded = rows.find(row => row.id == checkedOptions[0]);//Obtenemos la persona
+            const rowFounded = rows.find(row => row._id == checkedOptions[0]);//Obtenemos la persona
             setPrecandidateSelected(rowFounded)//Establecemos la persona
             setFetchUpdate(false)
 

@@ -73,9 +73,9 @@ function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOpt
                         </thead>
                         <tbody>
                                 {   sectionSelectedTLU == 'gi' ?
-                                    rows.map(({id,select,fullname,email,phone,country,dateBirth,civilStatus,gender,levelStudies,position,englishLevel})=>(
-                                        <tr key={id} style={{color: `${idElementEdited.includes(id) ? '#000' : ''}`, fontWeight: `${idElementEdited.includes(id) ? '600' : ''}`}}>
-                                            <td><input type="checkbox" id={id} className="checkbox" onChange={e => handleCheckboxChange(e,id)}/></td>
+                                    rows.map(({_id,select,fullname,email,phone,country,dateBirth,civilStatus,gender,levelStudies,position,englishLevel})=>(
+                                        <tr key={_id} style={{color: `${idElementEdited.includes(_id) ? '#000' : ''}`, fontWeight: `${idElementEdited.includes(_id) ? '600' : ''}`}}>
+                                            <td><input type="checkbox" id={_id} className="checkbox" onChange={e => handleCheckboxChange(e,_id)}/></td>
                                             {/**<td>{fullname.substring(0,10)}...</td>
                                             <td>{email.substring(0,7)}...</td>
                                             <td>{phone}</td>
@@ -106,9 +106,9 @@ function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOpt
 
 
                                 {   sectionSelectedTLU == 'pr' ? //Defino que filas se muestran para la tabla process recruitment
-                                    rows.map(({id,select,fullname,email,phone,tipoTrabajo,personalityTest,testGorila,contratoReclutamiento,applicationCv})=>(
-                                        <tr key={id} style={{color: `${idElementEdited.includes(id) ? '#000' : ''}`, fontWeight: `${idElementEdited.includes(id) ? '600' : ''}`}}>
-                                            <td><input type="checkbox" id={id} className="checkbox" onChange={e => handleCheckboxChange(e,id)}/></td>
+                                    rows.map(({_id,select,fullname,email,phone,tipoTrabajo,personalityTest,testGorila,contratoReclutamiento,applicationCv})=>(
+                                        <tr key={_id} style={{color: `${idElementEdited.includes(_id) ? '#000' : ''}`, fontWeight: `${idElementEdited.includes(_id) ? '600' : ''}`}}>
+                                            <td><input type="checkbox" id={_id} className="checkbox" onChange={e => handleCheckboxChange(e,_id)}/></td>
                                             {/**<td>{fullname.substring(0,10)}...</td>
                                             <td>{email.substring(0,7)}...</td>
                                             <td>{phone}</td>
@@ -126,7 +126,7 @@ function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOpt
                                             <Td txt={personalityTest.length > 0 ? personalityTest : 'Empty'} optionMore={personalityTest.length > 0 ? true : false}/>
                                             <Td txt={testGorila.length > 0 || contratoReclutamiento.length > 0 ? (tipoTrabajo == 'Oficio' ? `contrato de reclutamiento: ${contratoReclutamiento}` : `test gorila: ${testGorila}`) : 'Empty'} highlightTG={testGorila.length > 0 || contratoReclutamiento.length > 0? true : false}/>
                                             <Td txt={applicationCv.length > 0 ? applicationCv : 'Empty'} highlightAC={applicationCv.length > 0 ? true : false}/>
-                                            <td id={id}>{tipoTrabajo.length > 0 && (testGorila.length > 0 || contratoReclutamiento.length > 0) && applicationCv.length > 0 ? <button id={id} onClick={e => confirmationStageToStageCandidates(id)} className="check-candidate"><FaCheck id={id} color="#007a3d" size="0.9rem" /></button> : <button id={id} className="check-candidate"><IoClose color="#ce2323" size="1rem"/></button> }</td>
+                                            <td id={_id}>{tipoTrabajo.length > 0 && (testGorila.length > 0 || contratoReclutamiento.length > 0) && applicationCv.length > 0 ? <button id={_id} onClick={e => confirmationStageToStageCandidates(_id)} className="check-candidate"><FaCheck id={_id} color="#007a3d" size="0.9rem" /></button> : <button id={_id} className="check-candidate"><IoClose color="#ce2323" size="1rem"/></button> }</td>
                                         </tr>
                                     ))
                                     : <></>
@@ -138,9 +138,9 @@ function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOpt
 
 
                                 {   sectionSelectedTLU == 'sp' ? //Defino que filas se muestran para la tabla process recruitment
-                                    rows.map(({id,select,fullname,email,phone,tipoTrabajo,employer,referred,methodContact,interviewed,status})=>(
-                                        <tr key={id} style={{color: `${idElementEdited.includes(id) ? '#000' : ''}`, fontWeight: `${idElementEdited.includes(id) ? '600' : ''}`}}>
-                                            <td><input type="checkbox" id={id} className="checkbox" onChange={e => handleCheckboxChange(e,id)}/></td>
+                                    rows.map(({_id,select,fullname,email,phone,tipoTrabajo,employer,referred,methodContact,interviewed,status})=>(
+                                        <tr key={_id} style={{color: `${idElementEdited.includes(_id) ? '#000' : ''}`, fontWeight: `${idElementEdited.includes(_id) ? '600' : ''}`}}>
+                                            <td><input type="checkbox" id={_id} className="checkbox" onChange={e => handleCheckboxChange(e,_id)}/></td>
                                             <Td txt={fullname}/>
                                             <Td txt={email} optionMore={true}/>
                                             <Td txt={phone} optionMore={true}/>

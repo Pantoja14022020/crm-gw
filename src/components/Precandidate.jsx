@@ -335,7 +335,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
             setOptionEdit(true)//Se muestra la opcion editar ya que solo hay una opcion seleccionada
             //Entonces sacamos los datos de ese precandidato seleccionado
             console.log(rows)
-            const rowFounded = rows.find(row => row.id == checkedOptions[0]);
+            const rowFounded = rows.find(row => row._id == checkedOptions[0]);
             
             //console.log(rowFounded)
             //console.log("El usser seleccionado es:",rowFounded)//----------------------
@@ -785,8 +785,8 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
 
                 if(added){
 
-                    const {id} = nuevoPrecandidato;
-                    setIdElementEdited([...idElementEdited,id])
+                    const {_id} = nuevoPrecandidato;
+                    setIdElementEdited([...idElementEdited,_id])
 
                     //Show modal
                     setModal(true)
