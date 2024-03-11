@@ -9,6 +9,7 @@
     height: 485px;
     padding: 1rem 0 1rem 1rem;
     flex-direction: row;
+    justify-content: flex-start;
     flex-wrap: wrap;
     border-radius: 0.4rem;
     background-color: #f3f3f3;
@@ -19,12 +20,16 @@
 
 /*ES LA TARJETA EN SI*/
 .card-client{
-    width: 33%;
+    width: 30%;
     height: fit-content;
     padding: 1rem;
     position: relative;
     background-color: white;
     border-radius: 0.8rem;
+    margin-right: 1rem;
+}
+.card-client:last-child{
+    margin-right: 0 !important;
 }
 .header-cc{
     display: flex;
@@ -85,6 +90,8 @@
     color: #0f00e4;
 }
 .dmcc-position div:last-child{
+    width: 100px;
+    text-align: center;
     border: 2px solid  #0f00e4;
     background-color: #0f00e4;
     margin-right: 0.5rem;
