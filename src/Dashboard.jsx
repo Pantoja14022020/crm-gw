@@ -24,6 +24,7 @@ import { RxDashboard } from "react-icons/rx";
 import { FaUserFriends } from "react-icons/fa";
 import { IoMdCheckmark } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
+import { IoDocumentTextOutline } from "react-icons/io5";
 import tlu from './public/tl.png';
 import gm from './public/gm.png';
 import gw from './public/gw.jpg';
@@ -33,6 +34,7 @@ import {fetchUrlGet} from './helpers/fetchs'
 import Board from './components/Board'
 import Precandidate from './components/Precandidate'
 import Candidate from './components/Candidate';
+import Workers from './components/Workers';
 
 const socket = io("https://api-gw-cpa-pc-20aq.onrender.com/");//PRUEBA 2  llega a prueba 3. Me conecto o inicializo
 //const socket = io('http://localhost:8080')//PRUEBA 2    llega a prueba 3
@@ -191,6 +193,12 @@ function Dashboard(){
             txt: "Candidates",
             icon: <CgProfile />,
             name: 'candidate'
+        },
+        {
+            id: 3,
+            txt: "EB3Workers",
+            icon: <IoDocumentTextOutline />,
+            name: "eb3workers"
         }
     ]
     
@@ -292,6 +300,7 @@ function Dashboard(){
     //Define que tabla mostrar, si informacion general(precandidatos) o process recruitment(precandiatos)
     const [sectionSelectedTLU, setSectionSelectedTLU] =  useState( localStorage.getItem('sectionSelectedTLU') || 'gi');
     const [sectionSelectedTLUCandidate, setSectionSelectedTLUCandidate] =  useState( localStorage.getItem('sectionSelectedTLUCandidate') || 'sb');
+    const [sectionSelectedTLUWorkers, setSectionSelectedTLUWorkers] = useState(localStorage.getItem('sectionSelectedTLUWorkers') || 'cd')
 
     //Para guardar en el local storage la seccion seleccionada de la etapa precandidate
     useEffect(()=>{
@@ -312,6 +321,13 @@ function Dashboard(){
     },[sectionSelectedTLUCandidate])
 
 
+    //Para gaurdar en el localstorage la seccion seleccionada de la etapa eb3workers
+    useEffect(()=>{
+        localStorage.setItem('sectionSelectedTLUWorkers',sectionSelectedTLUWorkers)
+        setSearchTerm('')
+        setCheckedOptions([])
+    },[sectionSelectedTLUWorkers])
+
 
     const [checkedOptions, setCheckedOptions] = useState([])//Un estado par gaurdar el id de los checkbox seleccionados 
 
@@ -331,8 +347,8 @@ function Dashboard(){
     return(
         <main className="dashboard">
             <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**/ setInterfaceShowed={setInterfaceShowed} showNavbar={showNavbar} setShowNavbar={setShowNavbar}/>
-            <aside className={`${showNavbar ? 'part-width' : 'all-width'}`}>
-                <Header interfaceShowed={interfaceShowed} fullname={fullname} notificationsStored={notificationsStored} numNotifications={numNotifications} setNumNotifications={setNumNotifications} setNotificationsStored={setNotificationsStored} sectionSelectedTLU={sectionSelectedTLU} setSectionSelectedTLU={setSectionSelectedTLU} checkedOptions={checkedOptions} sectionSelectedTLUCandidate={sectionSelectedTLUCandidate} setSectionSelectedTLUCandidate={setSectionSelectedTLUCandidate} setCheckedOptions={setCheckedOptions} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel}/>
+            <aside className={`${showNavbar ? 'part-width' : 'all-width'}`} style={{backgroundColor: `${interfaceShowed == 'eb3workers' ? '#fff' : ''}`}}>
+                <Header interfaceShowed={interfaceShowed} fullname={fullname} notificationsStored={notificationsStored} numNotifications={numNotifications} setNumNotifications={setNumNotifications} setNotificationsStored={setNotificationsStored} sectionSelectedTLU={sectionSelectedTLU} setSectionSelectedTLU={setSectionSelectedTLU} checkedOptions={checkedOptions} sectionSelectedTLUCandidate={sectionSelectedTLUCandidate} setSectionSelectedTLUCandidate={setSectionSelectedTLUCandidate} sectionSelectedTLUWorkers={sectionSelectedTLUWorkers} setSectionSelectedTLUWorkers={setSectionSelectedTLUWorkers} setCheckedOptions={setCheckedOptions} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel}/>
                 <div className="content-dashboard">
                     {   /*Aqui decidimo que tipo de Overview vamos a mostrar, dependiendo el tipo de usuario que inicio sesion */
                         
@@ -342,7 +358,8 @@ function Dashboard(){
                             <Board/>
                         :(interfaceShowed == "precandidate" ? <Precandidate options={allCandidates} rows={filteredCandidates} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal} showBtnRefresh={showBtnRefresh} setShowBtnRefresh={setBtnRefresh} idElementEdited={idElementEdited} setIdElementEdited={setIdElementEdited} sectionSelectedTLU={sectionSelectedTLU} showConfirmAction={showConfirmAction} setShowConfirmAction={setShowConfirmAction} txtTitleConfirmationAction={txtTitleConfirmationAction} setTxtTitleConfirmationAction={setTxtTitleConfirmationAction} txtConfirmationAction={txtConfirmationAction} setTxtConfirmationAction={setTxtConfirmationAction} checkedOptions={checkedOptions} setCheckedOptions={setCheckedOptions}/>
                         :(interfaceShowed == "candidate" ? <Candidate sectionSelectedTLUCandidate={sectionSelectedTLUCandidate} rows={filteredCandidates} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} idElementEdited={idElementEdited} setIdElementEdited={setIdElementEdited} checkedOptions={checkedOptions} setCheckedOptions={setCheckedOptions} getPrecandidates={getPrecandidates} showConfirmAction={showConfirmAction} setShowConfirmAction={setShowConfirmAction} txtTitleConfirmationAction={txtTitleConfirmationAction} setTxtTitleConfirmationAction={setTxtTitleConfirmationAction} txtConfirmationAction={txtConfirmationAction} setTxtConfirmationAction={setTxtConfirmationAction}/> 
-                        :<></>))) 
+                        :(interfaceShowed == "eb3workers" ? <Workers sectionSelectedTLUWorkers={sectionSelectedTLUWorkers} setRowsTLU={setFilteredCandidates} rows={filteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} idElementEdited={idElementEdited} checkedOptions={checkedOptions} setCheckedOptions={setCheckedOptions} getPrecandidates={getPrecandidates}/>
+                        :<></>)))) 
                     }              
                 </div>
             </aside>

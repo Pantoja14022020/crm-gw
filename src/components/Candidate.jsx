@@ -32,7 +32,7 @@ function Candidate({setShowSpinner,idElementEdited,setIdElementEdited,sectionSel
         {id:6,txt:'Contact method'},
         {id:7,txt:'Interviewed'},
         {id:8,txt:'Status'},
-        {id:9,txt:''}
+        {id:9,txt:'Send to EB3 Workers'}
     ]
 
 
@@ -162,15 +162,54 @@ function Candidate({setShowSpinner,idElementEdited,setIdElementEdited,sectionSel
 
 
     //Opcion ready para mandar  objeto a la tercera etapa
-    const [sendStageCandidates, setSendStageCandidates] = useState(false);
-    const [idPrecandidateSentToCandidate,setIdPrecandidateSentToCandidate] = useState(null)    
+    const [sendStageEB3Workers, setSendStageEB3Workers] = useState(false);
+    const [idCandidateSentToEB3,setIdCandidateSentToEB3] = useState(null)    
     function confirmationStageToEB3Workers(id){//Esta funcion se ejecuta cuando damos click en el icono check de la tabla o registro
-        setIdPrecandidateSentToCandidate(id)
+        setIdCandidateSentToEB3(id)
         setShowConfirmAction(true)
-        setTxtTitleConfirmationAction('Stage Candidates')
-        setTxtConfirmationAction('¿Do you want send to Stage Candidates?')
-        setSendStageCandidates(true)//Habilitamos que si queremos ver el modal de Stage Candidates
+        setTxtTitleConfirmationAction('Stage EB3Workers')
+        setTxtConfirmationAction('¿Do you want send to Stage EB3Workers?')
+        setSendStageEB3Workers(true)//Habilitamos que si queremos ver el modal de Stage EB3Workers
     }
+    //ACCION QUE SE EJECUTA CUANDO CONFIRMAMOS QUE LOS QUEREMOS ENVIAR A LA TERCERA ETAPA
+    async function sendToStageEB3Workers(){//Que hacer cuando se confirma la accion de enviar a la asubseccion informacion general
+        try {
+
+            setShowSpinnerChangeStagePR(true)
+
+            const body = {
+                "selectionProcess": false,
+                "clientDocuments": true
+            }
+            
+            const promesas = await fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${idCandidateSentToEB3}`,body)
+            //const resultados = await Promise.all(promesas)
+            getPrecandidates()
+            
+            setCheckedOptions([])//Vacio el arreglo que contiene los ids de los elementos a pasar
+            setShowConfirmAction(false)//Quito el modal de confirmacion
+
+            setModal(true)
+            setTitle("Sent Succesfully")
+            setMessage('Your candidate was send to Stage EB3Workers')
+            setType("success")
+            setShowSpinnerChangeStagePR(false)
+            
+        } catch (error) {
+            //console.log(error)
+            setCheckedOptions([])//Vacio el arreglo que contiene los ids de los elementos a pasar
+            setShowConfirmAction(false)//Quito el modal de confirmacion
+
+            setModal(true)
+            setTitle('Error In Server')
+            setMessage('Its not was posible send to stage eb3workers')
+            setType('error')
+            setShowSpinnerChangeStagePR(false)
+
+        }
+    }
+
+
 
 
 
@@ -466,6 +505,14 @@ function Candidate({setShowSpinner,idElementEdited,setIdElementEdited,sectionSel
                     </div> 
                 : <></>
             }
+            {
+                //Es el modal que se muestra para confirmar que se quiere enviar a la segunda etapa 'Caniddates'
+                sendStageEB3Workers && sectionSelectedTLUCandidate == 'sp' && showConfirmAction ? 
+                <div className="container-confirmation-modal" onClick={e => setFalseShownModalConfirmation(e)}>
+                        <Confirmation showSpinner={showSpinnerChangeStagePR} cancel={quitModalConfirmation} ok={sendToStageEB3Workers} txtTitleConfirmationAction={txtTitleConfirmationAction} txtConfirmationAction={txtConfirmationAction}/>
+                </div> 
+                : <></>
+            }
 
 
 
@@ -473,7 +520,7 @@ function Candidate({setShowSpinner,idElementEdited,setIdElementEdited,sectionSel
             {
                 sectionSelectedTLUCandidate == 'sb' ? 
                 <>
-                
+
                 </>
                 :(sectionSelectedTLUCandidate == 'sp' ?
                     <>
@@ -491,7 +538,7 @@ function Candidate({setShowSpinner,idElementEdited,setIdElementEdited,sectionSel
                                     <div className="spinner-table-precandidates"><Load/></div>
                                 : 
                                     <>
-                                        <Table height="pr" idElementEdited={idElementEdited} columns={columnsProcessSelection} rows={rows.filter(row => row.selectionProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLUCandidate}/>
+                                        <Table height="pr" idElementEdited={idElementEdited} columns={columnsProcessSelection} rows={rows.filter(row => row.selectionProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLUCandidate} confirmationStageToEB3Workers={confirmationStageToEB3Workers}/>
                                     </>
                             }
                         </div>

@@ -4,10 +4,12 @@ import Load from "./Load";
 import Td from "./Td";
 import { IoClose } from "react-icons/io5";
 import { FaCheck } from "react-icons/fa6";
+import { IoSendSharp } from "react-icons/io5";
 
 
 
-function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOptions,setRowsTLU,setPrecandidateSelected, setValoresNewPrecandidate, setFetchUpdate, sectionSelectedTLU,confirmationStageToStageCandidates}){
+
+function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOptions,setRowsTLU,setPrecandidateSelected, setValoresNewPrecandidate, setFetchUpdate, sectionSelectedTLU,confirmationStageToStageCandidates,confirmationStageToEB3Workers}){
 
 
 
@@ -76,16 +78,6 @@ function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOpt
                                     rows.map(({_id,select,fullname,email,phone,country,dateBirth,civilStatus,gender,levelStudies,position,englishLevel})=>(
                                         <tr key={_id} style={{color: `${idElementEdited.includes(_id) ? '#000' : ''}`, fontWeight: `${idElementEdited.includes(_id) ? '600' : ''}`}}>
                                             <td><input type="checkbox" id={_id} className="checkbox" onChange={e => handleCheckboxChange(e,_id)}/></td>
-                                            {/**<td>{fullname.substring(0,10)}...</td>
-                                            <td>{email.substring(0,7)}...</td>
-                                            <td>{phone}</td>
-                                            <td>{country.substring(0,8)}...</td> 
-                                            <td>{dateBirth.substring(0,5)}...</td>
-                                            <td>{civilStatus}</td>
-                                            <td>{gender}</td>
-                                            <td>{levelStudies.substring(0,10)}...</td>
-                                            <td>{position.substring(0,10)}...</td>
-                                            <td>{englishLevel}</td>**/}
                                             <Td txt={fullname}/>
                                             <Td txt={email} optionMore={true}/>
                                             <Td txt={phone} optionMore={true}/>
@@ -109,16 +101,6 @@ function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOpt
                                     rows.map(({_id,select,fullname,email,phone,tipoTrabajo,personalityTest,testGorila,contratoReclutamiento,applicationCv})=>(
                                         <tr key={_id} style={{color: `${idElementEdited.includes(_id) ? '#000' : ''}`, fontWeight: `${idElementEdited.includes(_id) ? '600' : ''}`}}>
                                             <td><input type="checkbox" id={_id} className="checkbox" onChange={e => handleCheckboxChange(e,_id)}/></td>
-                                            {/**<td>{fullname.substring(0,10)}...</td>
-                                            <td>{email.substring(0,7)}...</td>
-                                            <td>{phone}</td>
-                                            <td>{country.substring(0,8)}...</td> 
-                                            <td>{dateBirth.substring(0,5)}...</td>
-                                            <td>{civilStatus}</td>
-                                            <td>{gender}</td>
-                                            <td>{levelStudies.substring(0,10)}...</td>
-                                            <td>{position.substring(0,10)}...</td>
-                                            <td>{englishLevel}</td>**/}
                                             <Td txt={fullname}/>
                                             <Td txt={email} optionMore={true}/>
                                             <Td txt={phone} optionMore={true}/>
@@ -150,6 +132,7 @@ function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOpt
                                             <Td txt={methodContact.length > 0 ? methodContact : 'Empty'} />
                                             <Td txt={interviewed.length > 0 ? interviewed : 'Empty'} />
                                             <Td txt={status.length > 0 ? status : 'Empty'} highlightS={status.length > 0 ? true : false} />
+                                            <td id={_id} style={{color:"#ccc"}}>{    employer != '' && methodContact != '' && interviewed != '' && status == 'Contratado' && tipoTrabajo == 'Oficio' ? <button id={_id} onClick={e => confirmationStageToEB3Workers(_id)} className="send-btn-eb3">Click Here</button>  : ( employer != '' && methodContact != '' && interviewed != '' && status == 'Contratado' && tipoTrabajo == 'Profesión' ? 'Not Apply' : ( employer != '' && methodContact != '' && interviewed != '' && status != 'Contratado' && tipoTrabajo == 'Oficio' ? 'Still Not' : ( employer != '' && methodContact != '' && interviewed != '' && status != 'Contratado' && tipoTrabajo == 'Profesión' ? 'Not Apply' : 'Fill Form' ) )) }</td>
                                         </tr>
                                     ))
                                     : <></>

@@ -53,7 +53,6 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
 
 
     const [modal,setModal] = useState(false);
-    
     const [message,setMessage] = useState("");
     const [title, setTitle] = useState("");
     const [type,setType] = useState("");

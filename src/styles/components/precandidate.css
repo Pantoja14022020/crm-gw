@@ -40,6 +40,13 @@
     padding-left: 0 !important;
     position: relative;
 }
+.container-workers{
+  display: flex;
+  flex-direction: column;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  position: relative;
+}
 
 
 

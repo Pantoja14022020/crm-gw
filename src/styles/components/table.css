@@ -229,3 +229,11 @@ table tbody tr td p{
   .check-candidate{
     padding: 0.3rem;
   }
+  .send-btn-eb3{
+    width: fit-content;
+    margin: auto;
+    padding: 0.2rem 0.5rem;
+    color: rgb(255, 255, 255);
+    background-color:#000000;
+    border-radius: 01rem;
+  }
