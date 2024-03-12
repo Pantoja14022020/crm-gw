@@ -10,11 +10,11 @@
 
 
 .overview-tlu{
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     gap: 0.5rem;
-    grid-template-areas: "gen etr  tes"   /*etr(employment type request) pes(profesional employment status) tes(trade employment status)*/
-                         "gen pes   tc"; /*general*/
+    grid-template-areas: "etr  tes"   /*etr(employment type request) pes(profesional employment status) tes(trade employment status)*/
+                         "pes   tc"; /*general*/
 }
 .etr{
     grid-area: etr;

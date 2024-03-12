@@ -8,7 +8,7 @@ import ClientDocuments from './ClientDocuments';
 import iconNoData from '../public/nothing.svg';
 import Modal from './Modal';
 
-function Workers({getPrecandidates,idElementEdited,sectionSelectedTLUWorkers,setRowsTLU,rows,setSearchTerm,searchTerm,showSpinner,checkedOptions,setCheckedOptions}){
+function Workers({getPrecandidates,notificationModal,setNotificationModal,idElementEdited,sectionSelectedTLUWorkers,setRowsTLU,rows,setSearchTerm,searchTerm,showSpinner,checkedOptions,setCheckedOptions}){
     
     
 
@@ -60,6 +60,15 @@ function Workers({getPrecandidates,idElementEdited,sectionSelectedTLUWorkers,set
         return () => clearTimeout(timer)
     },[modal])
     
+
+        //Para quitar el modal de notificacion una vez aparezca
+    useEffect(()=>{
+        const timer = setTimeout(()=>{
+            setNotificationModal(false)
+        },10000)
+        return () => clearTimeout(timer)
+    },[notificationModal])
+
     return(
         <>
             <section className="section-workers">
@@ -73,6 +82,16 @@ function Workers({getPrecandidates,idElementEdited,sectionSelectedTLUWorkers,set
                     </>
                 :
                     <></>
+            }
+            {//Es el modal de notificacion cuando hay cambios en el excel
+                notificationModal ? 
+                <>
+                    <div className="modal-notify-section-precandidates">{/*Es el cuadro padre que almacena el modal */}
+                        <Modal title="New Changes" message="There's changes in your SpreadSheets, its been added" type="notify" modalType="alert"/>
+                    </div>
+                </>
+                :
+                <></>
             }
                 
                 

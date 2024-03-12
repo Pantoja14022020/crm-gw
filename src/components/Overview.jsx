@@ -1,12 +1,13 @@
-import React from 'react';
+import { useEffect } from 'react';
 import Section from './Section'
 import CountUp from 'react-countup';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import {Chart, ArcElement, Legend, Tooltip, CategoryScale, LinearScale, BarElement} from 'chart.js'
+import Modal from './Modal';
 Chart.register(ArcElement,Legend,Tooltip,CategoryScale,LinearScale,BarElement);
 
 
-function Overview({info}){
+function Overview({info,notificationModal,setNotificationModal,totalAllPeople,jobTrade,jobProfessional}){
 
 
     const data_general_gm = {
@@ -91,26 +92,50 @@ function Overview({info}){
         }
     }
 
+
+
+    //Para quitar el modal de notificacion una vez aparezca
+    useEffect(()=>{
+      const timer = setTimeout(()=>{
+          setNotificationModal(false)
+      },10000)
+      return () => clearTimeout(timer)
+    },[notificationModal])
+
+
     return(
         <div className={`overview ${info == "tl" ? 'overview-tlu' : (info == "gm" ? 'overview-gm' : 'overview-gw')}`}>{/*Aqui decidimos que estrcutura del resumen vamos a mostrar */}
             {
               info == "tl" ? 
                   <>
-                    <Section sectionName="etr" title="Employment type requested" description="It's the type of employment that candidates aspire to" icon={true} nameIcon="chart">
-                      <Bar data={data_type_employment} options={options_bar_tlu} className='centerVerticalSmall'/>
+                    {//Es el modal de notificacion cuando hay cambios en el excel
+                            notificationModal ? 
+                            <>
+                                <div className="modal-notify-section-precandidates">{/*Es el cuadro padre que almacena el modal */}
+                                    <Modal title="New Changes" message="There's changes in your SpreadSheets, its been added" type="notify" modalType="alert"/>
+                                </div>
+                            </>
+                        :
+                        <></>
+                    }
+                    <Section sectionName="etr" title="Quantity hired people" description="It's the total of people hired for a trade and professional job" icon={true} nameIcon="chart">
+                      {/*<Bar data={data_type_employment} options={options_bar_tlu} className='centerVerticalSmall'/>*/}
+                      <CountUp className='centerVertical' start={0} end={jobProfessional + jobTrade} duration={2.5} style={{width: "90%",textAlign:"center",marginTop:"1rem",fontSize: "3rem", fontWeight: "900", color: '#222'}} />
                     </Section>
-                    <Section sectionName="pes" title="Professional Employment Status" description="It's status in selection process to employment professional" icon={true} nameIcon="chart">
-                        <Bar data={data_status_professional} options={options_bar_tlu} className='centerVerticalSmall'/>
+                    <Section sectionName="pes" title="Hired for a professional job" description="Hired people for a job professional" icon={true} nameIcon="chart">
+                        {/**<Bar data={data_status_professional} options={options_bar_tlu} className='centerVerticalSmall'/>**/}
+                        <CountUp className='centerVertical' start={0} end={jobProfessional} duration={2.5} style={{width: "90%",textAlign:"center",marginTop:"1rem",fontSize: "3rem", fontWeight: "900", color: '#222'}} />
                     </Section>
-                    <Section sectionName="tes" title="Trade Employment Status" description="It's status in selection process to employment trade" icon={true} nameIcon="chart">
-                        <Bar data={data_status_trade} options={options_bar_tlu} className='centerVerticalSmall'/>
+                    <Section sectionName="tes" title="Hired for a trade job" description="Hired people for trade job" icon={true} nameIcon="chart">
+                        {/**<Bar data={data_status_trade} options={options_bar_tlu} className='centerVerticalSmall'/>**/}
+                        <CountUp className='centerVertical' start={0} end={jobTrade} duration={2.5} style={{width: "90%",textAlign:"center",marginTop:"1rem",fontSize: "3rem", fontWeight: "900", color: '#222'}} />
                     </Section>
-                    <Section sectionName="gen" title="Status all candidates" description="It's status all candidates (trade & professional) in selection process" icon={true} nameIcon="chart">
+                    {/*<Section sectionName="gen" title="Status all candidates" description="It's status all candidates (trade & professional) in selection process" icon={true} nameIcon="chart">
                         <Bar data={data_general_tlu} options={options_bar_tlu} className='centerVertical'/>
                         {/*<Doughnut className='centerVertical' data={data_general_tlu} options={options_dought} style={{width:"400px",height:"4000px"}}/>*/}
-                    </Section>
-                    <Section sectionName="tc" title="Total candidates" description="Have applied for a professional or trade type of job">
-                      <CountUp className='centerVertical' start={0} end={100} duration={2.5} style={{width: "90%",textAlign:"center",marginTop:"1rem",fontSize: "3rem", fontWeight: "900", color: '#222'}} />
+                    {/*</Section>*/}
+                    <Section sectionName="tc" title="Total People" description="All people registered in our Data Base">
+                      <CountUp className='centerVertical' start={0} end={totalAllPeople} duration={2.5} style={{width: "90%",textAlign:"center",marginTop:"1rem",fontSize: "3rem", fontWeight: "900", color: '#222'}} />
                     </Section>
                   </>
                 : (info == "gm" ? 

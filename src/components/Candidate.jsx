@@ -14,7 +14,7 @@ import Confirmation from './Confirmation';
 import Card from './Card';
 import { generarColorAlegre } from '../helpers/generators';
 
-function Candidate({contratado,consideracion,rechazado,revision,pendientes,setShowSpinner,idElementEdited,setIdElementEdited,sectionSelectedTLUCandidate,rows,setRowsTLU,setSearchTerm,searchTerm,showSpinner,checkedOptions,setCheckedOptions,getPrecandidates, showConfirmAction, setShowConfirmAction,txtTitleConfirmationAction,setTxtTitleConfirmationAction,txtConfirmationAction,setTxtConfirmationAction}){
+function Candidate({contratado,consideracion,rechazado,revision,pendientes,setShowSpinner,idElementEdited,setIdElementEdited,sectionSelectedTLUCandidate,rows,setRowsTLU,setSearchTerm,searchTerm,showSpinner,checkedOptions,setCheckedOptions,getPrecandidates,notificationModal,setNotificationModal, showConfirmAction, setShowConfirmAction,txtTitleConfirmationAction,setTxtTitleConfirmationAction,txtConfirmationAction,setTxtConfirmationAction}){
 
 
     const [modal,setModal] = useState(false);
@@ -436,7 +436,13 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
     },[modal])
 
 
-
+    //Para quitar el modal de notificacion una vez aparezca
+    useEffect(()=>{
+        const timer = setTimeout(()=>{
+            setNotificationModal(false)
+        },10000)
+        return () => clearTimeout(timer)
+    },[notificationModal])
 
 
     return (
@@ -452,7 +458,16 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
                 :
                     <></>
             }
-
+            {//Es el modal de notificacion cuando hay cambios en el excel
+                notificationModal ? 
+                    <>
+                        <div className="modal-notify-section-precandidates">{/*Es el cuadro padre que almacena el modal */}
+                            <Modal title="New Changes" message="There's changes in your SpreadSheets, its been added" type="notify" modalType="alert"/>
+                        </div>
+                    </>
+                :
+                <></>
+            }
 
             {
                 showFormProcessSelection ? 
