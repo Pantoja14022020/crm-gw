@@ -7,12 +7,13 @@
 .cards-clients-documents{/*ES EL CONTENEDOR QUE CONTIENE LAS TARJETAS*/
     display: flex;
     height: 485px;
-    padding: 1rem 0 1rem 1rem;
+    padding: 1rem 1rem 1rem 1rem;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-wrap: wrap;
     border-radius: 0.4rem;
     background-color: #f3f3f3;
+    
 }
 
 
@@ -20,13 +21,14 @@
 
 /*ES LA TARJETA EN SI*/
 .card-client{
-    width: 30%;
-    height: fit-content;
+    width: 49%;
+    height: 260px;
     padding: 1rem;
     position: relative;
     background-color: white;
     border-radius: 0.8rem;
     margin-right: 1rem;
+    overflow-y: auto;
 }
 .card-client:last-child{
     margin-right: 0 !important;
@@ -83,17 +85,17 @@
     padding: 0.5rem;
 }
 .dmcc-position div:first-child{
-    border: 2px solid  #0f00e4;
+    border: 2px solid  #262626;
     margin-right: 0.5rem;
     padding: 0.15rem 0.5rem;
     border-radius: 1rem;
-    color: #0f00e4;
+    color: #262626;
 }
 .dmcc-position div:last-child{
     width: 100px;
     text-align: center;
-    border: 2px solid  #0f00e4;
-    background-color: #0f00e4;
+    border: 2px solid  #262626;
+    background-color: #262626;
     margin-right: 0.5rem;
     padding: 0.15rem 0.5rem;
     border-radius: 1rem;
@@ -128,23 +130,26 @@
     font-size: 0.6rem;
 }
 .dmmc-level-es div{
+    text-align: center;
     width: fit-content;
 }
 .dmcc-level-es div:first-child{
-    border: 2px solid  #ff5100;
+    border: 2px solid  #262626;
     margin-right: 0.5rem;
     padding: 0.15rem 0.5rem;
     border-radius: 1rem;
-    color: #ff5100;
+    color: #262626;
+    text-align: center;
 }
 .dmcc-level-es div:last-child{
-    border: 2px solid  #ff5100;
-    background-color: #ff5100;
+    border: 2px solid  #262626;
+    background-color: #262626;
     margin-right: 0.5rem;
     padding: 0.15rem 0.5rem;
     border-radius: 1rem;
     color: #ffffff;
     width: 150px;
+    text-align: center;
 }
 
 
@@ -153,7 +158,6 @@
 .form-cc{
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid #eeeeee;
     position: relative;
 }
 .error-ccd{
@@ -182,6 +186,16 @@
 .form-cc form fieldset input{
     margin-right: 0.3rem;
 }
+.form-gmprocess{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap
+}
+.input-gmprocess{
+    background-color: transparent;
+    font-size: 0.6rem;
+}
+
 
 
 .family-data{
@@ -220,10 +234,15 @@
     color: white;
 }
 .data-checkbox-family{
-    margin-top: 1rem;
-    border-top: 2px solid #5e5e5e;
+    margin-top: 2rem;
+    border-top: 1px solid #e6e6e6;
 }
 .actions-cw{
+    width: 100%;
+    position: absolute;
+    top: 0.5rem;
+    left: 0rem;
+    padding: 0 1rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -234,7 +253,10 @@
     font-size: 1.2rem;
 }
 .btn-check-card{
-    color: #8b8b8b;
+    color: #15101f;
+}
+.btn-send-gm{
+    color: hsl(197, 100%, 50%);
 }
 
 
@@ -253,21 +275,20 @@
 .data-me > p{
     letter-spacing: 0.05rem;
     margin-bottom: 0.5rem;
-    font-weight: 900;
 }
 .data-me .me-checks{
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 .data-me .me-checks .me-check{
+    margin-top: 0.5rem;
     display: flex;
     flex-direction: row;
 }
 .highlight-family{
-    background-color: #09090a;
-    color: white;
     padding: 0.1rem 0.4rem;
     border-radius: 1rem;
 }
@@ -275,14 +296,13 @@
     margin-left: 0.5rem;
 }
 .data-them{
-    margin-top: 1rem;
-    border-top: 2px solid #474747;
+    margin-top: 0.5rem;
+    border-top: 1px solid #eee;
     padding-top: 0.5rem;
 }
 .data-them > p{
     letter-spacing: 0.05rem;
     margin-bottom: 0.5rem;
-    font-weight: 900;
 }
 .data-them .familiar{
     display: flex;
@@ -396,5 +416,65 @@
   /* Al hacer hover sobre el scroll */
   .details-more-cc:hover::-webkit-scrollbar-thumb::before,
   .details-more-cc:hover::-webkit-scrollbar-thumb::after {
+    opacity: 1; /* Hace visible los pseudoelementos */
+  }
+
+
+
+
+
+
+
+  /* Estilos para el scroll vertical */
+.card-client::-webkit-scrollbar {
+    width: 5px; /* Ancho del scroll */
+    height: 5px;
+  }
+  
+  .card-client::-webkit-scrollbar-track {
+    background: #ffffff; /* Color de fondo del track */
+  }
+  
+  .card-client::-webkit-scrollbar-thumb {
+    background: #d4d4d4; /* Color del thumb (barra deslizante) */
+    opacity: 0;
+    border-radius: 3px; /* Borde redondeado del thumb */
+  }
+  
+  /* Pseudoelemento antes del thumb */
+  .card-client::-webkit-scrollbar-thumb:hover::before {
+    opacity: 1; /* Hace visible el pseudoelemento */
+  }
+  
+  .card-client::-webkit-scrollbar-thumb::before {
+    content: ''; /* Contenido del pseudoelemento */
+    position: absolute; /* Establece la posición absoluta */
+    width: 8px; /* Ancho igual al del thumb */
+    height: 20px; /* Altura del pseudoelemento */
+    top: 1; /* Lo coloca arriba del thumb */
+    left: 0; /* Lo coloca a la izquierda del thumb */
+    background: rgba(0, 0, 0, 0.5); /* Color del pseudoelemento */
+    border-radius: 4px; /* Borde redondeado */
+    transition: opacity 0.3s; /* Efecto de transición */
+    opacity: 0; /* Inicialmente invisible */
+  }
+  
+  /* Pseudoelemento después del thumb */
+  .card-client::-webkit-scrollbar-thumb::after {
+    content: ''; /* Contenido del pseudoelemento */
+    position: absolute; /* Establece la posición absoluta */
+    width: 8px; /* Ancho igual al del thumb */
+    height: 20px; /* Altura del pseudoelemento */
+    bottom: 0; /* Lo coloca abajo del thumb */
+    left: 0; /* Lo coloca a la izquierda del thumb */
+    background: rgba(0, 0, 0, 0.5); /* Color del pseudoelemento */
+    border-radius: 4px; /* Borde redondeado */
+    transition: opacity 0.3s; /* Efecto de transición */
+    opacity: 0 !important; /* Inicialmente invisible */
+  }
+  
+  /* Al hacer hover sobre el scroll */
+  .card-client:hover::-webkit-scrollbar-thumb::before,
+  .card-client:hover::-webkit-scrollbar-thumb::after {
     opacity: 1; /* Hace visible los pseudoelementos */
   }

@@ -108,6 +108,18 @@ function Workers({getPrecandidates,idElementEdited,sectionSelectedTLUWorkers,set
                                     }
                                 </div>
                             </div>
+                            <div className="container-workers">
+                                {
+                                    showSpinner 
+                                    ? 
+                                        <div className="spinner-table-precandidates"><Load/></div>
+                                    : 
+                                        <>
+                                            {/**<Table height="pr" idElementEdited={idElementEdited} columns={columnsClientDocuments} rows={rows.filter(row => row.selectionProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresClientDocuments={setValoresClientDocuments} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLUWorkers}/>*/}
+                                            <ClientDocuments gmp={true} type={type} setType={setType} title={title} setTitle={setTitle} message={message} setMessage={setMessage} modal={modal} setModal={setModal} getPrecandidates={getPrecandidates} rows={rows.filter(row => row.gmProcess == true)} setRowsTLU={setRowsTLU} />
+                                        </>
+                                }
+                            </div>
                         </>
                     :<></>)
                 }
