@@ -5,6 +5,7 @@ import Search from './Search';
 import Load from './Load';
 import Table from './Table';
 import ClientDocuments from './ClientDocuments';
+import iconNoData from '../public/nothing.svg';
 import Modal from './Modal';
 
 function Workers({getPrecandidates,idElementEdited,sectionSelectedTLUWorkers,setRowsTLU,rows,setSearchTerm,searchTerm,showSpinner,checkedOptions,setCheckedOptions}){
@@ -94,7 +95,16 @@ function Workers({getPrecandidates,idElementEdited,sectionSelectedTLUWorkers,set
                                     : 
                                         <>
                                             {/**<Table height="pr" idElementEdited={idElementEdited} columns={columnsClientDocuments} rows={rows.filter(row => row.selectionProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresClientDocuments={setValoresClientDocuments} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLUWorkers}/>*/}
-                                            <ClientDocuments type={type} setType={setType} title={title} setTitle={setTitle} message={message} setMessage={setMessage} modal={modal} setModal={setModal} getPrecandidates={getPrecandidates} rows={rows.filter(row => row.clientDocuments == true)} setRowsTLU={setRowsTLU} />
+                                            {
+                                                rows.filter(row => row.clientDocuments == true).length > 0 ?
+                                                    <ClientDocuments type={type} setType={setType} title={title} setTitle={setTitle} message={message} setMessage={setMessage} modal={modal} setModal={setModal} getPrecandidates={getPrecandidates} rows={rows.filter(row => row.clientDocuments == true)} setRowsTLU={setRowsTLU} />
+                                                : 
+                                                <>
+                                                    <div className="not-data-hero">{/*Esta clase esta en precandidate.css */}
+                                                        <img width="100px" height="100px" src={iconNoData} alt="icon" />
+                                                    </div>
+                                                </>
+                                            }
                                         </>
                                 }
                             </div>
@@ -116,7 +126,16 @@ function Workers({getPrecandidates,idElementEdited,sectionSelectedTLUWorkers,set
                                     : 
                                         <>
                                             {/**<Table height="pr" idElementEdited={idElementEdited} columns={columnsClientDocuments} rows={rows.filter(row => row.selectionProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresClientDocuments={setValoresClientDocuments} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLUWorkers}/>*/}
-                                            <ClientDocuments gmp={true} type={type} setType={setType} title={title} setTitle={setTitle} message={message} setMessage={setMessage} modal={modal} setModal={setModal} getPrecandidates={getPrecandidates} rows={rows.filter(row => row.gmProcess == true)} setRowsTLU={setRowsTLU} />
+                                            {
+                                                rows.filter(row => row.gmProcess == true).length > 0 ?
+                                                    <ClientDocuments gmp={true} type={type} setType={setType} title={title} setTitle={setTitle} message={message} setMessage={setMessage} modal={modal} setModal={setModal} getPrecandidates={getPrecandidates} rows={rows.filter(row => row.gmProcess == true)} setRowsTLU={setRowsTLU} />
+                                                : 
+                                                <>
+                                                    <div className="not-data-hero">{/*Esta clase esta en precandidate.css */}
+                                                        <img width="100px" height="100px" src={iconNoData} alt="icon" />
+                                                    </div>
+                                                </>
+                                            }
                                         </>
                                 }
                             </div>

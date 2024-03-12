@@ -634,13 +634,13 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
                 :(sectionSelectedTLUCandidate == 'sp' ?
                     <>
                         <div className="header-container-candidate">
-                        <div className="search-container">
-                            {   //Aqui decido que componente search mostrar, si el de la subseccion informacion general o process recruitment
-                                rows.filter(row => row.selectionProcess == true).length > 0 ?
-                                <Search txt="Search name candidate in selection process" setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
-                                :<></>
-                            }
-                        </div>
+                            <div className="search-container">
+                                {   //Aqui decido que componente search mostrar, si el de la subseccion informacion general o process recruitment
+                                    
+                                    <Search txt="Search name candidate in selection process" setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+                                    
+                                }
+                            </div>
                         </div>
                         <div className="container-candidates">
                             {
@@ -654,7 +654,7 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
                                             <Table height="pr" idElementEdited={idElementEdited} columns={columnsProcessSelection} rows={rows.filter(row => row.selectionProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLUCandidate} confirmationStageToEB3Workers={confirmationStageToEB3Workers}/>
                                         :
                                         <>
-                                            <div className="not-data-hero">{/*Esta clase esta en precandidate.css */}
+                                            <div className="not-data-hero" style={{height:"600px"}}>{/*Esta clase esta en precandidate.css */}
                                                 <img width="100px" height="100px" src={iconNoData} alt="icon" />
                                             </div>
                                         </>

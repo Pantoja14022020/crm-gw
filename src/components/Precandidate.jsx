@@ -4,6 +4,7 @@ import { LiaFilterSolid } from "react-icons/lia";
 import BarStatus from "./BarStatus";
 import Button from "./Button";
 import Icon from "./Icon";
+import iconNoData from '../public/nothing.svg';
 import Search from "./Search";
 import Table from "./Table";
 import ActionBar from "./ActionBar";
@@ -1031,9 +1032,6 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
 
 
 
-
-
-
     return (
         <section className="section-precandidates">
             {  //El el modal o alert cuando se crear o edita un precandidato
@@ -1126,7 +1124,9 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                     <div className="btn-new-candidate">
                         <div className="search-container">
                             {   //Aqui decido que componente search mostrar, si el de la subseccion informacion general o process recruitment
+                                rows.filter(row => row.generalInformation == true).length > 0 ?
                                 <Search txt="Search name precandidate in general information subsection" setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+                                :<></>
                             }
                         </div>
                         <div className="btn-n-c">
@@ -1136,23 +1136,36 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                         </div>
                     </div>
                     <div className="container-candidates">
-                            <div className="params-filter-precandidate">
-                                <LiaFilterSolid />
-                                <SelectDefault width="150px" color="#fff" title="English Level" options={levelEnglishOptions} setParam={setParamEnglishLevel} />
-                                <SelectDefault width="250px" color="#fff" title="Studies Level" options={levelStudiesOptions} setParam={setParamStudiesLevel} />
-                                {
-                                    showBtnRefresh 
-                                    ? <Button txt="News precandidates in SpreadSheets, refresh table" color="#2020cc" colorIcon="#000" size="fit-content" iconRefresh={true} fn={refreshTable}/>
-                                    : <></>
-                                }
-                            </div>
+                        {
+                            rows.filter(row => row.generalInformation == true).length > 0 ?
+                                <div className="params-filter-precandidate">
+                                    <LiaFilterSolid />
+                                    <SelectDefault width="150px" color="#fff" title="English Level" options={levelEnglishOptions} setParam={setParamEnglishLevel} />
+                                    <SelectDefault width="250px" color="#fff" title="Studies Level" options={levelStudiesOptions} setParam={setParamStudiesLevel} />
+                                    {
+                                        showBtnRefresh 
+                                        ? <Button txt="News precandidates in SpreadSheets, refresh table" color="#2020cc" colorIcon="#000" size="fit-content" iconRefresh={true} fn={refreshTable}/>
+                                        : <></>
+                                    }
+                                </div>
+                            :<></>
+                        }
                         {
                             showSpinner 
                             ? 
                                 <div className="spinner-table-precandidates"><Load/></div>
                             : 
                                 <>
-                                    <Table height="gi" idElementEdited={idElementEdited} columns={columnsGeneralInformation} rows={rows.filter(row => row.generalInformation == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLU}/>
+                                    {
+                                        rows.filter(row => row.generalInformation == true).length > 0 ?
+                                            <Table height="gi" idElementEdited={idElementEdited} columns={columnsGeneralInformation} rows={rows.filter(row => row.generalInformation == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLU}/>
+                                        :   
+                                        <>
+                                            <div className="not-data-hero" style={{height:"450px"}}>{/*Esta clase esta en precandidate.css */}
+                                                <img width="100px" height="100px" src={iconNoData} alt="icon" />
+                                            </div>
+                                        </>
+                                    }
                                 </>
                         }
                     </div>
@@ -1162,7 +1175,9 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                     <div className="btn-new-candidate">
                         <div className="search-container">
                             {   //Aqui decido que componente search mostrar, si el de la subseccion informacion general o process recruitment
+                                
                                 <Search txt="Search name precandidate in process recruitment subsection" setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+                                
                             }
                         </div>
                     </div>
@@ -1173,7 +1188,16 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                                 <div className="spinner-table-precandidates"><Load/></div>
                             : 
                                 <>
-                                    <Table height="pr" idElementEdited={idElementEdited} columns={columnsProcessRecruitment} rows={rows.filter(row => row.recruitmenProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLU} confirmationStageToStageCandidates={confirmationStageToStageCandidates}/>
+                                    {
+                                        rows.filter(row => row.recruitmenProcess == true).length > 0 ?
+                                            <Table height="pr" idElementEdited={idElementEdited} columns={columnsProcessRecruitment} rows={rows.filter(row => row.recruitmenProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLU} confirmationStageToStageCandidates={confirmationStageToStageCandidates}/>
+                                        :
+                                        <>
+                                            <div className="not-data-hero">{/*Esta clase esta en precandidate.css */}
+                                                <img width="100px" height="100px" src={iconNoData} alt="icon" />
+                                            </div>
+                                        </>
+                                    }
                                 </>
                         }
                     </div>

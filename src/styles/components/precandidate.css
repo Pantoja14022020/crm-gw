@@ -32,6 +32,7 @@
 
 .container-candidates{
     display: flex;
+    height: 470px;
     flex-direction: column;
     background-color: white;
     border-bottom-left-radius: 0.5rem;
