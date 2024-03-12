@@ -241,6 +241,14 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
         setShowmeFieldsGMProcess(true)
     }
 
+
+    const [showmeDataCD,setShowmeDataCD] = useState(false)
+    const [showmeFieldsCD, setShowmeFieldsCD] = useState(true)
+    function showmeDataFieldsCD(){
+        setShowmeDataCD(false)
+        setShowmeFieldsCD(true)
+    }
+
     return (
         <>
             <div key={_id} className="card-client" /**style={{borderLeft: `3px solid ${generarColorAlegre()}`}}*/>
@@ -382,7 +390,7 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
                                         showSpinnerForBtnBack ? <Load/> : 
                                             <button className="btn-back-card" onClick={e => backToClientDocuments()} ><MdOutlineSettingsBackupRestore /></button>
                                     }
-                                    <button onClick={e => showmeDataFields()}>editar</button>
+                                    <button className="editar-gm-process" onClick={e => showmeDataFields()}>Editar</button>
                                 </div>
                             
                             </>                    

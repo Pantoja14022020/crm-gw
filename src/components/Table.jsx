@@ -75,21 +75,21 @@ function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOpt
                         </thead>
                         <tbody>
                                 {   sectionSelectedTLU == 'gi' ?
-                                    rows.map(({_id,select,fullname,email,phone,country,dateBirth,civilStatus,gender,levelStudies,position,englishLevel})=>(
-                                        <tr key={_id} style={{color: `${idElementEdited.includes(_id) ? '#000' : ''}`, fontWeight: `${idElementEdited.includes(_id) ? '600' : ''}`}}>
-                                            <td><input type="checkbox" id={_id} className="checkbox" onChange={e => handleCheckboxChange(e,_id)}/></td>
-                                            <Td txt={fullname}/>
-                                            <Td txt={email} optionMore={true}/>
-                                            <Td txt={phone} optionMore={true}/>
-                                            <Td txt={dateBirth} />
-                                            <Td txt={civilStatus} />
-                                            <Td txt={gender} />
-                                            <Td txt={country} optionMore={true}/>
-                                            <Td txt={levelStudies} />
-                                            <Td txt={englishLevel} optionMore={true} />
-                                            <Td txt={position} optionMore={true} />
-                                        </tr>
-                                    ))
+                                        rows.map(({_id,select,fullname,email,phone,country,dateBirth,civilStatus,gender,levelStudies,position,englishLevel})=>(
+                                            <tr key={_id} style={{color: `${idElementEdited.includes(_id) ? '#000' : ''}`, fontWeight: `${idElementEdited.includes(_id) ? '600' : ''}`}}>
+                                                <td><input type="checkbox" id={_id} className="checkbox" onChange={e => handleCheckboxChange(e,_id)}/></td>
+                                                <Td txt={fullname}/>
+                                                <Td txt={email} optionMore={true}/>
+                                                <Td txt={phone} optionMore={true}/>
+                                                <Td txt={dateBirth} />
+                                                <Td txt={civilStatus} />
+                                                <Td txt={gender} />
+                                                <Td txt={country} optionMore={true}/>
+                                                <Td txt={levelStudies} />
+                                                <Td txt={englishLevel} optionMore={true} />
+                                                <Td txt={position} optionMore={true} />
+                                            </tr>
+                                        ))
                                     : <></>
                                 }
 
@@ -120,21 +120,21 @@ function Table({height,idElementEdited,columns,rows,setCheckedOptions,checkedOpt
 
 
                                 {   sectionSelectedTLU == 'sp' ? //Defino que filas se muestran para la tabla process recruitment
-                                    rows.map(({_id,select,fullname,email,phone,tipoTrabajo,employer,referred,methodContact,interviewed,status})=>(
-                                        <tr key={_id} style={{color: `${idElementEdited.includes(_id) ? '#000' : ''}`, fontWeight: `${idElementEdited.includes(_id) ? '600' : ''}`}}>
-                                            <td><input type="checkbox" id={_id} className="checkbox" onChange={e => handleCheckboxChange(e,_id)}/></td>
-                                            <Td txt={fullname}/>
-                                            <Td txt={email} optionMore={true}/>
-                                            <Td txt={phone} optionMore={true}/>
-                                            <Td txt={tipoTrabajo.length > 0 ? tipoTrabajo : 'Empty'} highlightTT={tipoTrabajo.length > 0 ? true : false}/>
-                                            <Td txt={employer.length > 0 ? employer : 'Empty'}/>
-                                            <Td txt={referred.length > 0 ? referred : 'Empty'} />
-                                            <Td txt={methodContact.length > 0 ? methodContact : 'Empty'} />
-                                            <Td txt={interviewed.length > 0 ? interviewed : 'Empty'} />
-                                            <Td txt={status.length > 0 ? status : 'Empty'} highlightS={status.length > 0 ? true : false} />
-                                            <td id={_id} style={{color:"#ccc"}}>{    employer != '' && methodContact != '' && interviewed != '' && status == 'Contratado' && tipoTrabajo == 'Oficio' ? <button id={_id} onClick={e => confirmationStageToEB3Workers(_id)} className="send-btn-eb3">Click Here</button>  : ( employer != '' && methodContact != '' && interviewed != '' && status == 'Contratado' && tipoTrabajo == 'Profesión' ? 'Not Apply' : ( employer != '' && methodContact != '' && interviewed != '' && status != 'Contratado' && tipoTrabajo == 'Oficio' ? 'Still Not' : ( employer != '' && methodContact != '' && interviewed != '' && status != 'Contratado' && tipoTrabajo == 'Profesión' ? 'Not Apply' : 'Fill Form' ) )) }</td>
-                                        </tr>
-                                    ))
+                                        rows.map(({_id,select,fullname,email,phone,tipoTrabajo,employer,referred,methodContact,interviewed,status})=>(
+                                            <tr key={_id} style={{color: `${idElementEdited.includes(_id) ? '#000' : ''}`, fontWeight: `${idElementEdited.includes(_id) ? '600' : ''}`}}>
+                                                <td><input type="checkbox" id={_id} className="checkbox" onChange={e => handleCheckboxChange(e,_id)}/></td>
+                                                <Td txt={fullname}/>
+                                                <Td txt={email} optionMore={true}/>
+                                                <Td txt={phone} optionMore={true}/>
+                                                <Td txt={tipoTrabajo.length > 0 ? tipoTrabajo : 'Empty'} highlightTT={tipoTrabajo.length > 0 ? true : false}/>
+                                                <Td txt={employer.length > 0 ? employer : 'Empty'}/>
+                                                <Td txt={referred.length > 0 ? referred : 'Empty'} />
+                                                <Td txt={methodContact.length > 0 ? methodContact : 'Empty'} />
+                                                <Td txt={interviewed.length > 0 ? interviewed : 'Empty'} />
+                                                <Td txt={status.length > 0 ? status : 'Empty'} highlightS={status.length > 0 ? true : false} />
+                                                <td id={_id} style={{color:"#ccc"}}>{    employer != '' && methodContact != '' && interviewed != '' && status == 'Contratado' && tipoTrabajo == 'Oficio' ? <button id={_id} onClick={e => confirmationStageToEB3Workers(_id)} className="send-btn-eb3">Click Here</button>  : ( employer != '' && methodContact != '' && interviewed != '' && status == 'Contratado' && tipoTrabajo == 'Profesión' ? 'Not Apply' : ( employer != '' && methodContact != '' && interviewed != '' && status != 'Contratado' && tipoTrabajo == 'Oficio' ? 'Still Not' : ( employer != '' && methodContact != '' && interviewed != '' && status != 'Contratado' && tipoTrabajo == 'Profesión' ? 'Not Apply' : 'Fill Form' ) )) }</td>
+                                            </tr>
+                                        ))
                                     : <></>
                                 }
 

@@ -1,6 +1,8 @@
 import { useEffect,useState,useRef } from 'react';
 import '../styles/components/candidate.css'
 import '../styles/components/card.css'
+import { MdLocationPin } from "react-icons/md";
+import iconNoData from '../public/nothing.svg';
 import Load from './Load';
 import Search from './Search';
 import Table from './Table';
@@ -10,8 +12,9 @@ import Modal from './Modal';
 import { fetchUrlPut } from '../helpers/fetchs';
 import Confirmation from './Confirmation';
 import Card from './Card';
+import { generarColorAlegre } from '../helpers/generators';
 
-function Candidate({setShowSpinner,idElementEdited,setIdElementEdited,sectionSelectedTLUCandidate,rows,setRowsTLU,setSearchTerm,searchTerm,showSpinner,checkedOptions,setCheckedOptions,getPrecandidates, showConfirmAction, setShowConfirmAction,txtTitleConfirmationAction,setTxtTitleConfirmationAction,txtConfirmationAction,setTxtConfirmationAction}){
+function Candidate({contratado,consideracion,rechazado,revision,pendientes,setShowSpinner,idElementEdited,setIdElementEdited,sectionSelectedTLUCandidate,rows,setRowsTLU,setSearchTerm,searchTerm,showSpinner,checkedOptions,setCheckedOptions,getPrecandidates, showConfirmAction, setShowConfirmAction,txtTitleConfirmationAction,setTxtTitleConfirmationAction,txtConfirmationAction,setTxtConfirmationAction}){
 
 
     const [modal,setModal] = useState(false);
@@ -520,14 +523,122 @@ function Candidate({setShowSpinner,idElementEdited,setIdElementEdited,sectionSel
             {
                 sectionSelectedTLUCandidate == 'sb' ? 
                 <>
-
+                    <div className="container-candidates-status-a">
+                        <div className="sccs">
+                            <h1>Pendiente</h1>
+                            {
+                                pendientes.length > 0 ?
+                                pendientes.map(p => (
+                                    <div className="item-profile">
+                                        <div className="round-profile" style={{backgroundColor:`${generarColorAlegre()}`}}>D</div>
+                                        <div className="names-profile">
+                                            <b>{p.fullname.substring(0,25)}...</b>
+                                            <span>{p.email}</span>
+                                        </div>
+                                        <div className="position-item"><p>{p.position.substring(0,20)}...</p></div>
+                                        <div className="address"><MdLocationPin color='#e00404' size="0.8rem" /><p>{p.country.substring(0,20)}...</p></div>
+                                    </div>
+                                ))
+                                :
+                                <>
+                                    <img width="100px" height="100px" style={{margin: "auto"}} src={iconNoData} alt="icon" />
+                                </>
+                            }
+                        </div>
+                        <div className="sccs">
+                            <h1>En Revisión</h1>
+                            {
+                                revision.length > 0 ?
+                                revision.map(p => (
+                                    <div className="item-profile">
+                                        <div className="round-profile" style={{backgroundColor:`${generarColorAlegre()}`}}>D</div>
+                                        <div className="names-profile">
+                                            <b>{p.fullname.substring(0,25)}...</b>
+                                            <span>{p.email}</span>
+                                        </div>
+                                        <div className="position-item"><p>{p.position.substring(0,20)}...</p></div>
+                                        <div className="address"><MdLocationPin color='#e00404' size="0.8rem" /><p>{p.country.substring(0,20)}...</p></div>
+                                    </div>
+                                ))
+                                :
+                                <>
+                                    <img width="100px" height="100px" style={{margin: "auto"}} src={iconNoData} alt="icon" />
+                                </>
+                            }
+                        </div>
+                        <div className="sccs">
+                            <h1>Rechazado</h1>
+                            {
+                                rechazado.length > 0 ?
+                                rechazado.map(p => (
+                                    <div className="item-profile">
+                                        <div className="round-profile" style={{backgroundColor:`${generarColorAlegre()}`}}>D</div>
+                                        <div className="names-profile">
+                                            <b>{p.fullname.substring(0,25)}...</b>
+                                            <span>{p.email}</span>
+                                        </div>
+                                        <div className="position-item"><p>{p.position.substring(0,20)}...</p></div>
+                                        <div className="address"><MdLocationPin color='#e00404' size="0.8rem" /><p>{p.country.substring(0,20)}...</p></div>
+                                    </div>
+                                ))
+                                :
+                                <>
+                                    <img width="100px" height="100px" style={{margin: "auto"}} src={iconNoData} alt="icon" />
+                                </>
+                            }
+                        </div>
+                        <div className="sccs">
+                            <h1>En Consideración</h1>
+                            {
+                                consideracion.length > 0 ?
+                                consideracion.map(p => (
+                                    <div className="item-profile">
+                                        <div className="round-profile" style={{backgroundColor:`${generarColorAlegre()}`}}>D</div>
+                                        <div className="names-profile">
+                                            <b>{p.fullname.substring(0,25)}...</b>
+                                            <span>{p.email}</span>
+                                        </div>
+                                        <div className="position-item"><p>{p.position.substring(0,20)}...</p></div>
+                                        <div className="address"><MdLocationPin color='#e00404' size="0.8rem" /><p>{p.country.substring(0,20)}...</p></div>
+                                    </div>
+                                ))
+                                :
+                                <>
+                                    <img width="100px" height="100px" style={{margin: "auto"}} src={iconNoData} alt="icon" />
+                                </>
+                            }
+                        </div>
+                        <div className="sccs">
+                            <h1>Contratado</h1>
+                            {
+                                contratado.length > 0 ?
+                                contratado.map(p => (
+                                    <div className="item-profile">
+                                        <div className="round-profile" style={{backgroundColor:`${generarColorAlegre()}`}}>D</div>
+                                        <div className="names-profile">
+                                            <b>{p.fullname.substring(0,25)}...</b>
+                                            <span>{p.email}</span>
+                                        </div>
+                                        <div className="position-item"><p>{p.position.substring(0,20)}...</p></div>
+                                        <div className="address"><MdLocationPin color='#e00404' size="0.8rem" /><p>{p.country.substring(0,20)}...</p></div>
+                                    </div>
+                                ))
+                                :
+                                <>
+                                    <img width="100px" height="100px" style={{margin: "auto"}} src={iconNoData} alt="icon" />
+                                </>
+                            }
+                        </div>
+                    </div>
                 </>
                 :(sectionSelectedTLUCandidate == 'sp' ?
                     <>
                         <div className="header-container-candidate">
                         <div className="search-container">
                             {   //Aqui decido que componente search mostrar, si el de la subseccion informacion general o process recruitment
+                                rows.filter(row => row.selectionProcess == true).length > 0 ?
                                 <Search txt="Search name candidate in selection process" setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+                                :<></>
                             }
                         </div>
                         </div>
@@ -538,7 +649,16 @@ function Candidate({setShowSpinner,idElementEdited,setIdElementEdited,sectionSel
                                     <div className="spinner-table-precandidates"><Load/></div>
                                 : 
                                     <>
-                                        <Table height="pr" idElementEdited={idElementEdited} columns={columnsProcessSelection} rows={rows.filter(row => row.selectionProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLUCandidate} confirmationStageToEB3Workers={confirmationStageToEB3Workers}/>
+                                    {
+                                        rows.filter(row => row.selectionProcess == true).length > 0 ?
+                                            <Table height="pr" idElementEdited={idElementEdited} columns={columnsProcessSelection} rows={rows.filter(row => row.selectionProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLUCandidate} confirmationStageToEB3Workers={confirmationStageToEB3Workers}/>
+                                        :
+                                        <>
+                                            <div className="not-data-hero">{/*Esta clase esta en precandidate.css */}
+                                                <img width="100px" height="100px" src={iconNoData} alt="icon" />
+                                            </div>
+                                        </>
+                                    }
                                     </>
                             }
                         </div>
