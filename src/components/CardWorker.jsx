@@ -218,6 +218,8 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
             const promesas = await fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${_id}`,customerFinal)
             await getPrecandidates()
             //console.log(customerFinal)
+            setShowmeFieldsGMProcess(false)
+            setShowmeDataGMProcess(true)
             setShowSpinnerForCard(false)
             setModal(true)
             setTitle("Saved Succesfully")
@@ -232,8 +234,12 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
         }
     }
     const [showmeDataGMProcess,setShowmeDataGMProcess] = useState(false)
+    const [showmeFieldsGMProcess,setShowmeFieldsGMProcess] = useState(true)
 
-
+    function showmeDataFields(){
+        setShowmeDataGMProcess(false)
+        setShowmeFieldsGMProcess(true)
+    }
 
     return (
         <>
@@ -275,7 +281,7 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
 
                     {/*SECTION GM PROCESS, SON LOS CHECKBOXES  HERREEEEEEEEEEEE*/
                         showSpinnerForCard ? <Load/> 
-                        : gmp && (callExplaining == "" && contractAndPaymentPlan == "" && documentsFile == "" && questionnaire == "" && docsUpload == "" && initialPayment == "" && sentToKeny == "" ) ?
+                        : gmp && showmeFieldsGMProcess ?
                         
                             <> 
                                 <div className="form-cc">
@@ -284,33 +290,33 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
                                     }
                                     <form action="#" className="form-gmprocess">
                                         <fieldset>
-                                            <input name="callExplaining" type="checkbox" id={_id} onChange={e => setCallExplainingCheck(e.target.checked) }/>
+                                            <input name="callExplaining" type="checkbox" id={_id} checked={callExplainingCheck} onChange={e => setCallExplainingCheck(e.target.checked) }/>
                                             <label htmlFor="callExplaining">Call Explaining</label>
                                         </fieldset>
                                         <fieldset>
-                                            <input name="contractAndPaymentPlan" type="checkbox" id={_id} onChange={e => setContractAndPaymentPlanCheck(e.target.checked) }/>
+                                            <input name="contractAndPaymentPlan" type="checkbox" checked={contractAndPaymentPlanCheck} id={_id} onChange={e => setContractAndPaymentPlanCheck(e.target.checked) }/>
                                             <label htmlFor="contractAndPaymentPlan">Contract & Payment</label>
                                         </fieldset>
                                         <fieldset>
-                                            <input name="documentsFile" type="checkbox" id={_id} onChange={e =>  setDocumentsFileCheck(e.target.checked) } />
+                                            <input name="documentsFile" type="checkbox" id={_id} checked={documentsFileCheck} onChange={e =>  setDocumentsFileCheck(e.target.checked) } />
                                             <label htmlFor="documentsFile">Documents File</label>
                                         </fieldset>
                                         <fieldset>
-                                            <input name="questionnaire" className="input-gmprocess" type="text" id={_id} placeholder="Questionnaire sent date" onChange={e => setQuestionnaireDate(e.target.value)} />
+                                            <input name="questionnaire" className="input-gmprocess" value={questionnaireDate.length > 0 ? questionnaireDate : ''} type="text" id={_id} placeholder="Questionnaire sent date" onChange={e => setQuestionnaireDate(e.target.value)} />
                                         </fieldset>
                                         <fieldset>
-                                            <input name="completeQuestionnaire" className="input-gmprocess" type="text" id={_id} placeholder="Questionnaire complete date" onChange={e => setCompleteQuestionnaireDate(e.target.value)} />
+                                            <input name="completeQuestionnaire" className="input-gmprocess" value={completeQuestionnaireDate.length > 0 ? completeQuestionnaireDate : ''} type="text" id={_id} placeholder="Questionnaire complete date" onChange={e => setCompleteQuestionnaireDate(e.target.value)} />
                                         </fieldset>
                                         <fieldset>
-                                            <input name="docsUpload" type="checkbox" id={_id} onChange={e =>  setDocsUploadCheck(e.target.checked) } />
+                                            <input name="docsUpload" type="checkbox" checked={docsUploadCheck} id={_id} onChange={e =>  setDocsUploadCheck(e.target.checked) } />
                                             <label htmlFor="docsUpload">Docs Uploaded</label>
                                         </fieldset>
                                         <fieldset>
-                                            <input name="initialPayment" type="checkbox" id={_id} onChange={e =>  setInitialPaymentCheck(e.target.checked) } />
+                                            <input name="initialPayment" type="checkbox" checked={initialPaymentCheck} id={_id} onChange={e =>  setInitialPaymentCheck(e.target.checked) } />
                                             <label htmlFor="initialPayment">Initial payment</label>
                                         </fieldset>
                                         <fieldset>
-                                            <input name="sentToKeny" type="checkbox" id={_id} onChange={e =>  setSentToKenyCheck(e.target.checked) } />
+                                            <input name="sentToKeny" type="checkbox" checked={sentToKenyCheck} id={_id} onChange={e =>  setSentToKenyCheck(e.target.checked) } />
                                             <label htmlFor="sentToKeny">Sent to Keny</label>
                                         </fieldset>
                                     </form>
@@ -327,7 +333,7 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
                                 </div>
                             </>
 
-                        :((gmp && (callExplaining != "" || contractAndPaymentPlan != "" || documentsFile != "" || questionnaire != "" || docsUpload != "" || initialPayment != "" || sentToKeny != "" ) ? 
+                        :((gmp && showmeDataGMProcess ? 
                             <>
                             
                                 <div className="info-documents-card">
@@ -376,6 +382,7 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
                                         showSpinnerForBtnBack ? <Load/> : 
                                             <button className="btn-back-card" onClick={e => backToClientDocuments()} ><MdOutlineSettingsBackupRestore /></button>
                                     }
+                                    <button onClick={e => showmeDataFields()}>editar</button>
                                 </div>
                             
                             </>                    
