@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Load from "./Load";
 
 function Td({txt, optionMore,highlightTT, highlightTG, highlightAC,highlightS}){
 
@@ -10,11 +11,12 @@ function Td({txt, optionMore,highlightTT, highlightTG, highlightAC,highlightS}){
 
     return (
         <>
-            {
-                optionMore 
+        {
+            optionMore 
                 ? <td onClick={handleClick} style={{backgroundColor: `${more ? '#ecf0ff' : ''}`, cursor: 'pointer'}}>{more ? txt : `${txt.substring(0,5)}...`} <p>{more ? 'Less' : 'See more'}</p> </td>
                 : <td><b className={`${highlightTG ? 'testGorila' : (highlightAC ? 'applicationCv': (highlightTT ? 'tipoTrabajo' : ''))}     ${highlightS && txt=='No continuo' ? 'no-continuo' : (highlightS && txt=='Pendiente' ? 'pendiente' : (highlightS && txt=='En revision' ? 'revision' : (highlightS && txt=='Rechazado' ? 'rechazado' :(highlightS && txt=='En consideración' ? 'consideracion' :(highlightS && txt=='Contratado' ? 'contratado' : '')))))}`} >{txt}</b></td>
-            }
+        }
+            
         </>
     )
 }

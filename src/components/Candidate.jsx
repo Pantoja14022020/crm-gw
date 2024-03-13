@@ -25,6 +25,8 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
     const formRefCandidate = useRef(null)
     const [showSpinnerFormCandidate,setShowSpinnerFormCandidate] = useState(false)
 
+    const [showSpinnerForTd,setShowSpinnerForTd] = useState(false)
+
     const columnsProcessSelection = [//Columnas para la tabla de la subseccion selection process  
         {id:0,txt:'Nombre(s) y apellidos'},
         {id:1,txt:'Correo electrónico'},
@@ -114,7 +116,7 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
                 });
             }
             let id_cand = checkedOptions[0]
-            setCheckedOptions([])
+            //setCheckedOptions([])
             setShowFormProcessSelection(false)
             const datosForm = {
                 "employer": employer,
@@ -123,6 +125,9 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
                 "interviewed": interviewed,
                 "status": status
             }
+
+            setShowActions(false)
+            setShowSpinnerForTd(true)
             const {updated} = await fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${id_cand}`,datosForm)//Creamos un nuevo registro (precandidato)
             
             setPrecandidateSelected(null)
@@ -137,6 +142,8 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
                 setMessage('Data selection process was added')
                 setType("success")
                 setShowSpinnerFormCandidate(false)
+                setShowSpinnerForTd(false)
+                setCheckedOptions([])
 
             }else{
                 //Mostramos un modal
@@ -145,6 +152,8 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
                 setMessage('Its not posible to add')
                 setType('error')
                 setShowSpinnerFormCandidate(false)
+                setShowSpinnerForTd(false)
+                setCheckedOptions([])
             }
         }
     }
@@ -666,7 +675,7 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
                                     <>
                                     {
                                         rows.filter(row => row.selectionProcess == true).length > 0 ?
-                                            <Table height="pr" idElementEdited={idElementEdited} columns={columnsProcessSelection} rows={rows.filter(row => row.selectionProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLUCandidate} confirmationStageToEB3Workers={confirmationStageToEB3Workers}/>
+                                            <Table showSpinnerForTd={showSpinnerForTd} height="pr" idElementEdited={idElementEdited} columns={columnsProcessSelection} rows={rows.filter(row => row.selectionProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLUCandidate} confirmationStageToEB3Workers={confirmationStageToEB3Workers}/>
                                         :
                                         <>
                                             <div className="not-data-hero" style={{height:"600px"}}>{/*Esta clase esta en precandidate.css */}

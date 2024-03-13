@@ -10,13 +10,14 @@ import { IoMdSend } from "react-icons/io";
 import Load from "./Load";
 import { fetchUrlPut } from "../helpers/fetchs";
 
-function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,setModal,_id,getPrecandidates,fullname,phone,email,position,englishLevel,levelStudies,birthCertificate,passport,proofAddress,haveFamily,documentsFamily,colorProfile,callExplaining,contractAndPaymentPlan,documentsFile,questionnaire,completeQuestionnaire,docsUpload,initialPayment,sentToKeny}){
+function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,setModal,_id,getPrecandidates,fullname,phone,email,position,englishLevel,levelStudies,birthCertificate,passport,proofAddress,marriageCertificate,haveFamily,documentsFamily,colorProfile,callExplaining,contractAndPaymentPlan,documentsFile,questionnaire,completeQuestionnaire,docsUpload,initialPayment,sentToKeny}){
     
     //ESTOS SON LOS USE STATE PARA LOS CHECKBOX DEL CLIENTDOCUMENTS.JSX
     const [birthCertificateCheck,setBirthCertificateCheck] = useState(false)
     const [passportCheck,setPassportCheck] = useState(false)
     const [proofAddressCheck, setProofAddressCheck] = useState(false)
     const [hasFamilyCheck,setHasFamilyCheck] = useState(false)
+    const [marriageCertificateCheck, setMarriageCertificateCheck] = useState(false)
     const [quantityInteger, setQuantityInteger] = useState(0)
     const [showBtnOk,setShowBtnOk] = useState(true)
     const [errorCCD, setErrorCCD] = useState(false)
@@ -26,11 +27,14 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
     const [family,setFamily] = useState([])
     const [showSpinnerForCard, setShowSpinnerForCard] = useState(false)
     const [showSpinnerForBtnBack,setShowSpinnerForBtnBack] = useState(false)
+    const [showSpinnerForSave,setShowSpinnerForSave] = useState(false)
+    const [showSpinnerForSendGM, setShowSpinnerForSendGM] = useState(false)
 
     useEffect(()=>{
         if(!hasFamilyCheck){
             setQuantityInteger('')
             setShowBtnOk(false)
+            setMarriageCertificateCheck(false)
             setFamily([])
         }
     },[hasFamilyCheck])
@@ -78,23 +82,33 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
     async function saveClientDocuments(){
         
         try {
-            setShowSpinnerForCard(true)
+
+            if(!(quantityInteger)){
+                setHasFamilyCheck(false)
+                setBirthCertificateCheck(false)
+            }
+
+            //setShowSpinnerForCard(true)
+            setShowSpinnerForSave(true)
             const customerFinal = {
                 "birthCertificate": birthCertificateCheck,
                 "passport": passportCheck,
                 "proofAddress": proofAddressCheck,
+                "marriageCertificate": marriageCertificateCheck,
                 "haveFamily": hasFamilyCheck,
                 "documentsFamily": family
             }
             const promesas = await fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${_id}`,customerFinal)
             await getPrecandidates()
-            setShowSpinnerForCard(false)
+            //setShowSpinnerForCard(false)
+            setShowSpinnerForSave(false)
             setModal(true)
             setTitle("Saved Succesfully")
             setMessage('Fields are saved')
             setType("success")
         } catch (error) {
-            setShowSpinnerForCard(false)
+            //setShowSpinnerForCard(false)
+            setShowSpinnerForSave(false)
             setModal(true)
             setTitle('Error In Server')
             setMessage('Its not was posible save')
@@ -113,6 +127,7 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
                 "birthCertificate": "",
                 "passport": "",
                 "proofAddress": "",
+                "marriageCertificate": "",
                 "haveFamily": "",
                 "documentsFamily": [],
                 "clientDocuments": false,
@@ -137,20 +152,23 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
 
     async function sendClientToGM(){
         try {
-            setShowSpinnerForBtnBack(true)
+            //setShowSpinnerForBtnBack(true)
+            setShowSpinnerForSendGM(true)
             const customerFinal = {
                 "clientDocuments": false,
                 "gmProcess": true
             }
             const promesas = await fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${_id}`,customerFinal)
             await getPrecandidates()
-            setShowSpinnerForBtnBack(false)
+            //setShowSpinnerForBtnBack(false)
+            setShowSpinnerForSendGM(false)
             setModal(true)
             setTitle("Sent Succesfully")
             setMessage('It was sent to GM Process')
             setType("success")
         } catch (error) {
-            setShowSpinnerForBtnBack(false)
+            //setShowSpinnerForBtnBack(false)
+            setShowSpinnerForSendGM(false)
             setModal(true)
             setTitle('Error In Server')
             setMessage('Its not was posible send to GM Process')
@@ -204,7 +222,8 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
 
     async function saveGMProcess(){
         try {
-            setShowSpinnerForCard(true)
+            //setShowSpinnerForCard(true)
+            setShowSpinnerForSave(true)
             const customerFinal = {
                 "callExplaining": callExplainingCheck,
                 "contractAndPaymentPlan": contractAndPaymentPlanCheck,
@@ -220,13 +239,14 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
             //console.log(customerFinal)
             setShowmeFieldsGMProcess(false)
             setShowmeDataGMProcess(true)
-            setShowSpinnerForCard(false)
+            //setShowSpinnerForCard(false)
+            setShowSpinnerForSave(false)
             setModal(true)
             setTitle("Saved Succesfully")
             setMessage('Fields are saved')
             setType("success")
         } catch (error) {
-            setShowSpinnerForCard(false)
+            setShowSpinnerForSave(false)
             setModal(true)
             setTitle('Error In Server')
             setMessage('Its not was posible save')
@@ -330,14 +350,12 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
                                     </form>
                                 </div>
                                 <div className="actions-cw">
-                                    {   //HEREEEEEEEEEEEEEEEEEEEEEEEEE
-                                        showSpinnerForBtnBack ? <Load/> : 
-                                            <button className="btn-back-card" onClick={e => backToClientDocuments()} ><MdOutlineSettingsBackupRestore /></button>
-                                    }
-                                    {
-                                        showSpinnerForBtnBack ? <Load/> :
-                                            <button onClick={e => saveGMProcess()} className="btn-check-card"><FaSave /></button>
-                                    }                                    
+                                    
+                                    <button className="btn-back-card" onClick={e => backToClientDocuments()} >{showSpinnerForBtnBack ? <Load/> : <MdOutlineSettingsBackupRestore />}</button>
+                                    
+                                    
+                                    <button onClick={e => saveGMProcess()} className="btn-check-card">{showSpinnerForSave ? <Load/> : <FaSave />}</button>
+                                                                    
                                 </div>
                             </>
 
@@ -386,10 +404,9 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
                                         </section>
                                 </div>
                                 <div className="actions-cw">
-                                    {   //HEREEEEEEEEEEEEEEEEEEEEEEEEE
-                                        showSpinnerForBtnBack ? <Load/> : 
-                                            <button className="btn-back-card" onClick={e => backToClientDocuments()} ><MdOutlineSettingsBackupRestore /></button>
-                                    }
+                                    
+                                    <button className="btn-back-card" onClick={e => backToClientDocuments()} >{showSpinnerForBtnBack ? <Load/> : <MdOutlineSettingsBackupRestore />}</button>
+                                    
                                     <button className="editar-gm-process" onClick={e => showmeDataFields()}>Editar</button>
                                 </div>
                             
@@ -472,10 +489,16 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
                                             </fieldset>
                                             {
                                                 hasFamilyCheck ? 
-                                                    <fieldset>
-                                                        <label htmlFor="quantityInteger">How many are they?</label>
-                                                        <input name="quantityInteger" type="number" id={_id} min="1" max="10" onChange={e => setQuantityInteger(e.target.value)} />
-                                                    </fieldset>
+                                                    <>
+                                                        <fieldset>
+                                                            <input name="marriageCertificate" type="checkbox" id={_id} onChange={e => setMarriageCertificateCheck(e.target.checked)} />
+                                                            <label htmlFor="marriageCertificate">Marriage Certificate</label>
+                                                        </fieldset>
+                                                        <fieldset>
+                                                            <label htmlFor="quantityInteger">How many are they?</label>
+                                                            <input name="quantityInteger" type="number" id={_id} min="1" max="10" onChange={e => setQuantityInteger(e.target.value)} />
+                                                        </fieldset>
+                                                    </>
                                                 :<></>
                                             }
                                             {
@@ -493,14 +516,10 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
                                         </div>
                                 </div>
                                 <div className="actions-cw">
-                                    {
-                                        showSpinnerForBtnBack ? <Load/> : 
-                                            <button className="btn-back-card" onClick={e => backToProcessSelectionAgain()} ><MdOutlineSettingsBackupRestore /></button>
-                                    }
-                                    {
-                                        showSpinnerForBtnBack ? <Load/> :
-                                            <button onClick={e => saveClientDocuments()} className="btn-check-card"><FaSave /></button>
-                                    }                                    
+                                    
+                                    <button className="btn-back-card" onClick={e => backToProcessSelectionAgain()} >{showSpinnerForBtnBack ? <Load/> : <MdOutlineSettingsBackupRestore />}</button>
+                                    <button onClick={e => saveClientDocuments()} className="btn-check-card">{showSpinnerForSave ? <Load color="#e1e1e1"/> : <FaSave />}</button>
+                                                                      
                                 </div>
                             </>
                         }
@@ -528,6 +547,7 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
                                                 <div className="me-check">{passport == "true" ? <FaCheck/> : <IoClose/> }<p>Passport</p></div>
                                                 <div className="me-check">{proofAddress=="true" ? <FaCheck/> : <IoClose/> }<p>Proof Address</p></div>
                                                 <div className="me-check highlight-family">{haveFamily=="true" ? 'With Family' : 'Withouth Family'}</div>
+                                                <div className="me-check">{marriageCertificate == "true" ? <FaCheck/> : <IoClose/> }<p>marriageCertificate</p></div>
                                             </div>
                                         </section>
                                         {
@@ -549,11 +569,10 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
                                         }
                                     </div>
                                     <div className="actions-cw">
-                                        {
-                                            showSpinnerForBtnBack ? <Load/> : 
-                                                <button className="btn-back-card" onClick={e => backToProcessSelectionAgain()} ><MdOutlineSettingsBackupRestore /></button>
-                                        }
-                                        <button className="btn-send-gm" onClick={e => sendClientToGM()} ><BsFillSendCheckFill /></button>
+                                         
+                                        <button className="btn-back-card" onClick={e => backToProcessSelectionAgain()} >{showSpinnerForBtnBack ? <Load/> : <MdOutlineSettingsBackupRestore /> }</button>
+                                        
+                                        <button className="btn-send-gm" onClick={e => sendClientToGM()} >{showSpinnerForSendGM ? <Load/> : <BsFillSendCheckFill />}</button>
                                     </div>
                                </> 
                             }

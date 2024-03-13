@@ -32,6 +32,8 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
     ]
 
 
+    const [showSpinnerForTd,setShowSpinnerForTd] = useState(false)
+
     const columnsProcessRecruitment = [//Columnas para la tabla 
         {id:0,txt:'Nombre(s) y apellidos'},
         {id:1,txt:'Correo electrónico'},
@@ -529,7 +531,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                         checkbox.parentElement.parentElement.classList.remove('rowSelected')
                     });
                 }
-                setCheckedOptions([])
+                //setCheckedOptions([])
                 setFormPrecandidate(false);
 
                 const datosForm = {
@@ -540,8 +542,11 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                     "applicationCv": applicationCv
                 }
 
+                setShowActions(false)
+                setShowSpinnerForTd(true)
                 const {updated} = await fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${checkedOptions[0]}`,datosForm)//Creamos un nuevo registro (precandidato)
                 
+
                 setPrecandidateSelected(null)
                 //Hay que actualizar la pagina o la tabla
                 await getPrecandidates()
@@ -557,6 +562,8 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                     setMessage('Data process recruitment was added')
                     setType("success")
                     setShowSpinnerFormPR(false)
+                    setCheckedOptions([])
+                    setShowSpinnerForTd(false)
 
                 }else{
                     //Mostramos un modal
@@ -565,6 +572,8 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                     setMessage('Its not posible to update')
                     setType('error')
                     setShowSpinnerFormPR(false)
+                    setCheckedOptions([])
+                    setShowSpinnerForTd(false)
                 }
             }
         }
@@ -643,7 +652,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                         checkbox.parentElement.parentElement.classList.remove('rowSelected')
                     });
                 }
-                setCheckedOptions([])
+                //setCheckedOptions([])
                 setFormPrecandidate(false);
 
 
@@ -693,11 +702,13 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
 
                 //console.log(checkedOptions[0])
                 //const elementIdEdited = checkedOptions[0]
+                setShowSpinnerForTd(true)
                 const {updated} = await fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${checkedOptions[0]}`,datosForm)//Creamos un nuevo registro (precandidato)
                 
                 setPrecandidateSelected(null)
                 //Hay que actualizar la pagina o la tabla
                 await getPrecandidates()
+
 
                 if(updated){
 
@@ -709,7 +720,8 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                     setMessage('Precandidate was updated')
                     setType("success")
                     setShowSpinnerFormPre(false)
-
+                    setShowSpinnerForTd(false)
+                    setCheckedOptions([])
                     setFetchUpdate(false)
 
                     //Mejor hay que mostrar un boton para actualizar 
@@ -724,7 +736,8 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                     setMessage('Its not posible to update')
                     setType('error')
                     setShowSpinnerFormPre(false)
-
+                    setShowSpinnerForTd(false)
+                    setCheckedOptions([])
                     setFetchUpdate(false)
                 }
             }else{
@@ -1158,7 +1171,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                                 <>
                                     {
                                         rows.filter(row => row.generalInformation == true).length > 0 ?
-                                            <Table height="gi" idElementEdited={idElementEdited} columns={columnsGeneralInformation} rows={rows.filter(row => row.generalInformation == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLU}/>
+                                            <Table showSpinnerForTd={showSpinnerForTd} height="gi" idElementEdited={idElementEdited} columns={columnsGeneralInformation} rows={rows.filter(row => row.generalInformation == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLU}/>
                                         :   
                                         <>
                                             <div className="not-data-hero" style={{height:"450px"}}>{/*Esta clase esta en precandidate.css */}
@@ -1190,7 +1203,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                                 <>
                                     {
                                         rows.filter(row => row.recruitmenProcess == true).length > 0 ?
-                                            <Table height="pr" idElementEdited={idElementEdited} columns={columnsProcessRecruitment} rows={rows.filter(row => row.recruitmenProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLU} confirmationStageToStageCandidates={confirmationStageToStageCandidates}/>
+                                            <Table showSpinnerForTd={showSpinnerForTd} height="pr" idElementEdited={idElementEdited} columns={columnsProcessRecruitment} rows={rows.filter(row => row.recruitmenProcess == true)} checkedOptions={checkedOptions}  setCheckedOptions={setCheckedOptions} setRowsTLU={setRowsTLU} setPrecandidateSelected={setPrecandidateSelected} setValoresNewPrecandidate={setValoresNewPrecandidate} setFetchUpdate={setFetchUpdate} sectionSelectedTLU={sectionSelectedTLU} confirmationStageToStageCandidates={confirmationStageToStageCandidates}/>
                                         :
                                         <>
                                             <div className="not-data-hero">{/*Esta clase esta en precandidate.css */}
