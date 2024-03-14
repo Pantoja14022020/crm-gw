@@ -1155,18 +1155,16 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                     </div>
                     <div className="container-candidates">
                         {
-                            rows.filter(row => row.generalInformation == true).length > 0 ?
-                                <div className="params-filter-precandidate">
-                                    <LiaFilterSolid />
-                                    <SelectDefault width="150px" color="#fff" title="English Level" options={levelEnglishOptions} setParam={setParamEnglishLevel} />
-                                    <SelectDefault width="250px" color="#fff" title="Studies Level" options={levelStudiesOptions} setParam={setParamStudiesLevel} />
-                                    {
-                                        showBtnRefresh 
-                                        ? <Button txt="News precandidates in SpreadSheets, refresh table" color="#2020cc" colorIcon="#000" size="fit-content" iconRefresh={true} fn={refreshTable}/>
-                                        : <></>
-                                    }
-                                </div>
-                            :<></>
+                           <div className="params-filter-precandidate">
+                                <LiaFilterSolid />
+                                <SelectDefault width="150px" color="#fff" title="English Level" options={levelEnglishOptions} setParam={setParamEnglishLevel} />
+                                <SelectDefault width="250px" color="#fff" title="Studies Level" options={levelStudiesOptions} setParam={setParamStudiesLevel} />
+                                {
+                                    showBtnRefresh 
+                                    ? <Button txt="News precandidates in SpreadSheets, refresh table" color="#2020cc" colorIcon="#000" size="fit-content" iconRefresh={true} fn={refreshTable}/>
+                                    : <></>
+                                }
+                            </div>
                         }
                         {
                             showSpinner 
