@@ -654,6 +654,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                     });
                 }
                 //setCheckedOptions([])
+                setShowActions(false)
                 setFormPrecandidate(false);
 
 
@@ -881,6 +882,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
         setShowConfirmAction(false)
         setSendStageCandidates(false)
         setIdPrecandidateSentToCandidate(null)
+        setPrecandidateSelected(null)
         const checkBoxs = document.querySelectorAll('.checkbox')
         if(checkBoxs){
             checkBoxs.forEach(checkbox => {
