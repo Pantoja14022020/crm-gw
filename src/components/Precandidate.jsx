@@ -312,6 +312,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                 });
             }
             setCheckedOptions([])
+            setPrecandidateSelected(null)
         }
     }
 
