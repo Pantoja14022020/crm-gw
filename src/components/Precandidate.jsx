@@ -248,6 +248,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
     const setTrueShowFormPrecandidate = () => {//ESTE ES PARA EL EVENTO de click en el boton crear nuevo precandidato
         setFormPrecandidate(true);
         setFetchUpdate(false);
+        setPrecandidateSelected(null)
     }
     const setTrueShowFormEditPrecandidate = () => {//ESTE ES PARA EL EVENTO de click en el boton 'editar' del action bar
         setFormPrecandidate(true);
