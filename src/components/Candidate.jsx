@@ -554,7 +554,7 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
                                 pendientes.length > 0 ?
                                 pendientes.map(p => (
                                     <div className="item-profile">
-                                        <div className="round-profile" style={{backgroundColor:`${generarColorAlegre()}`}}>D</div>
+                                        <div className="round-profile" style={{backgroundColor:`${p.colorProfile}`}}>{p.fullname[0].toUpperCase()}</div>
                                         <div className="names-profile">
                                             <b>{p.fullname.substring(0,25)}...</b>
                                             <span>{p.email}</span>
@@ -575,7 +575,7 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
                                 revision.length > 0 ?
                                 revision.map(p => (
                                     <div className="item-profile">
-                                        <div className="round-profile" style={{backgroundColor:`${generarColorAlegre()}`}}>D</div>
+                                        <div className="round-profile" style={{backgroundColor:`${p.colorProfile}`}}>{p.fullname[0].toUpperCase()}</div>
                                         <div className="names-profile">
                                             <b>{p.fullname.substring(0,25)}...</b>
                                             <span>{p.email}</span>
@@ -596,7 +596,7 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
                                 rechazado.length > 0 ?
                                 rechazado.map(p => (
                                     <div className="item-profile">
-                                        <div className="round-profile" style={{backgroundColor:`${generarColorAlegre()}`}}>D</div>
+                                        <div className="round-profile" style={{backgroundColor:`${p.colorProfile}`}}>{p.fullname[0].toUpperCase()}</div>
                                         <div className="names-profile">
                                             <b>{p.fullname.substring(0,25)}...</b>
                                             <span>{p.email}</span>
@@ -617,7 +617,7 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
                                 consideracion.length > 0 ?
                                 consideracion.map(p => (
                                     <div className="item-profile">
-                                        <div className="round-profile" style={{backgroundColor:`${generarColorAlegre()}`}}>D</div>
+                                        <div className="round-profile" style={{backgroundColor:`${p.colorProfile}`}}>{p.fullname[0].toUpperCase()}</div>
                                         <div className="names-profile">
                                             <b>{p.fullname.substring(0,25)}...</b>
                                             <span>{p.email}</span>
@@ -638,7 +638,7 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
                                 contratado.length > 0 ?
                                 contratado.map(p => (
                                     <div className="item-profile">
-                                        <div className="round-profile" style={{backgroundColor:`${generarColorAlegre()}`}}>D</div>
+                                        <div className="round-profile" style={{backgroundColor:`${p.colorProfile}`}}>{p.fullname[0].toUpperCase()}</div>
                                         <div className="names-profile">
                                             <b>{p.fullname.substring(0,25)}...</b>
                                             <span>{p.email}</span>

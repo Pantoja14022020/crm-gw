@@ -11,7 +11,7 @@ import { IoMdSend } from "react-icons/io";
 import Load from "./Load";
 import { fetchUrlPost, fetchUrlPut } from "../helpers/fetchs";
 
-function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,setModal,_id,getPrecandidates,fullname,phone,email,position,englishLevel,levelStudies,birthCertificate,passport,proofAddress,marriageCertificate,haveFamily,documentsFamily,colorProfile,callExplaining,contractAndPaymentPlan,documentsFile,questionnaire,completeQuestionnaire,docsUpload,initialPayment,sentToKeny}){
+function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMessage,modal,setModal,_id,getPrecandidates,fullname,phone,email,position,englishLevel,levelStudies,birthCertificate,passport,proofAddress,marriageCertificate,haveFamily,documentsFamily,callExplaining,contractAndPaymentPlan,documentsFile,questionnaire,completeQuestionnaire,docsUpload,initialPayment,sentToKeny}){
     
     //ESTOS SON LOS USE STATE PARA LOS CHECKBOX DEL CLIENTDOCUMENTS.JSX
     const [birthCertificateCheck,setBirthCertificateCheck] = useState(false)
@@ -34,7 +34,7 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
 
     useEffect(()=>{
         if(!hasFamilyCheck){
-            setQuantityInteger('')
+            setQuantityInteger('')//setQuantityInteger('')
             setShowBtnOk(false)
             setMarriageCertificateCheck(false)
             setFamily([])
@@ -194,7 +194,8 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
 
 
     useEffect(()=>{
-        if(callExplaining != "" || contractAndPaymentPlan != "" || documentsFamily != "" || questionnaire != "" || completeQuestionnaire != "" || docsUpload != "" || initialPayment != "" || sentToKeny != "" ){
+        //console.log(callExplaining,contractAndPaymentPlan, documentsFamily ,questionnaire,completeQuestionnaire,docsUpload,initialPayment,sentToKeny)
+        if(callExplaining != "" || contractAndPaymentPlan != "" || documentsFile != ""  || questionnaire != "" || completeQuestionnaire != "" || docsUpload != "" || initialPayment != "" || sentToKeny != "" ){
             setShowmeDataGMProcess(true)
         }else{
             setShowmeFieldsGMProcess(true)
@@ -431,7 +432,7 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
                                                     <p>Family's documents</p>
                                                     {
                                                         documentsFamily.map((family,idx)=>(
-                                                            <div className="familiar">
+                                                            <div key={idx} className="familiar">
                                                                 <div className="them-check">{family.relationship}</div>
                                                                 <div className="them-check">{family.birthCertificate=="true" ? <FaCheck/> : <IoClose/>}<p>Birth Certificate</p></div>
                                                                 <div className="them-check">{family.passport == "true" ? <FaCheck/> : <IoClose/> }<p>Passport</p></div>
