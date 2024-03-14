@@ -3,12 +3,13 @@ import ItemFamiliar from "./ItemFamiliar";
 import { MdOutlineSettingsBackupRestore } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
+import { RiFileExcel2Fill } from "react-icons/ri";
 import { MdArrowDropDown } from "react-icons/md";
 import { BsFillSendCheckFill } from "react-icons/bs";
 import { FaSave } from "react-icons/fa";
 import { IoMdSend } from "react-icons/io";
 import Load from "./Load";
-import { fetchUrlPut } from "../helpers/fetchs";
+import { fetchUrlPost, fetchUrlPut } from "../helpers/fetchs";
 
 function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,setModal,_id,getPrecandidates,fullname,phone,email,position,englishLevel,levelStudies,birthCertificate,passport,proofAddress,marriageCertificate,haveFamily,documentsFamily,colorProfile,callExplaining,contractAndPaymentPlan,documentsFile,questionnaire,completeQuestionnaire,docsUpload,initialPayment,sentToKeny}){
     
@@ -27,6 +28,7 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
     const [family,setFamily] = useState([])
     const [showSpinnerForCard, setShowSpinnerForCard] = useState(false)
     const [showSpinnerForBtnBack,setShowSpinnerForBtnBack] = useState(false)
+    const [showSpinnerForExcel, setShowSpinnerForExcel] = useState(false)
     const [showSpinnerForSave,setShowSpinnerForSave] = useState(false)
     const [showSpinnerForSendGM, setShowSpinnerForSendGM] = useState(false)
 
@@ -188,6 +190,53 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
     const [initialPaymentCheck,setInitialPaymentCheck] = useState(false)
     const [sentToKenyCheck,setSentToKenyCheck] = useState(false)
 
+    const [showBtnSendExcel, setShowBtnSendExcel] = useState(true)
+
+
+    useEffect(()=>{
+        if(callExplaining != "" || contractAndPaymentPlan != "" || documentsFamily != "" || questionnaire != "" || completeQuestionnaire != "" || docsUpload != "" || initialPayment != "" || sentToKeny != "" ){
+            setShowmeDataGMProcess(true)
+        }else{
+            setShowmeFieldsGMProcess(true)
+        }
+        setCallExplainingCheck(callExplaining == "true" ? true : false)
+        setContractAndPaymentPlanCheck(contractAndPaymentPlan == "true" ? true : false)
+        setDocumentsFileCheck(documentsFile == "true" ? true : false)
+        setQuestionnaireDate(questionnaire.length > 0 ? questionnaire : '')
+        setCompleteQuestionnaireDate(completeQuestionnaire.length > 0 ? completeQuestionnaire : '')
+        setDocsUploadCheck(docsUpload == "true" ? true : false)
+        setInitialPaymentCheck(initialPayment=="true" ? true : false)
+        setSentToKenyCheck(sentToKeny=="true" ? true : false)
+    },[])
+
+    async function sendToKeny(){
+        try {
+            setShowSpinnerForExcel(true)
+            const {excel} = await fetchUrlPost(`https://api-gw-cpa-pc-20aq.onrender.com/generate-excel/candidate-trade/${_id}`)
+            if(excel){
+                setShowBtnSendExcel(false)
+                setShowSpinnerForExcel(false)
+                setModal(true)
+                setTitle("Excel File Sent Succesfully")
+                setMessage('Excel file sent')
+                setType("success")
+            }else{
+                setShowSpinnerForExcel(false)
+                setModal(true)
+                setTitle("Could not send excel")
+                setMessage('It was not possible send email by email')
+                setType("error")
+            }
+        } catch (error) {
+            setShowSpinnerForExcel(false)
+            setModal(true)
+            setTitle('Error In Server')
+            setMessage('Its not was posible send email to keny')
+            setType('error')
+        }
+    }
+
+
     async function backToClientDocuments(){
         try {
             setShowSpinnerForBtnBack(true)
@@ -254,7 +303,7 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
         }
     }
     const [showmeDataGMProcess,setShowmeDataGMProcess] = useState(false)
-    const [showmeFieldsGMProcess,setShowmeFieldsGMProcess] = useState(true)
+    const [showmeFieldsGMProcess,setShowmeFieldsGMProcess] = useState(false)
 
     function showmeDataFields(){
         setShowmeDataGMProcess(false)
@@ -268,6 +317,10 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
         setShowmeDataCD(false)
         setShowmeFieldsCD(true)
     }
+
+
+
+
 
     return (
         <>
@@ -318,33 +371,33 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
                                     }
                                     <form action="#" className="form-gmprocess">
                                         <fieldset>
-                                            <input name="callExplaining" type="checkbox" id={_id} checked={callExplainingCheck} onChange={e => setCallExplainingCheck(e.target.checked) }/>
+                                            <input name="callExplaining" type="checkbox" id={_id} defaultChecked={callExplainingCheck ? true : false} onChange={e => setCallExplainingCheck(e.target.checked) }/>
                                             <label htmlFor="callExplaining">Call Explaining</label>
                                         </fieldset>
                                         <fieldset>
-                                            <input name="contractAndPaymentPlan" type="checkbox" checked={contractAndPaymentPlanCheck} id={_id} onChange={e => setContractAndPaymentPlanCheck(e.target.checked) }/>
+                                            <input name="contractAndPaymentPlan" type="checkbox" defaultChecked={contractAndPaymentPlanCheck? true : false} id={_id} onChange={e => setContractAndPaymentPlanCheck(e.target.checked) }/>
                                             <label htmlFor="contractAndPaymentPlan">Contract & Payment</label>
                                         </fieldset>
                                         <fieldset>
-                                            <input name="documentsFile" type="checkbox" id={_id} checked={documentsFileCheck} onChange={e =>  setDocumentsFileCheck(e.target.checked) } />
+                                            <input name="documentsFile" type="checkbox" id={_id} defaultChecked={documentsFileCheck ? true : false} onChange={e =>  setDocumentsFileCheck(e.target.checked) } />
                                             <label htmlFor="documentsFile">Documents File</label>
                                         </fieldset>
                                         <fieldset>
-                                            <input name="questionnaire" className="input-gmprocess" value={questionnaireDate.length > 0 ? questionnaireDate : ''} type="text" id={_id} placeholder="Questionnaire sent date" onChange={e => setQuestionnaireDate(e.target.value)} />
+                                            <input name="questionnaire" className="input-gmprocess" defaultValue={questionnaireDate.length > 0 ? questionnaireDate : ''} type="text" id={_id} placeholder="Questionnaire sent date" onChange={e => setQuestionnaireDate(e.target.value)} />
                                         </fieldset>
                                         <fieldset>
-                                            <input name="completeQuestionnaire" className="input-gmprocess" value={completeQuestionnaireDate.length > 0 ? completeQuestionnaireDate : ''} type="text" id={_id} placeholder="Questionnaire complete date" onChange={e => setCompleteQuestionnaireDate(e.target.value)} />
+                                            <input name="completeQuestionnaire" className="input-gmprocess" defaultValue={completeQuestionnaireDate.length > 0 ? completeQuestionnaireDate : ''} type="text" id={_id} placeholder="Questionnaire complete date" onChange={e => setCompleteQuestionnaireDate(e.target.value)} />
                                         </fieldset>
                                         <fieldset>
-                                            <input name="docsUpload" type="checkbox" checked={docsUploadCheck} id={_id} onChange={e =>  setDocsUploadCheck(e.target.checked) } />
+                                            <input name="docsUpload" type="checkbox" defaultChecked={docsUploadCheck ? true : false} id={_id} onChange={e =>  setDocsUploadCheck(e.target.checked) } />
                                             <label htmlFor="docsUpload">Docs Uploaded</label>
                                         </fieldset>
                                         <fieldset>
-                                            <input name="initialPayment" type="checkbox" checked={initialPaymentCheck} id={_id} onChange={e =>  setInitialPaymentCheck(e.target.checked) } />
+                                            <input name="initialPayment" type="checkbox" defaultChecked={initialPaymentCheck ? true : false} id={_id} onChange={e =>  setInitialPaymentCheck(e.target.checked) } />
                                             <label htmlFor="initialPayment">Initial payment</label>
                                         </fieldset>
                                         <fieldset>
-                                            <input name="sentToKeny" type="checkbox" checked={sentToKenyCheck} id={_id} onChange={e =>  setSentToKenyCheck(e.target.checked) } />
+                                            <input name="sentToKeny" type="checkbox" defaultChecked={sentToKenyCheck ? true : false} id={_id} onChange={e =>  setSentToKenyCheck(e.target.checked) } />
                                             <label htmlFor="sentToKeny">Sent to Keny</label>
                                         </fieldset>
                                     </form>
@@ -406,7 +459,9 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
                                 <div className="actions-cw">
                                     
                                     <button className="btn-back-card" onClick={e => backToClientDocuments()} >{showSpinnerForBtnBack ? <Load/> : <MdOutlineSettingsBackupRestore />}</button>
-                                    
+                                    {
+                                        showBtnSendExcel && sentToKeny != "true" ? <button className="send-excel-to-keny" onClick={e => sendToKeny() }>{showSpinnerForExcel ? <Load/> : <RiFileExcel2Fill /> }</button> :<></>
+                                    }
                                     <button className="editar-gm-process" onClick={e => showmeDataFields()}>Editar</button>
                                 </div>
                             

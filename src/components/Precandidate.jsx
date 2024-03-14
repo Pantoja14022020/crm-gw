@@ -1136,10 +1136,11 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                 <>
                     <div className="btn-new-candidate">
                         <div className="search-container">
+                            <Search txt="Search name precandidate in general information subsection" setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
                             {   //Aqui decido que componente search mostrar, si el de la subseccion informacion general o process recruitment
-                                rows.filter(row => row.generalInformation == true).length > 0 ?
-                                <Search txt="Search name precandidate in general information subsection" setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
-                                :<></>
+                                /*rows.filter(row => row.generalInformation == true).length > 0 ?
+                                    <Search txt="Search name precandidate in general information subsection" setFilteredCandidates={setRowsTLU} filteredCandidates={rows} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+                                :<></>*/
                             }
                         </div>
                         <div className="btn-n-c">
