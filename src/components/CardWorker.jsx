@@ -203,7 +203,7 @@ function CardWorker({gmp,type,setType,title,setTitle,message,setMessage,modal,se
         setContractAndPaymentPlanCheck(contractAndPaymentPlan == "true" ? true : false)
         setDocumentsFileCheck(documentsFile == "true" ? true : false)
         setQuestionnaireDate(questionnaire.length > 0 ? questionnaire : '')
-        setCompleteQuestionnaireDate(completeQuestionnaire.length > 0 ? completeQuestionnaire : '')
+        setCompleteQuestionnaireDate(completeQuestionnaire.length > 0  ? completeQuestionnaire : '')
         setDocsUploadCheck(docsUpload == "true" ? true : false)
         setInitialPaymentCheck(initialPayment=="true" ? true : false)
         setSentToKenyCheck(sentToKeny=="true" ? true : false)
