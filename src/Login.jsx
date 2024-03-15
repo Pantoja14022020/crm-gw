@@ -104,15 +104,44 @@ export function Login(){
             //Here we need to start session
             //Reset values in state
             const {email,password} = valoresSignin;
-            const credentials = {"email_send": email, "password_send": password}
+            //const credentials = {"email_send": email, "password_send": password}
             
             
             //Do fetch to start session
-            const {session,id_user,msg,area,fullname} = await fetchUrlPost("https://api-gw-cpa-pc-20aq.onrender.com/gw/session",credentials)
+            //const {session,id_user,msg,area,fullname} = await fetchUrlPost("https://api-gw-cpa-pc-20aq.onrender.com/gw/session",credentials)
             
+            let session = false;
+            if((email == 'pcontreras@trabajolegalusa.com' && password == "12345678") || (email == "agent003@gmintern.com" && password == "12345678")){
+                session = true;
+            }
+
+            //console.log(session)
+
             if(session){//Its okay if; coincide el email y password, redirige al dashboard
-                const sessionData = {id_user,email,msg,area,fullname}
-                setSession(sessionData)//Guardamos datos del usuario en el local storage
+                //const sessionData = {id_user,email,msg,area,fullname}
+                
+                if(email == 'pcontreras@trabajolegalusa.com'){
+                    const sessionData = {
+                        id_user: 1,
+                        email: 'pcontreras@trabajolegalusa.com',
+                        msg: 'Welcome pcontreras@trabajolegalusa.com',
+                        area: "tl",
+                        fullname: "Perla Esthefany"
+                    }
+                    setSession(sessionData)//Guardamos datos del usuario en el local storage
+                }
+
+                if(email == 'agent003@gmintern.com'){
+                    const sessionData = {
+                        id_user: 2,
+                        email: 'agent003@gmintern.com',
+                        msg: 'Welcome agent003@gmintern.com',
+                        area: "gm",
+                        fullname: "Gabriela Ramos"
+                    }
+                    setSession(sessionData)//Guardamos datos del usuario en el local storage
+                }
+                
                 window.location.href = '/'//Aqui lo redirigo a la pagina del dashboard
                 //isLogged(true)//Para que haga el efecto de cambio de pantalla
                 setShowSpinner(false)
@@ -120,7 +149,7 @@ export function Login(){
                 //Mostramos un modal
                 setModal(true)
                 setTitle('Error To Log In')
-                setMessage(msg)
+                setMessage('Incorrect password or email not valid')
                 setType('error')
                 setShowSpinner(false)
             }
@@ -257,9 +286,9 @@ export function Login(){
                     typeForm === "login" 
                     ?
                         <>
-                            <p>Forgot your password?</p>
-                            <Button color="#fff" txt='Click here' fn={setNewPasswordForm} size="auto-fit" bgColor="#2020cc"/>
-                        </> 
+                            {/**<p>Forgot your password?</p>
+                            <Button color="#fff" txt='Click here' fn={setNewPasswordForm} size="auto-fit" bgColor="#2020cc"/>**/}
+                        </>
                     : 
                         <>
                             <Button color="#fff" txt='Sign In' fn={setLoginForm} size="auto-fit" bgColor="#2020cc"/>

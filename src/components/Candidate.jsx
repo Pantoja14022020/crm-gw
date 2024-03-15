@@ -636,8 +636,8 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
                             <h1>Contratado</h1>
                             {
                                 contratado.length > 0 ?
-                                contratado.map(p => (
-                                    <div className="item-profile">
+                                contratado.map((p,idx) => (
+                                    <div key={idx} className="item-profile">
                                         <div className="round-profile" style={{backgroundColor:`${p.colorProfile}`}}>{p.fullname[0].toUpperCase()}</div>
                                         <div className="names-profile">
                                             <b>{p.fullname.substring(0,25)}...</b>
