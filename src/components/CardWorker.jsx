@@ -459,7 +459,7 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
                                                                 <div className="them-check" >{family.relationship}</div>
                                                                 <div className="them-check">{family.birthCertificate=="true" ? <FaCheck/> : <IoClose/>}<p>Birth Certificate</p></div>
                                                                 <div className="them-check">{family.passport == "true" ? <FaCheck/> : <IoClose/> }<p>Passport</p></div>
-                                                                <div className="them-check">{family.proofAddress=="true" ? <FaCheck/> : <IoClose/>}<p>Proof Address</p></div>
+                                                                {/**<div className="them-check">{family.proofAddress=="true" ? <FaCheck/> : <IoClose/>}<p>Proof Address</p></div>*/}
                                                             </div>
                                                         ))
                                                     }
