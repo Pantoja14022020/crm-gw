@@ -6,7 +6,7 @@
 
 .cards-clients-documents{/*ES EL CONTENEDOR QUE CONTIENE LAS TARJETAS*/
     display: flex;
-    height: 485px;
+    height: 585px;
     padding: 1rem;
     flex-direction: row;
     justify-content: space-between;
@@ -17,7 +17,66 @@
     overflow-y: auto;
 }
 
-
+@media screen and (max-height: 800px) {
+    .cards-clients-documents{
+      height: 620px;
+    }
+}
+@media screen and (max-height: 790px) {
+    .cards-clients-documents{
+      height: 600px;
+    }
+}
+@media screen and (max-height: 770px) {
+    .cards-clients-documents{
+      height: 580px;
+    }
+}
+@media screen and (max-height: 750px) {
+    .cards-clients-documents{
+      height: 560px;
+    }
+}
+@media screen and (max-height: 730px) {
+    .cards-clients-documents{
+      height: 540px;
+    }
+}
+@media screen and (max-height: 710px) {
+    .cards-clients-documents{
+      height: 520px;
+    }
+}
+@media screen and (max-height: 690px) {
+    .cards-clients-documents{
+      height: 500px;
+    }
+}
+@media screen and (max-height: 670px) {
+    .cards-clients-documents{
+      height: 480px;
+    }
+}
+@media screen and (max-height: 650px) {
+    .cards-clients-documents{
+      height: 460px;
+    }
+}
+@media screen and (max-height: 630px) {
+    .cards-clients-documents{
+      height: 440px;
+    }
+}
+@media screen and (max-height: 610px) {
+    .cards-clients-documents{
+      height: 420px;
+    }
+}
+@media screen and (max-height: 590px) {
+    .cards-clients-documents{
+      height: 390px;
+    }
+}
 
 
 /*ES LA TARJETA EN SI*/
