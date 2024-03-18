@@ -7,13 +7,14 @@
 .cards-clients-documents{/*ES EL CONTENEDOR QUE CONTIENE LAS TARJETAS*/
     display: flex;
     height: 485px;
-    padding: 1rem 1rem 1rem 1rem;
+    padding: 1rem;
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
+    gap: 1rem;
     border-radius: 0.4rem;
     background-color: #f3f3f3;
-    
+    overflow-y: auto;
 }
 
 
@@ -25,7 +26,6 @@
     height: 255px;
     background-color: white;
     border-radius: 0.8rem;
-    margin-right: 1rem;
     padding: 0.5rem 0.25rem;
     overflow: hidden;
 }
@@ -512,5 +512,66 @@
   /* Al hacer hover sobre el scroll */
   .card-client:hover::-webkit-scrollbar-thumb::before,
   .card-client:hover::-webkit-scrollbar-thumb::after {
+    opacity: 1; /* Hace visible los pseudoelementos */
+  }
+
+
+
+
+
+
+
+
+
+
+    /* Estilos para el scroll vertical */
+.cards-clients-documents::-webkit-scrollbar {
+    width: 3px; /* Ancho del scroll */
+    height: 3px;
+  }
+  
+  .cards-clients-documents::-webkit-scrollbar-track {
+    background: #ffffff; /* Color de fondo del track */
+  }
+  
+  .cards-clients-documents::-webkit-scrollbar-thumb {
+    background: #d4d4d4; /* Color del thumb (barra deslizante) */
+    opacity: 0;
+    border-radius: 3px; /* Borde redondeado del thumb */
+  }
+  
+  /* Pseudoelemento antes del thumb */
+  .cards-clients-documents::-webkit-scrollbar-thumb:hover::before {
+    opacity: 1; /* Hace visible el pseudoelemento */
+  }
+  
+  .cards-clients-documents::-webkit-scrollbar-thumb::before {
+    content: ''; /* Contenido del pseudoelemento */
+    position: absolute; /* Establece la posición absoluta */
+    width: 3px; /* Ancho igual al del thumb */
+    height: 20px; /* Altura del pseudoelemento */
+    top: 1; /* Lo coloca arriba del thumb */
+    right: 0; /* Lo coloca a la izquierda del thumb */
+    background: rgba(0, 0, 0, 0.5); /* Color del pseudoelemento */
+    border-radius: 1rem; /* Borde redondeado */
+    opacity: 0; /* Inicialmente invisible */
+  }
+  
+  /* Pseudoelemento después del thumb */
+  .cards-clients-documents::-webkit-scrollbar-thumb::after {
+    content: ''; /* Contenido del pseudoelemento */
+    position: absolute; /* Establece la posición absoluta */
+    width: 8px; /* Ancho igual al del thumb */
+    height: 20px; /* Altura del pseudoelemento */
+    bottom: 0; /* Lo coloca abajo del thumb */
+    left: 0; /* Lo coloca a la izquierda del thumb */
+    background: rgba(0, 0, 0, 0.5); /* Color del pseudoelemento */
+    border-radius: 4px; /* Borde redondeado */
+    opacity: 0 !important; /* Inicialmente invisible */
+  }
+  
+  /* Al hacer hover sobre el scroll */
+  .cards-clients-documents:hover::-webkit-scrollbar-thumb::before,
+  .cards-clients-documents:hover::-webkit-scrollbar-thumb::after {
     opacity: 1; /* Hace visible los pseudoelementos */
   }
