@@ -6,8 +6,8 @@ function ItemFamiliar({setErrorCCD,setMsgErrorCCD,setFamily,family}){
     const [showMyself, setShowMyself] = useState(true)
     const [checkboxValues, setCheckboxValues] = useState({
         birthCertificate: false,
-        passport: false,
-        proofAddress: false
+        passport: false//,
+        //proofAddress: false
     });
     const [textInputValue, setTextInputValue] = useState('');
 
@@ -26,12 +26,12 @@ function ItemFamiliar({setErrorCCD,setMsgErrorCCD,setFamily,family}){
             setMsgErrorCCD('Type relationship')
         }else{
             setShowMyself(false)
-            const {birthCertificate,passport,proofAddress} = checkboxValues;
+            const {birthCertificate,passport/*,proofAddress*/} = checkboxValues;
             const relationship = textInputValue;
             const familiar = {
                 birthCertificate,
                 passport,
-                proofAddress,
+                proofAddress: '',
                 relationship
             }
             setFamily([...family,familiar])
@@ -51,10 +51,10 @@ function ItemFamiliar({setErrorCCD,setMsgErrorCCD,setFamily,family}){
                     <input name="passport" type="checkbox" checked={checkboxValues.checkbox2} onChange={handleCheckboxChange}/>
                     <label htmlFor="passport">Passport</label>
                 </fieldset>
-                <fieldset>
+                {/**<fieldset>
                     <input name="proofAddress" type="checkbox" checked={checkboxValues.checkbox3} onChange={handleCheckboxChange}/>
                     <label htmlFor="proofAddress">Proof Address</label>
-                </fieldset>
+                </fieldset>**/}
                 <input type="text" placeholder="Relación" value={textInputValue} onChange={handleTextInputChange} />
                 <button id="ok-item-fam" onClick={handleSubmit}>ok</button>
             </div>

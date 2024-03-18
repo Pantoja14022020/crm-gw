@@ -19,30 +19,30 @@ import Confirmation from "./Confirmation";
 function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpinner,setShowSpinner, setParamEnglishLevel, setParamStudiesLevel, getPrecandidates, notificationModal, setNotificationModal, showBtnRefresh, setShowBtnRefresh, idElementEdited, setIdElementEdited, sectionSelectedTLU, showConfirmAction, setShowConfirmAction,txtTitleConfirmationAction,setTxtTitleConfirmationAction,txtConfirmationAction,setTxtConfirmationAction, checkedOptions, setCheckedOptions}){
 
     const columnsGeneralInformation = [ //Columnas para la tabla informacion general
-        {id:0,txt:'Nombre(s) y apellidos'},
-        {id:1,txt:'Correo electrónico'},
-        {id:2,txt:'Número telefónico'},
-        {id:3,txt:'Fecha de nacimiento'},
-        {id:4,txt:'Estado de civil'},
-        {id:5,txt:'Género'},
-        {id:6,txt:'Lugar de residencia: Ciudad, Estado y País'},
-        {id:7,txt:'Grado de últimos estudios (Comprobable con certificado, titulo y/o cedula profesional)'},
-        {id:8,txt:'Nivel de Inglés'},
-        {id:9,txt:'Coloca el tipo de vacante a la que estas aplicando o deseas aplicar en un futuro'}
+        {id:0,txt:'Fullname'},
+        {id:1,txt:'Email'},
+        {id:2,txt:'Phone'},
+        {id:3,txt:'Country'},
+        {id:4,txt:'Date Of Birth'},
+        {id:5,txt:'Civil Status'},
+        {id:6,txt:'Gender'},
+        {id:7,txt:'Level Of Last Studies'},
+        {id:8,txt:'Position'},
+        {id:9,txt:'English Level'}
     ]
 
 
     const [showSpinnerForTd,setShowSpinnerForTd] = useState(false)
 
     const columnsProcessRecruitment = [//Columnas para la tabla 
-        {id:0,txt:'Nombre(s) y apellidos'},
-        {id:1,txt:'Correo electrónico'},
-        {id:2,txt:'Número telefónico'},
-        {id:3,txt:'Tipo de Trabajo'},
+        {id:0,txt:'Fullname'},
+        {id:1,txt:'Email'},
+        {id:2,txt:'Phone'},
+        {id:3,txt:'Job Type'},
         {id:4,txt:'Personality Test'},
-        {id:5,txt:'Test Gorilla/Contrato de reclutamiento'},
+        {id:5,txt:'Gorilla Test/Recruitment Contract'},
         {id:6,txt:'Application/CV'},
-        {id:7,txt:''}
+        {id:7,txt:'Send to Candidates Stage'}
     ]
 
     //ESTO ES PARA LOS FILTROS O PARAMETROS DE BUSQUEDA, AQUI SE DEFINEN SUS OPCIONES
@@ -189,9 +189,10 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
         {
             id: 3,
             name: "contratoReclutamiento",
-            type: "text",
+            type: "select",
             htmlfor: "contratoReclutamiento",
-            txt: "Contrato de reclutamiento"
+            txt: "Contrato de reclutamiento",
+            options: ['Yes','No']
         },
         {
             id:4,
@@ -472,20 +473,22 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
     //INICIO. SETTERS CAMPOS FORMULARIO PROCESS RECRUITMENT
     const [tipoTrabajo, setTipoTrabajo] = useState('')
     const [applicationCv, setApplicationCv] = useState('')
+    const [contratoReclutamiento, setContratoReclutamiento] = useState('')
     const [valoresProcessRecruitment,setValoresProcessRecruitment] = useState({
         personalityTest: '',
-        testGorila: '',
-        contratoReclutamiento: ''
+        testGorila: ''//,
+        //contratoReclutamiento: ''
     })
     useEffect(()=>{//Vaciar el input dependiendo el tipo de trabajo seleccionado
         if(tipoTrabajo == 'Profesión'){
-            const inputContratoReclutamiento = document.querySelector("input[name='contratoReclutamiento']")
+            /*const inputContratoReclutamiento = document.querySelector("input[name='contratoReclutamiento']")
             if(inputContratoReclutamiento) {
                 inputContratoReclutamiento.value = ""
                 const pr = {...valoresProcessRecruitment}
                 pr.contratoReclutamiento = ""
                 setValoresProcessRecruitment(pr)
-            }
+            }*/
+            setContratoReclutamiento('')
         }
         if(tipoTrabajo == 'Oficio'){
             const inputTestGorila = document.querySelector("input[name='testGorila']")
@@ -508,9 +511,9 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
     const [fetchUpdatePR,setFetchUpdatePR] = useState(false);
     const handleSubmitFormProcessRecruitment = async e => {//Funcion para cuando se envia el formulario
         e.preventDefault()
-        const {personalityTest,testGorila,contratoReclutamiento} = valoresProcessRecruitment;
+        const {personalityTest,testGorila} = valoresProcessRecruitment;
         console.log(tipoTrabajo,valoresProcessRecruitment,applicationCv)
-        if(tipoTrabajo.length == 0 || tipoTrabajo == '---- Select ----' || personalityTest.length == 0 || (testGorila.length == 0 && contratoReclutamiento.length == 0) || applicationCv.length == 0 || applicationCv == '---- Select ----'){
+        if(tipoTrabajo.length == 0 || tipoTrabajo == '---- Select ----' || personalityTest.length == 0 || (testGorila.length == 0 && contratoReclutamiento.length == 0) || applicationCv.length == 0 || applicationCv == '---- Select ----' || contratoReclutamiento == '---- Select ----'){
             setModal(true)
             setTitle("Incomplete Fields")
             setMessage("Fill all fields")
@@ -782,6 +785,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                     "birthCertificate": "",
                     "passport": "",
                     "proofAddress": "",
+                    "marriageCertificate": "",
                     "haveFamily": "",
                     "documentsFamily": [],
                     "gmProcess": false,
@@ -789,6 +793,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                     "contractAndPaymentPlan": "",
                     "documentsFile": "",
                     "questionnaire": "",
+                    "completeQuestionnaire": "",
                     "docsUpload": "",
                     "initialPayment": "",
                     "sentToKeny": ""
@@ -1095,7 +1100,7 @@ function Precandidate({options,rows,setRowsTLU,setSearchTerm,searchTerm,showSpin
                                     <Form flexDirection="row" widthFieldset="48%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsEditPrecandidate} txtButtonSubmit="Update" fnChange={handleChangeNewPrecandidate} fnSubmit={handleSubmitNewPrecandidate} reform={formRefNewPrecandidate} setGender={setGender} setLevelEnglish={setLevelEnglish} setCivilStatus={setCivilStatus} setLevelStudies={setLevelStudies} showSpinner={showSpinnerFormPre} precandidateSelected={precandidateSelected} setParamDefault={true}/>
                                 :
                                 (precandidateSelected !== null && sectionSelectedTLU == 'pr' ? //Formulario para la seccion process recruitment, el set paramDefault={true} es para decirle que agregara un valor por default, esto se utiliza cuando vamos a editar. El valueEditTipoTrabajo es el valor por default que va a ser, en este caso para un select
-                                    <Form flexDirection="column" widthFieldset="100%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsFormProcessRecruitment} txtButtonSubmit="Done" fnChange={handleChangeProcessRecruitment} fnSubmit={handleSubmitFormProcessRecruitment} reform={formRefProcessRecruitment } setTipoTrabajo={setTipoTrabajo} tipoTrabajo={tipoTrabajo} showSpinner={showSpinnerFormPR} applicationCv={applicationCv} setApplicationCv={setApplicationCv} precandidateSelected={precandidateSelected} setParamDefault={true} valueEditTipoTrabajo={precandidateSelected.tipoTrabajo != '' ? precandidateSelected.tipoTrabajo : '---- Select ----' } valueEditApplicationCv={precandidateSelected.applicationCv != '' ? precandidateSelected.applicationCv : '---- Select ----' }/>
+                                    <Form flexDirection="column" widthFieldset="100%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsFormProcessRecruitment} txtButtonSubmit="Done" fnChange={handleChangeProcessRecruitment} fnSubmit={handleSubmitFormProcessRecruitment} reform={formRefProcessRecruitment }  setTipoTrabajo={setTipoTrabajo} tipoTrabajo={tipoTrabajo} showSpinner={showSpinnerFormPR} applicationCv={applicationCv} setApplicationCv={setApplicationCv} setContratoReclutamiento={setContratoReclutamiento} contratoReclutamiento={contratoReclutamiento} precandidateSelected={precandidateSelected} setParamDefault={true} valueEditContratoReclutamiento={precandidateSelected.contratoReclutamiento != '' ? precandidateSelected.contratoReclutamiento : '---- Select ----'} valueEditTipoTrabajo={precandidateSelected.tipoTrabajo != '' ? precandidateSelected.tipoTrabajo : '---- Select ----' } valueEditApplicationCv={precandidateSelected.applicationCv != '' ? precandidateSelected.applicationCv : '---- Select ----' }/>
                                 :<></>))
                             }
                         </div>

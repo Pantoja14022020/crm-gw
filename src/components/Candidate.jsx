@@ -34,7 +34,7 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
         {id:3,txt:'Tipo de Trabajo'},
         {id:4,txt:'Employer'},
         {id:5,txt:'Referred'},
-        {id:6,txt:'Contact method'},
+        //{id:6,txt:'Contact method'},
         {id:7,txt:'Interviewed'},
         {id:8,txt:'Status'},
         {id:9,txt:'Send to EB3 Workers'}
@@ -58,14 +58,14 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
             htmlfor: "referred",
             txt: "Referred"
         },
-        {
+        /*{
             id: 2,
             name: "methodContact",
             type: "select",
             htmlfor: "methodContact",
             txt: "Select method contact",
             options: ['mail','videocall','call']
-        },
+        },*/
         {
             id: 3,
             name: "interviewed",
@@ -84,7 +84,7 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
         }
     ]
     const [status,setStatus] = useState('')
-    const [methodContact,setMethodContact] = useState('')
+    //const [methodContact,setMethodContact] = useState('')
     const [interviewed,setInterviewed] = useState('')
     const [valoresCandidate,setValoresCandidate] = useState({
         employer: '',
@@ -101,7 +101,7 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
         e.preventDefault()
         const {employer,referred} = valoresCandidate
         
-        if(employer.length == 0 || status.length == 0 || status == '---- Select ----' || methodContact.length == 0 || methodContact == '---- Select ----'|| interviewed.length == 0 || interviewed == '---- Select ----'){
+        if(employer.length == 0 || status.length == 0 || status == '---- Select ----' || /*methodContact.length == 0 || methodContact == '---- Select ----'||*/ interviewed.length == 0 || interviewed == '---- Select ----'){
             setModal(true)
             setTitle("Incomplete Fields")
             setMessage("Fill fields")
@@ -121,7 +121,8 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
             const datosForm = {
                 "employer": employer,
                 "referred": referred,
-                "methodContact": methodContact,
+                //"methodContact": methodContact,
+                "methodContact": '',
                 "interviewed": interviewed,
                 "status": status
             }
@@ -343,7 +344,7 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
 
             //Cuando quitemos el modal o formulario, resetear los valores a su valor inicial
             setStatus('')
-            setMethodContact('')
+            //setMethodContact('')
             setInterviewed('')
             setValoresCandidate({
                 employer: '',
@@ -490,7 +491,7 @@ function Candidate({contratado,consideracion,rechazado,revision,pendientes,setSh
                                 }</h1>
                                 {
                                     precandidateSelected !== null && sectionSelectedTLUCandidate == 'sp' ? //Formulario para la seccion process recruitment, el set paramDefault={true} es para decirle que agregara un valor por default, esto se utiliza cuando vamos a editar. El valueEditTipoTrabajo es el valor por default que va a ser, en este caso para un select
-                                        <Form flexDirection="row" widthFieldset="48%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsFormCandidate} txtButtonSubmit="Done" fnChange={handleChangeCandidate} fnSubmit={handleSubmitFormCandidate} reform={formRefCandidate} showSpinner={showSpinnerFormCandidate} status={status} setStatus={setStatus} methodContact={methodContact} setMethodContact={setMethodContact} interviewed={interviewed} setInterviewed={setInterviewed} precandidateSelected={precandidateSelected} setParamDefault={true} valueEditStatus={precandidateSelected.status !='' ? precandidateSelected.status : '---- Select ----'} valueEditMethodContact={precandidateSelected.methodContact != '' ? precandidateSelected.methodContact : '---- Select ----' } valueEditInterviewed={precandidateSelected.interviewed != '' ? precandidateSelected.interviewed : '---- Select ----' }/>
+                                        <Form flexDirection="row" widthFieldset="48%" widthForm="100%" action="#" method="#" fieldsets={fieldsetsFormCandidate} txtButtonSubmit="Done" fnChange={handleChangeCandidate} fnSubmit={handleSubmitFormCandidate} reform={formRefCandidate} showSpinner={showSpinnerFormCandidate} status={status} setStatus={setStatus} /*methodContact={methodContact} setMethodContact={setMethodContact}*/ interviewed={interviewed} setInterviewed={setInterviewed} precandidateSelected={precandidateSelected} setParamDefault={true} valueEditStatus={precandidateSelected.status !='' ? precandidateSelected.status : '---- Select ----'} valueEditMethodContact={precandidateSelected.methodContact != '' ? precandidateSelected.methodContact : '---- Select ----' } valueEditInterviewed={precandidateSelected.interviewed != '' ? precandidateSelected.interviewed : '---- Select ----' }/>
                                     :<></>
                                 }
                             </div>

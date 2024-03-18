@@ -4,7 +4,7 @@ import SelectDefault from "./SelectDefault"
 import Radio from "./Radio";
 
 
-function Form({flexDirection,widthFieldset,widthForm,action,method,fieldsets,txtButtonSubmit,fnSubmit,fnChange,showSpinner,reform, setGender, setLevelEnglish, setCivilStatus,setLevelStudies,precandidateSelected,setParamDefault,tipoTrabajo,setTipoTrabajo,applicationCv, setApplicationCv,valueEditTipoTrabajo,status,setStatus,methodContact,setMethodContact,interviewed,setInterviewed,valueEditStatus,valueEditMethodContact,valueEditInterviewed,valueEditApplicationCv}){
+function Form({valueEditContratoReclutamiento,flexDirection,widthFieldset,widthForm,action,method,fieldsets,txtButtonSubmit,fnSubmit,fnChange,showSpinner,reform, setGender, setLevelEnglish, setCivilStatus,setLevelStudies,precandidateSelected,setParamDefault,tipoTrabajo,setTipoTrabajo,applicationCv, setApplicationCv,valueEditTipoTrabajo,status,setStatus,/*methodContact,setMethodContact,*/interviewed,setInterviewed,valueEditStatus,valueEditMethodContact,valueEditInterviewed,valueEditApplicationCv, setContratoReclutamiento, contratoReclutamiento}){
    
     //console.log(precandidateSelected)
     
@@ -26,12 +26,12 @@ function Form({flexDirection,widthFieldset,widthForm,action,method,fieldsets,txt
                             : <></>
                         }
                         {
-                            name == 'contratoReclutamiento' ?
+                            /*name == 'contratoReclutamiento' ?
                             <>
                                 <label htmlFor={id} style={{display: `${tipoTrabajo == 'Oficio' ? '' : 'none'}`}}>{txt}</label>
                                 <input defaultValue={precandidateSelected.contratoReclutamiento != null ? precandidateSelected.contratoReclutamiento : ''}  type={type} name={name} id={id} onChange={fnChange} style={{ WebkitAutofill: 'none', autocomplete: 'off', display: `${tipoTrabajo == 'Oficio' ? '' : 'none'}` }}/>
                             </>
-                            :<></>
+                            :<></>*/
                         }
                         {
                             name == 'personalityTest' ?
@@ -69,10 +69,11 @@ function Form({flexDirection,widthFieldset,widthForm,action,method,fieldsets,txt
                                         : (name === 'levelStudies' ? <><label htmlFor={id}>{txt}</label> <SelectDefault width="100%" options={options} title={txt} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setLevelStudies} setParamDefaultEdit={setParamDefault} valueDefault={value} precandidateSelected={precandidateSelected}/></>
                                             : (name === 'tipoTrabajo' ? <><label htmlFor={id}>{txt}</label> <SelectDefault width="100%" options={options} title={txt} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setTipoTrabajo} setParamDefaultEdit={setParamDefault} valueDefault={valueEditTipoTrabajo} precandidateSelected={precandidateSelected}/></>
                                                 : (name == 'status' ? <><label htmlFor={id}>{txt}</label> <SelectDefault width="100%" options={options} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setStatus} setParamDefaultEdit={setParamDefault} valueDefault={valueEditStatus} precandidateSelected={precandidateSelected}/></>
-                                                    : (name == 'methodContact' ? <><label htmlFor={id}>{txt}</label> <SelectDefault width="100%" options={options} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setMethodContact} setParamDefaultEdit={setParamDefault} valueDefault={valueEditMethodContact} precandidateSelected={precandidateSelected}/></>
+                                                    : (name == 'methodContact' ? <>{/**<label htmlFor={id}>{txt}</label> <SelectDefault width="100%" options={options} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setMethodContact} setParamDefaultEdit={setParamDefault} valueDefault={valueEditMethodContact} precandidateSelected={precandidateSelected}/>*/}</>
                                                         :(name == 'interviewed' ? <><label htmlFor={id}>{txt}</label> <SelectDefault width="100%" options={options} title={`---- Select ----`} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setInterviewed} setParamDefaultEdit={setParamDefault} valueDefault={valueEditInterviewed} precandidateSelected={precandidateSelected}/></>
                                                             : (name == 'applicationCv' ? <><label htmlFor={id}>{txt}</label> <SelectDefault width="100%" options={options} title={`---- Select ----`} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setApplicationCv} setParamDefaultEdit={setParamDefault} valueDefault={valueEditApplicationCv} precandidateSelected={precandidateSelected}/></>
-                                                                :<></>)))))))))
+                                                                :( name == 'contratoReclutamiento' ? (tipoTrabajo == 'Oficio' ? <><label htmlFor={id}>{txt}</label> <SelectDefault width="100%" options={options} title={`---- Select ----`} fontSize="0.8rem" color="var(--input-color-secondary)" setParam={setContratoReclutamiento} setParamDefaultEdit={setParamDefault} valueDefault={valueEditContratoReclutamiento} precandidateSelected={precandidateSelected}/></> : <></>)  
+                                                                    : <></>))))))))))
                         }
                         {
                             type == 'radio' ? 

@@ -81,13 +81,13 @@ function Table({showSpinnerForTd,height,idElementEdited,columns,rows,setCheckedO
                                                 {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> : <Td txt={fullname}/>}
                                                 {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> : <Td txt={email} optionMore={true}/>}
                                                 {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> : <Td txt={phone} optionMore={true}/>}
+                                                {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> :<Td txt={country} optionMore={true}/>}
                                                 {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> :<Td txt={dateBirth} />}
                                                 {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> :<Td txt={civilStatus} />}
                                                 {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> :<Td txt={gender} />}
-                                                {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> :<Td txt={country} optionMore={true}/>}
                                                 {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> :<Td txt={levelStudies} />}
-                                                {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> :<Td txt={englishLevel} optionMore={true} />}
                                                 {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> :<Td txt={position} optionMore={true} />}
+                                                {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> :<Td txt={englishLevel} optionMore={true} />}
                                             </tr>
                                         ))
                                     : <></>
@@ -129,10 +129,10 @@ function Table({showSpinnerForTd,height,idElementEdited,columns,rows,setCheckedO
                                                 {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> :<Td txt={tipoTrabajo.length > 0 ? tipoTrabajo : 'Empty'} highlightTT={tipoTrabajo.length > 0 ? true : false}/>}
                                                 {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> :<Td txt={employer.length > 0 ? employer : 'Empty'}/>}
                                                 {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> :<Td txt={referred.length > 0 ? referred : 'Empty'} />}
-                                                {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> :<Td txt={methodContact.length > 0 ? methodContact : 'Empty'} />}
+                                                {/*showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> :<Td txt={methodContact.length > 0 ? methodContact : 'Empty'} />*/}
                                                 {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> :<Td txt={interviewed.length > 0 ? interviewed : 'Empty'} />}
                                                 {showSpinnerForTd && (checkedOptions[0] == _id) ? <td style={{color:"#c4c4c4"}}><Load/></td> :<Td txt={status.length > 0 ? status : 'Empty'} highlightS={status.length > 0 ? true : false} />}
-                                                <td id={_id} style={{color:"#ccc"}}>{    employer != '' && methodContact != '' && interviewed != '' && status == 'Contratado' && tipoTrabajo == 'Oficio' ? <button id={_id} onClick={e => confirmationStageToEB3Workers(_id)} className="send-btn-eb3">Click Here</button>  : ( employer != '' && methodContact != '' && interviewed != '' && status == 'Contratado' && tipoTrabajo == 'Profesión' ? 'Not Apply' : ( employer != '' && methodContact != '' && interviewed != '' && status != 'Contratado' && tipoTrabajo == 'Oficio' ? 'Still Not' : ( employer != '' && methodContact != '' && interviewed != '' && status != 'Contratado' && tipoTrabajo == 'Profesión' ? 'Not Apply' : 'Fill Form' ) )) }</td>
+                                                <td id={_id} style={{color:"#ccc"}}>{    employer != '' /*&& methodContact != ''*/ && interviewed != '' && status == 'Contratado' && tipoTrabajo == 'Oficio' ? <button id={_id} onClick={e => confirmationStageToEB3Workers(_id)} className="send-btn-eb3">Click Here</button>  : ( employer != '' && methodContact != '' && interviewed != '' && status == 'Contratado' && tipoTrabajo == 'Profesión' ? 'Not Apply' : ( employer != '' && methodContact != '' && interviewed != '' && status != 'Contratado' && tipoTrabajo == 'Oficio' ? 'Still Not' : ( employer != '' && methodContact != '' && interviewed != '' && status != 'Contratado' && tipoTrabajo == 'Profesión' ? 'Not Apply' : 'Fill Form' ) )) }</td>
                                             </tr>
                                         ))
                                     : <></>

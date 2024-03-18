@@ -20,7 +20,7 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
     const [hasFamilyCheck,setHasFamilyCheck] = useState(false)
     const [marriageCertificateCheck, setMarriageCertificateCheck] = useState(false)
     const [quantityInteger, setQuantityInteger] = useState(0)
-    const [showBtnOk,setShowBtnOk] = useState(true)
+    //const [showBtnOk,setShowBtnOk] = useState(true)
     const [errorCCD, setErrorCCD] = useState(false)
     const [msgErrorCCD,setMsgErrorCCD] = useState('')
     const [numFields,setNumFields] = useState(0);
@@ -34,20 +34,23 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
 
     useEffect(()=>{
         if(!hasFamilyCheck){
-            setQuantityInteger('')//setQuantityInteger('')
-            setShowBtnOk(false)
+            setQuantityInteger(0)//setQuantityInteger('')
+            //setShowBtnOk(false)
             setMarriageCertificateCheck(false)
             setFamily([])
         }
     },[hasFamilyCheck])
 
     useEffect(()=>{
+        console.log("cambie quantityInteger")
         if(quantityInteger.length > 0) {
-            setShowBtnOk(true)         
+            //setShowBtnOk(true)  
+            setNumFields(quantityInteger)       
         }else{
-            setShowBtnOk(false)
+            //setShowBtnOk(false)
             setFakeArray([])
             setFamily([])
+            setNumFields(0)
         }
     },[quantityInteger])
 
@@ -60,6 +63,7 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
     },[errorCCD])
 
     useEffect(()=>{
+        console.log("entro al array con numFields:",numFields)
         setFakeArray(prevArray => {
             const newArray = [];
             for (let i = 0; i < numFields; i++) {
@@ -72,10 +76,13 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
     
     function validateFormCCD(){
         const num = parseInt(quantityInteger);
+        console.log("prueba:",num)
         if(num > 10 || num < 1 || isNaN(num)) {
             setErrorCCD(true)
             setMsgErrorCCD('Incorrect Number')
         }else{
+            console.log("entro aqui")
+            console.log("num:",num)
             setNumFields(parseInt(num))
         }
     }
@@ -190,8 +197,12 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
     const [initialPaymentCheck,setInitialPaymentCheck] = useState(false)
     const [sentToKenyCheck,setSentToKenyCheck] = useState(false)
 
-    const [showBtnSendExcel, setShowBtnSendExcel] = useState(true)
+    const [showBtnSendExcel, setShowBtnSendExcel] = useState( false )
 
+
+    /*useEffect(()=>{
+        sentToKenyCheck  ? setShowBtnSendExcel(true) : setShowBtnSendExcel(false)
+    },[sentToKenyCheck])*/
 
     useEffect(()=>{
         //console.log(callExplaining,contractAndPaymentPlan, documentsFamily ,questionnaire,completeQuestionnaire,docsUpload,initialPayment,sentToKeny)
@@ -213,7 +224,9 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
     async function sendToKeny(){
         try {
             setShowSpinnerForExcel(true)
-            const {excel} = await fetchUrlPost(`https://api-gw-cpa-pc-20aq.onrender.com/generate-excel/candidate-trade/${_id}`)
+            const {excel} = await fetchUrlPost(`https://api-gw-cpa-pc-20aq.onrender.com/addd-row-in-excel/candidate-trade/${_id}`)
+            setShowBtnSendExcel(false)
+            setSentToKenyCheck(false)
             if(excel){
                 setShowBtnSendExcel(false)
                 setShowSpinnerForExcel(false)
@@ -229,6 +242,7 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
                 setType("error")
             }
         } catch (error) {
+            console.log(error)
             setShowSpinnerForExcel(false)
             setModal(true)
             setTitle('Error In Server')
@@ -285,6 +299,11 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
                 "sentToKeny": sentToKenyCheck,
             }
             const promesas = await fetchUrlPut(`https://api-gw-cpa-pc-20aq.onrender.com/tl/excel/candidate/${_id}`,customerFinal)
+            
+            if(sentToKenyCheck){
+                await fetchUrlPost(`https://api-gw-cpa-pc-20aq.onrender.com/addd-row-in-excel/candidate-trade/${_id}`)
+            }
+            
             await getPrecandidates()
             //console.log(customerFinal)
             setShowmeFieldsGMProcess(false)
@@ -324,35 +343,39 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
 
 
     return (
-        <>
-            <div key={_id} className="card-client" /**style={{borderLeft: `3px solid ${generarColorAlegre()}`}}*/>
-                <div className="header-cc">
-                    <div className="profile-color" style={{background: `${colorProfile}` }}>{fullname[0].toUpperCase()}</div>
-                    <div className="titles-header-cc">
-                        <h1>{fullname}</h1>
-                        <p> 📧  {email}</p>
-                        <p> 📱  {phone}</p>
+        <>  
+            <div key={_id} className="container-card-client">
+            <div className="card-client" /**style={{borderLeft: `3px solid ${generarColorAlegre()}`}}*/>
+                <header>
+                    <div className="header-cc">
+                        <div className="profile-color" style={{background: `${colorProfile}` }}>{fullname[0].toUpperCase()}</div>
+                        <div className="titles-header-cc">
+                            <h1>{fullname}</h1>
+                            <p> 📧  {email}</p>
+                            <p> 📱  {phone}</p>
+                            <span className="label-status-sent-excel" style={{color: `${sentToKeny == 'true' ? '#00da53' : '#ff3939'}`}}><div style={{backgroundColor: `${sentToKeny == 'true' ? '#1aee60' : '#ff3e3e'}`}}></div>{sentToKeny == 'true' ? 'Sent to Keny' : 'Not Sent to Keny Yet'}</span>
+                        </div>
+                        {/*
+                            birthCertificate == '' && passport == '' && proofAddress == '' ?
+                                <span className="label-card-cc-n">Not Filled In</span>
+                            :   <span className="label-card-cc-f">Filled In</span>
+                        */}
                     </div>
-                    {/*
-                        birthCertificate == '' && passport == '' && proofAddress == '' ?
-                            <span className="label-card-cc-n">Not Filled In</span>
-                        :   <span className="label-card-cc-f">Filled In</span>
-                    */}
-                </div>
-                <div className="details-more-cc">
-                    <div className="dmcc-position">
-                        <div>position</div>
-                        <div>{position.substring(0,14)}...</div>
+                    <div className="details-more-cc">
+                        <div className="dmcc-position">
+                            <div>position</div>
+                            <div>{position.substring(0,14)}...</div>
+                        </div>
+                        <div className="dmcc-level-en">
+                            <div>english</div>
+                            <div>{englishLevel}</div>
+                        </div>
+                        <div className="dmcc-level-es">
+                            <div>studies</div>
+                            <div><p>{levelStudies.substring(0,25)}...</p></div>
+                        </div>
                     </div>
-                    <div className="dmcc-level-en">
-                        <div>english</div>
-                        <div>{englishLevel}</div>
-                    </div>
-                    <div className="dmcc-level-es">
-                        <div>studies</div>
-                        <div><p>{levelStudies.substring(0,25)}...</p></div>
-                    </div>
-                </div>
+                </header>
 
 
 
@@ -384,10 +407,10 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
                                             <label htmlFor="documentsFile">Documents File</label>
                                         </fieldset>
                                         <fieldset>
-                                            <input name="questionnaire" className="input-gmprocess" defaultValue={questionnaireDate.length > 0 ? questionnaireDate : ''} type="text" id={_id} placeholder="Questionnaire sent date" onChange={e => setQuestionnaireDate(e.target.value)} />
+                                            <input name="questionnaire" className="input-gmprocess" defaultValue={questionnaireDate.length > 0 ? questionnaireDate : ''} type="date" id={_id} onChange={e => setQuestionnaireDate(e.target.value)} />
                                         </fieldset>
                                         <fieldset>
-                                            <input name="completeQuestionnaire" className="input-gmprocess" defaultValue={completeQuestionnaireDate.length > 0 ? completeQuestionnaireDate : ''} type="text" id={_id} placeholder="Questionnaire complete date" onChange={e => setCompleteQuestionnaireDate(e.target.value)} />
+                                            <input name="completeQuestionnaire" className="input-gmprocess" defaultValue={completeQuestionnaireDate.length > 0 ? completeQuestionnaireDate : ''} type="date" id={_id}  onChange={e => setCompleteQuestionnaireDate(e.target.value)} />
                                         </fieldset>
                                         <fieldset>
                                             <input name="docsUpload" type="checkbox" defaultChecked={docsUploadCheck ? true : false} id={_id} onChange={e =>  setDocsUploadCheck(e.target.checked) } />
@@ -417,7 +440,7 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
                             <>
                             
                                 <div className="info-documents-card">
-                                        <section className="data-me">
+                                        <section className="data-me data-me-border">
                                             <p>My documents</p>
                                             <div className="me-checks">
                                                 <div className="me-check">{birthCertificate=="true" ? <FaCheck/> : <IoClose/>}<p>Birth Certificate</p></div>
@@ -433,7 +456,7 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
                                                     {
                                                         documentsFamily.map((family,idx)=>(
                                                             <div key={idx} className="familiar">
-                                                                <div className="them-check">{family.relationship}</div>
+                                                                <div className="them-check" >{family.relationship}</div>
                                                                 <div className="them-check">{family.birthCertificate=="true" ? <FaCheck/> : <IoClose/>}<p>Birth Certificate</p></div>
                                                                 <div className="them-check">{family.passport == "true" ? <FaCheck/> : <IoClose/> }<p>Passport</p></div>
                                                                 <div className="them-check">{family.proofAddress=="true" ? <FaCheck/> : <IoClose/>}<p>Proof Address</p></div>
@@ -445,24 +468,25 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
                                         }
                                         <section className="data-me">
                                             <p>GM Process</p>
-                                            <div className="me-checks">
+                                            <div className="me-checks me-checks-grid">
+                                            <div className="me-check">{contractAndPaymentPlan == "true" ? <FaCheck/> : <IoClose/> }<p>Contract & Payment Plan</p></div>
                                                 <div className="me-check">{callExplaining=="true" ? <FaCheck/> : <IoClose/>}<p>Call Explaining</p></div>
-                                                <div className="me-check">{contractAndPaymentPlan == "true" ? <FaCheck/> : <IoClose/> }<p>Contract & Payment Plan</p></div>
                                                 <div className="me-check">{documentsFile=="true" ? <FaCheck/> : <IoClose/> }<p>Documents File</p></div>
-                                                <div className="me-check"> <b style={{letterSpacing: "0.05rem",fontWeight: "900", marginRight: "0.5rem"}}>Questionnaire:</b> {questionnaire.length > 0 ? questionnaire : 'No data'}</div>
-                                                <div className="me-check"><b style={{letterSpacing: "0.05rem",fontWeight: "900", marginRight: "0.5rem"}}>Complete Questionnaire:</b> {completeQuestionnaire.length > 0 ? completeQuestionnaire : 'No data'}</div>
+                                                <div className="me-check"> <b style={{ marginRight: "0.5rem"}}>Questionnaire:</b> {questionnaire.length > 0 ? questionnaire : 'No data'}</div>
                                                 <div className="me-check">{docsUpload=="true" ? <FaCheck/> : <IoClose/> }<p>Docs upload</p></div>
                                                 <div className="me-check">{initialPayment=="true" ? <FaCheck/> : <IoClose/> }<p>Initial payment</p></div>
+                                                <div className="me-check"><b style={{marginRight: "0.5rem"}}>Complete Questionnaire:</b> {completeQuestionnaire.length > 0 ? completeQuestionnaire : 'No data'}</div>
                                                 <div className="me-check">{sentToKeny=="true" ? <FaCheck/> : <IoClose/> }<p>Sent to Keny</p></div>
                                             </div>
                                         </section>
                                 </div>
                                 <div className="actions-cw">
-                                    
-                                    <button className="btn-back-card" onClick={e => backToClientDocuments()} >{showSpinnerForBtnBack ? <Load/> : <MdOutlineSettingsBackupRestore />}</button>
-                                    {
-                                        showBtnSendExcel && sentToKeny != "true" ? <button className="send-excel-to-keny" onClick={e => sendToKeny() }>{showSpinnerForExcel ? <Load/> : <RiFileExcel2Fill /> }</button> :<></>
-                                    }
+                                    <div>
+                                        <button style={{marginRight:'0.5rem'}} className="btn-back-card" onClick={e => backToClientDocuments()} >{showSpinnerForBtnBack ? <Load/> : <MdOutlineSettingsBackupRestore />}</button>
+                                        {
+                                            //sendToKeny && sentToKenyCheck ? <></> : <button className="send-excel-to-keny" onClick={e => sendToKeny() }>{showSpinnerForExcel ? <Load/> : <RiFileExcel2Fill /> }</button>
+                                        }
+                                    </div>
                                     <button className="editar-gm-process" onClick={e => showmeDataFields()}>Editar</button>
                                 </div>
                             
@@ -558,7 +582,7 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
                                                 :<></>
                                             }
                                             {
-                                                showBtnOk ? <button onClick={e => validateFormCCD()} className="confirm-num-family">ok</button> : <></>
+                                                //showBtnOk ? <button onClick={e => validateFormCCD()} className="confirm-num-family">ok</button> : <></>
                                             }
                                         </div>
                                         <div className="data-checkbox-family">
@@ -612,7 +636,7 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
                                                     <p>Family</p>
                                                     {
                                                         documentsFamily.map((family,idx)=>(
-                                                            <div className="familiar">
+                                                            <div key={idx} className="familiar">
                                                                 <div className="them-check">{family.relationship}</div>
                                                                 <div className="them-check">{family.birthCertificate=="true" ? <FaCheck/> : <IoClose/>}<p>Birth Certificate</p></div>
                                                                 <div className="them-check">{family.passport == "true" ? <FaCheck/> : <IoClose/> }<p>Passport</p></div>
@@ -648,6 +672,7 @@ function CardWorker({colorProfile,gmp,type,setType,title,setTitle,message,setMes
 
 
 
+            </div>
             </div>
         </>
     )
