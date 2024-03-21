@@ -369,7 +369,7 @@ function Dashboard(){
     return(
         <main className="dashboard">
             {
-                interfaceShowed == 'tl' ? 
+                getTypeUser() == 'tl' ? 
                 <>
                     <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**/ setInterfaceShowed={setInterfaceShowed} showNavbar={showNavbar} setShowNavbar={setShowNavbar}/>
                     <aside className={`${showNavbar ? 'part-width' : 'all-width'}`} style={{backgroundColor: `${interfaceShowed == 'eb3workers' ? '#fff' : ''}`}}>
