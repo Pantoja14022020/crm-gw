@@ -35,6 +35,7 @@ import Board from './components/Board'
 import Precandidate from './components/Precandidate'
 import Candidate from './components/Candidate';
 import Workers from './components/Workers';
+import Gm from './Gm';
 
 const socket = io("https://api-gw-cpa-pc-20aq.onrender.com/");//PRUEBA 2  llega a prueba 3. Me conecto o inicializo
 //const socket = io('http://localhost:8080')//PRUEBA 2    llega a prueba 3
@@ -367,31 +368,35 @@ function Dashboard(){
 
     //style={{backgroundColor: `${interfaceShowed !== 'overview' ? '#fff' : '' }`}} 
     return(
-        <main className="dashboard">
+        <>
             {
                 getTypeUser() == 'tl' ? 
                 <>
-                    <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**/ setInterfaceShowed={setInterfaceShowed} showNavbar={showNavbar} setShowNavbar={setShowNavbar}/>
-                    <aside className={`${showNavbar ? 'part-width' : 'all-width'}`} style={{backgroundColor: `${interfaceShowed == 'eb3workers' ? '#fff' : ''}`}}>
-                        <Header interfaceShowed={interfaceShowed} fullname={fullname} notificationsStored={notificationsStored} numNotifications={numNotifications} setNumNotifications={setNumNotifications} setNotificationsStored={setNotificationsStored} sectionSelectedTLU={sectionSelectedTLU} setSectionSelectedTLU={setSectionSelectedTLU} checkedOptions={checkedOptions} sectionSelectedTLUCandidate={sectionSelectedTLUCandidate} setSectionSelectedTLUCandidate={setSectionSelectedTLUCandidate} sectionSelectedTLUWorkers={sectionSelectedTLUWorkers} setSectionSelectedTLUWorkers={setSectionSelectedTLUWorkers} setCheckedOptions={setCheckedOptions} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel}/>
-                        <div className="content-dashboard">
-                            {   /*Aqui decidimo que tipo de Overview vamos a mostrar, dependiendo el tipo de usuario que inicio sesion */
-                                
-                                interfaceShowed == 'overview' ? //Si la opcion seleccionada es el overview, entonces
-                                    (getTypeUser() == 'tl' ? <Overview  info="tl" notificationModal={notificationModal} setNotificationModal={setNotificationModal} totalAllPeople={filteredCandidates.length} jobTrade={filteredCandidates.filter( row => row.status == 'Contratado' && row.tipoTrabajo == 'Oficio').length} jobProfessional={filteredCandidates.filter( row => row.status == 'Contratado' && row.tipoTrabajo == 'Profesión').length} /> : ( getTypeUser() == "gm" ? <Overview info="gm"/> : <Overview info="gw"/>))//Evaluamos que overvies mostramos, depende del tipo de usuario que ha iniciado sesion
-                                :(interfaceShowed == 'board' ? 
-                                    <Board/>
-                                :(interfaceShowed == "precandidate" && getTypeUser() == 'tl' ? <Precandidate options={allCandidates} rows={filteredCandidates} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal} showBtnRefresh={showBtnRefresh} setShowBtnRefresh={setBtnRefresh} idElementEdited={idElementEdited} setIdElementEdited={setIdElementEdited} sectionSelectedTLU={sectionSelectedTLU} showConfirmAction={showConfirmAction} setShowConfirmAction={setShowConfirmAction} txtTitleConfirmationAction={txtTitleConfirmationAction} setTxtTitleConfirmationAction={setTxtTitleConfirmationAction} txtConfirmationAction={txtConfirmationAction} setTxtConfirmationAction={setTxtConfirmationAction} checkedOptions={checkedOptions} setCheckedOptions={setCheckedOptions}/>
-                                :(interfaceShowed == "candidate" && getTypeUser() == 'tl' ? <Candidate sectionSelectedTLUCandidate={sectionSelectedTLUCandidate} rows={filteredCandidates} contratado={filteredCandidates.filter(row => row.status == 'Contratado')} consideracion={filteredCandidates.filter(row => row.status == 'En consideración')} rechazado={filteredCandidates.filter(row => row.status == 'Rechazado')} revision={filteredCandidates.filter(row => row.status == 'En revision')} pendientes={filteredCandidates.filter(row => row.status == 'Pendiente')} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} idElementEdited={idElementEdited} setIdElementEdited={setIdElementEdited} checkedOptions={checkedOptions} setCheckedOptions={setCheckedOptions} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal} showConfirmAction={showConfirmAction} setShowConfirmAction={setShowConfirmAction} txtTitleConfirmationAction={txtTitleConfirmationAction} setTxtTitleConfirmationAction={setTxtTitleConfirmationAction} txtConfirmationAction={txtConfirmationAction} setTxtConfirmationAction={setTxtConfirmationAction}/> 
-                                :(interfaceShowed == "eb3workers" && getTypeUser() == 'tl' ? <Workers sectionSelectedTLUWorkers={sectionSelectedTLUWorkers} setRowsTLU={setFilteredCandidates} rows={filteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} idElementEdited={idElementEdited} checkedOptions={checkedOptions} setCheckedOptions={setCheckedOptions} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal}/>
-                                :<></>)))) 
-                            }              
-                        </div>
-                    </aside>
+                    <main className="dashboard">
+                        <Nav options={  getTypeUser() == 'gm' ? gmi : ( getTypeUser() == 'gw' ? gwcpa : tl)   } /**profiles={profiles}**/ setInterfaceShowed={setInterfaceShowed} showNavbar={showNavbar} setShowNavbar={setShowNavbar}/>
+                        <aside className={`${showNavbar ? 'part-width' : 'all-width'}`} style={{backgroundColor: `${interfaceShowed == 'eb3workers' ? '#fff' : ''}`}}>
+                            <Header interfaceShowed={interfaceShowed} fullname={fullname} notificationsStored={notificationsStored} numNotifications={numNotifications} setNumNotifications={setNumNotifications} setNotificationsStored={setNotificationsStored} sectionSelectedTLU={sectionSelectedTLU} setSectionSelectedTLU={setSectionSelectedTLU} checkedOptions={checkedOptions} sectionSelectedTLUCandidate={sectionSelectedTLUCandidate} setSectionSelectedTLUCandidate={setSectionSelectedTLUCandidate} sectionSelectedTLUWorkers={sectionSelectedTLUWorkers} setSectionSelectedTLUWorkers={setSectionSelectedTLUWorkers} setCheckedOptions={setCheckedOptions} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel}/>
+                            <div className="content-dashboard">
+                                {   /*Aqui decidimo que tipo de Overview vamos a mostrar, dependiendo el tipo de usuario que inicio sesion */
+                                    
+                                    interfaceShowed == 'overview' ? //Si la opcion seleccionada es el overview, entonces
+                                        (getTypeUser() == 'tl' ? <Overview  info="tl" notificationModal={notificationModal} setNotificationModal={setNotificationModal} totalAllPeople={filteredCandidates.length} jobTrade={filteredCandidates.filter( row => row.status == 'Contratado' && row.tipoTrabajo == 'Oficio').length} jobProfessional={filteredCandidates.filter( row => row.status == 'Contratado' && row.tipoTrabajo == 'Profesión').length} /> : ( getTypeUser() == "gm" ? <Overview info="gm"/> : <Overview info="gw"/>))//Evaluamos que overvies mostramos, depende del tipo de usuario que ha iniciado sesion
+                                    :(interfaceShowed == 'board' ? 
+                                        <Board/>
+                                    :(interfaceShowed == "precandidate" && getTypeUser() == 'tl' ? <Precandidate options={allCandidates} rows={filteredCandidates} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} setParamEnglishLevel={setParamEnglishLevel} setParamStudiesLevel={setParamStudiesLevel} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal} showBtnRefresh={showBtnRefresh} setShowBtnRefresh={setBtnRefresh} idElementEdited={idElementEdited} setIdElementEdited={setIdElementEdited} sectionSelectedTLU={sectionSelectedTLU} showConfirmAction={showConfirmAction} setShowConfirmAction={setShowConfirmAction} txtTitleConfirmationAction={txtTitleConfirmationAction} setTxtTitleConfirmationAction={setTxtTitleConfirmationAction} txtConfirmationAction={txtConfirmationAction} setTxtConfirmationAction={setTxtConfirmationAction} checkedOptions={checkedOptions} setCheckedOptions={setCheckedOptions}/>
+                                    :(interfaceShowed == "candidate" && getTypeUser() == 'tl' ? <Candidate sectionSelectedTLUCandidate={sectionSelectedTLUCandidate} rows={filteredCandidates} contratado={filteredCandidates.filter(row => row.status == 'Contratado')} consideracion={filteredCandidates.filter(row => row.status == 'En consideración')} rechazado={filteredCandidates.filter(row => row.status == 'Rechazado')} revision={filteredCandidates.filter(row => row.status == 'En revision')} pendientes={filteredCandidates.filter(row => row.status == 'Pendiente')} setRowsTLU={setFilteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} setShowSpinner={setShowSpinner} idElementEdited={idElementEdited} setIdElementEdited={setIdElementEdited} checkedOptions={checkedOptions} setCheckedOptions={setCheckedOptions} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal} showConfirmAction={showConfirmAction} setShowConfirmAction={setShowConfirmAction} txtTitleConfirmationAction={txtTitleConfirmationAction} setTxtTitleConfirmationAction={setTxtTitleConfirmationAction} txtConfirmationAction={txtConfirmationAction} setTxtConfirmationAction={setTxtConfirmationAction}/> 
+                                    :(interfaceShowed == "eb3workers" && getTypeUser() == 'tl' ? <Workers sectionSelectedTLUWorkers={sectionSelectedTLUWorkers} setRowsTLU={setFilteredCandidates} rows={filteredCandidates} setSearchTerm={setSearchTerm} searchTerm={searchTerm} showSpinner={showSpinner} idElementEdited={idElementEdited} checkedOptions={checkedOptions} setCheckedOptions={setCheckedOptions} getPrecandidates={getPrecandidates} notificationModal={notificationModal} setNotificationModal={setNotificationModal}/>
+                                    :<></>)))) 
+                                }              
+                            </div>
+                        </aside>
+                    </main>
                 </>
-                : <></>
+                : (getTypeUser() == 'gm' ? 
+                    <Gm/>
+                :<></>)
             }
-        </main>
+        </>
     )
 }
 
