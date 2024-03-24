@@ -1,0 +1,34 @@
+.company-item{
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+.company-item .profile-company-item{
+    width: 25%;
+    margin-right: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.company-item > div{
+    width: 75%;
+}
+.company-item .profile-company-item .img-pci{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 0.8rem;
+}
+.company-item h1{
+    font-size: 0.5rem;
+}
+.company-item p{
+    font-size: 0.6rem;
+    color: #707070;
+}
