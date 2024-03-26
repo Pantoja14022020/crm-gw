@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Spinner } from "@material-tailwind/react";
 import Table from "./Table"
-import CompanyItem from "./companyItem"
+import CompanyItem from "./CompanyItem"
 import Search from "./Search";
 
 function SubsectionBoard({icon,saveItemsDropped,handleOnDrop,handleDragOver,handleOnDrag,name,title,colorItems,customers,setCustomers,showSpinner}){
