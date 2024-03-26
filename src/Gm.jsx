@@ -33,27 +33,27 @@ function Gm(){
             name: 'board'
         },
         {
-            title: 'Prospecto',
+            title: 'Prospect',
             name: 'prospecto'
         },
         {
-            title: 'Calificacion',
+            title: 'Qualification',
             name: 'calificacion'
         },
         {
-            title: 'Compromiso',
+            title: 'Engagement',
             name: 'compromiso'
         },
         {
-            title: 'Negociacion',
+            title: 'Negotiation',
             name: 'negociacion'
         },
         {
-            title: 'Cierre',
+            title: 'Closing',
             name: 'cierre'
         },
         {
-            title: 'Postventa',
+            title: 'Post Sale',
             name: 'postventa'
         }
     ]
