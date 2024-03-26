@@ -1,6 +1,7 @@
 import Navbar from './components/gm/Navbar'
 import Overview from './components/gm/Overview'
 import Board from './components/gm/Board'
+import Prospecto from './components/gm/Prospecto'
 import './styles/gm/gm.css'
 import './styles/gm/navbar.css'
 import './styles/gm/logo.css'
@@ -9,6 +10,8 @@ import './styles/gm/board.css'
 import './styles/gm/table.css'
 import './styles/gm/subsectionBoard.css'
 import './styles/gm/companyItem.css'
+import './styles/gm/search.css'
+import './styles/gm/prospecto.css'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
@@ -16,7 +19,7 @@ function Gm(){
 
 
     //Establece la opcion del navbar seleccionada y establece que interfaz se mostrara
-    const [interfaceSelected, setInterfaceSelected] = useState('overview')
+    const [interfaceSelected, setInterfaceSelected] = useState(localStorage.getItem('interfaceSelectedGM') == null ? 'overview' : localStorage.getItem('interfaceSelectedGM'))
 
 
     //Options para el navbar principal
@@ -62,6 +65,7 @@ function Gm(){
 
 
     const [customers,setCustomers] = useState([])
+    const [showSpinner,setShowSpinner] = useState(true)
     async function getCustomersDB(){
         const response = await axios.get('https://api-gw-cpa-pc-20aq.onrender.com/gm/customer');   
         setCustomers(prevs => {
@@ -69,6 +73,7 @@ function Gm(){
                 return row;
             });
         });
+        setShowSpinner(false)
     }
     useEffect(()=>{
         getCustomersDB()
@@ -79,10 +84,13 @@ function Gm(){
         <main className='content-gm'>
             <Navbar options={options} location="main" interfaceSelected={interfaceSelected} setInterfaceSelected={setInterfaceSelected} logout={logout}/>
             {
-                interfaceSelected == 'overview' ? <Overview/> : <></>
+                interfaceSelected == 'overview' ? <Overview customers={customers} showSpinner={showSpinner}/> : <></>
             }
             {
-                interfaceSelected == 'board' ? <Board customers={customers}/> : <></>
+                interfaceSelected == 'board' ? <Board customers={customers} setCustomers={setCustomers} showSpinner={showSpinner} /> : <></>
+            }
+            {
+                interfaceSelected == 'prospecto' ? <Prospecto customers={customers.filter(customer => customer.prospecto == true)} showSpinner={showSpinner}/> : <></>
             }
         </main>
     )

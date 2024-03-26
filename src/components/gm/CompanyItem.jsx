@@ -1,12 +1,14 @@
-function CompanyItem({colorItems,nameCompany,ownerName,imgProfile}){
+function CompanyItem({handleOnDrag,customer,id,colorItems}){
+
+
     return(
-        <div className="company-item" style={{backgroundColor: `${colorItems}`}}>
+        <div draggable onDragStart={e => handleOnDrag(e,customer)} key={id} className="company-item" style={{backgroundColor: `${colorItems}`}}>
             <div className="profile-company-item">
-                <div className="img-pci" style={{backgroundColor:`${imgProfile}`}}>{nameCompany.substring(0,1).toUpperCase()}</div>
+                <div className="img-pci" style={{backgroundColor:`${customer.imgProfile}`}}>{customer.nameCompany.substring(0,1).toUpperCase()}</div>
             </div>
-            <div>
-                <h1>{nameCompany}</h1>
-                <p>{ownerName}</p>
+            <div className="info-company-item">
+                <h1>{customer.nameCompany}</h1>
+                <p>{customer.ownerName}</p>
             </div>
         </div>
     )

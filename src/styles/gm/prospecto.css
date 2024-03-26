@@ -1,46 +1,16 @@
-.subsection-board{
+.prospecto-gm{
+    width: 100%;
+    height: calc(100vh - 100px);
     padding: 1rem;
-    position: relative;
-}
-.subsection-board .header-subsection-board {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
 }
-.subsection-board .header-subsection-board h1{
-    font-size: 0.6rem;
-    color: #707070;
-    margin-bottom: 0.5rem;
-}
-.items-container-subsection-board{/*Es el item padre que almacena las tarjetas*/
-    height: 150px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: minmax(auto,75px);
-    gap: 1rem;
+.container-table-prospecto-gm{/*EL CONTENEDOR PADRE QUE CONTIENE LA TABLA*/
+    height: 100%;
     overflow-y: scroll;
 }
-.btn-actions-subsection-board{/*Es el contenedor padre que almacena los botones*/
-    margin-top: 0.25rem;
-    font-size: 0.6rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-}
-.btn-actions-subsection-board .btn-save{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #161515;
-    color: white;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-}
-.center-spinner{
-    position: absolute; 
-    top: 50%; 
-    left: 50%;
+.full-width-table{/*ESTA CLASE DEFINE SI EL CONTENEDOR DE LA TABLA OCUPARA TODO EL ANCHO DE SU PADRE*/
+    width: 100%;
 }
 
 
@@ -50,27 +20,27 @@
 
 
 /* Estilos para el scroll vertical */
-.items-container-subsection-board::-webkit-scrollbar {
+.container-table-prospecto-gm::-webkit-scrollbar {
     width: 3px; /* Ancho del scroll */
     height: 5px;
 }
 
-.items-container-subsection-board::-webkit-scrollbar-track {
+.container-table-prospecto-gm::-webkit-scrollbar-track {
     background: #ffffff00; /* Color de fondo del track */
 }
 
-.items-container-subsection-board::-webkit-scrollbar-thumb {
+.container-table-prospecto-gm::-webkit-scrollbar-thumb {
     background: #d4d4d4; /* Color del thumb (barra deslizante) */
     opacity: 0;
     border-radius: 3px; /* Borde redondeado del thumb */
 }
 
 /* Pseudoelemento antes del thumb */
-.items-container-subsection-board::-webkit-scrollbar-thumb:hover::before {
+.container-table-prospecto-gm::-webkit-scrollbar-thumb:hover::before {
     opacity: 1; /* Hace visible el pseudoelemento */
 }
 
-.items-container-subsection-board::-webkit-scrollbar-thumb::before {
+.container-table-prospecto-gm::-webkit-scrollbar-thumb::before {
     content: ''; /* Contenido del pseudoelemento */
     position: absolute; /* Establece la posición absoluta */
     width: 8px; /* Ancho igual al del thumb */
@@ -84,7 +54,7 @@
 }
 
 /* Pseudoelemento después del thumb */
-.items-container-subsection-board::-webkit-scrollbar-thumb::after {
+.container-table-prospecto-gm::-webkit-scrollbar-thumb::after {
     content: ''; /* Contenido del pseudoelemento */
     position: absolute; /* Establece la posición absoluta */
     width: 8px; /* Ancho igual al del thumb */
@@ -98,7 +68,7 @@
 }
 
 
-.items-container-subsection-board:hover::-webkit-scrollbar-thumb::before,
-.items-container-subsection-board:hover::-webkit-scrollbar-thumb::after {
+.container-table-prospecto-gm:hover::-webkit-scrollbar-thumb::before,
+.container-table-prospecto-gm:hover::-webkit-scrollbar-thumb::after {
     opacity: 1; 
 }

@@ -1,0 +1,14 @@
+.search-container-subsection-board{/*Es el contenedor que almacena los inputs del search*/
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+    background-color: #fafafa;
+    margin-bottom: 0.5rem;
+}
+.search-container-subsection-board input{
+    margin-left: 0.25rem;
+    outline: none;
+    background-color: #fafafa;
+    color: #707070;
+}

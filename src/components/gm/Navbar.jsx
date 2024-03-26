@@ -13,6 +13,10 @@ function Navbar({options,location,setInterfaceSelected,interfaceSelected,logout}
         setShowOptions(false)
         setInterfaceSelected('contacts')
     }
+    function setInterfaceLocalStorage(name){//Funcion cuando se da click en un option del navbar principal y hace que se guarde la opcion en el local storage
+        setInterfaceSelected(name)
+        localStorage.setItem('interfaceSelectedGM',name)
+    }
     //USE STATES y useEffects para el navbar principal o el navbar con la clase 'navbar-gm-main'    
 
 
@@ -28,7 +32,7 @@ function Navbar({options,location,setInterfaceSelected,interfaceSelected,logout}
                             {
                                 showOptions ? 
                                     options.map((option,idx)=>(
-                                        <li className={`${interfaceSelected == option.name ? 'active-option-main' : ''}`} key={idx} onClick={e => setInterfaceSelected(option.name)} >{option.title}</li>
+                                        <li className={`${interfaceSelected == option.name ? 'active-option-main' : ''}`} key={idx} onClick={e => setInterfaceLocalStorage(option.name)} >{option.title}</li>
                                     ))
                                 : <></>
                             }

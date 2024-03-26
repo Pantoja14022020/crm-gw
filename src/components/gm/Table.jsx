@@ -1,67 +1,39 @@
+import { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
+import Td from "./Td";
 
-function Table(){
+function Table({to,fontSize,padding,textAlign,columns,rows}){
+
+
     return(
         <table className="table-gm">
             <thead>
                 <tr>
-                    <td><IoMdArrowDropdown size="1rem" style={{margin:"auto", color:"#e1e1e1"}} /></td>
-                    <td></td>
-                    <td>Name Company</td>
-                    <td>Owner Name</td>
-                    <td>Phone</td>
-                    <td>Email</td>
+                    {
+                        to == 'main-stages' ? 
+                            columns.map((column,id) => (
+                                <td key={id} style={{fontSize,padding,textAlign}}>{column}</td>
+                            ))
+                        : <></>
+                    }
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>5</td>
-                    <td>502 PAINTING & CLEANING SERVICES LLC</td>
-                    <td>Edwin Perez</td>
-                    <td>4045421080</td>
-                    <td>edwin.perez97@yahoo.com</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>5</td>
-                    <td>502 PAINTING & CLEANING SERVICES LLC</td>
-                    <td>Edwin Perez</td>
-                    <td>4045421080</td>
-                    <td>edwin.perez97@yahoo.com</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>5</td>
-                    <td>502 PAINTING & CLEANING SERVICES LLC</td>
-                    <td>Edwin Perez</td>
-                    <td>4045421080</td>
-                    <td>edwin.perez97@yahoo.com</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>5</td>
-                    <td>502 PAINTING & CLEANING SERVICES LLC</td>
-                    <td>Edwin Perez</td>
-                    <td>4045421080</td>
-                    <td>edwin.perez97@yahoo.com</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>5</td>
-                    <td>502 PAINTING & CLEANING SERVICES LLC</td>
-                    <td>Edwin Perez</td>
-                    <td>4045421080</td>
-                    <td>edwin.perez97@yahoo.com</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>5</td>
-                    <td>502 PAINTING & CLEANING SERVICES LLC</td>
-                    <td>Edwin Perez</td>
-                    <td>4045421080</td>
-                    <td>edwin.perez97@yahoo.com</td>
-                </tr>
+                {
+                    to == 'main-stages' ? 
+                        rows.map((customer,id) => (
+                            <tr>
+                                <Td split={true} numberLetters={10} fontSize={fontSize} padding={padding} textAlign={textAlign} txt={customer.nameCompany} />
+                                <Td fontSize={fontSize} padding={padding} textAlign={textAlign} txt={customer.ownerName} />
+                                <Td split={true} numberLetters={10}  fontSize={fontSize} padding={padding} textAlign={textAlign} txt={customer.phone} />
+                                <Td split={true} numberLetters={7} fontSize={fontSize} padding={padding} textAlign={textAlign} txt={customer.email} />
+                                <Td fontSize={fontSize} padding={padding} textAlign={textAlign} txt={customer.lead} />
+                                <Td fontSize={fontSize} padding={padding} textAlign={textAlign} txt={customer.initialResearch} />
+                                <Td fontSize={fontSize} padding={padding} textAlign={textAlign} txt={customer.newLead} />
+                            </tr>
+                        ))
+                    : <></>
+                }
             </tbody>
         </table>
     )
